@@ -2,10 +2,14 @@
 \input{settings/packages.tex}
 \input{settings/settings.tex}
 
+% \bibliographystyle{plunsrt}
 \bibliography{books}
 
+% TODO(bug) cannot generate bibliography, tells its empty
+% TODO(bug) cannot use \bibliographystyle`
+
 \begin{document}
-	\includeWithClear{structure/table_of_content}
-	\includeWithClear{structure/chapters}
-	\includeWithClear{structure/listings}
+	\clearpage \input{structure/table_of_content}
+	\clearpage \input{structure/chapters}
+	\clearpage \input{structure/listings}
 \end{document}

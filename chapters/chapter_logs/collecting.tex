@@ -1,0 +1,75 @@
+\section{Efektywne zbieranie logów}
+\label{logs:collecting}
+
+    Nawet małej wielkości system informatyczny jest w stanie wygenerować kilka tysięcy logów w ciągu
+    zaledwie kilku godzin swojego działania. Logi systemowe, audyty bezpieczeństwa, logi aplikacji oraz
+    logi pochodzące z urządzeń fizycznych - każdy z powyższego rodzaju może zawierać informacje potrzebne
+    dla administratorów systemu. 
+    
+    \subsection{Archiwizowanie logów}
+    Dowolny program generuje logi nieprzerwanie. Zazwyczaj główny miejscem docelowym, gdzie możliwe jest
+    przeanalizowanie logów, jest plik tekstowy zapisanych na maszynie, gdzie aplikacja funkcjonuje.
+    Niestety nie jest to równoznaczne z archiwizacją.
+    
+        \subsubsection{Problem rosnącego pliku}
+        Kolejne wpisy w pliku przekładają się w efekcie na rosnący rozmiar pliku i zmniejszanie przestrzeni dyskowej,
+        potrzebnej dla innych, kluczowych celów, dla których dany program mógł zostać zaprojektowany.
+        Problem ten dotyczy procesów, generujących logi z niską częstotliwością - informując jedynie 
+        o uruchomieniu oraz zakończeniu procesu. Wolno pojawiające się wpisy, to wolno rosnący plik. 
+        Z drugiej strony oprogramowanie typu serwer WWW generujące znacząco więcej logów w tym samym okresie czasu.
+        W relatywnie krótkim czasie, krótszym jeśli serwer obsługuje wielu klientów, może dojść do sytuacji wyczerpania zasobów
+        dyskowych. Maszyna, na której serwer działa, staje się więc bezużyteczna i wymaga natychmiastowej interwencji
+        administratora. 
+        
+        Administratorzy systemu rzadko jednak przykładają wagę do plików z logami i nie zajmują się ich poprawną archiwizacją.
+        Najczęstszą operacją jest \mint{bash}|rm /var/log/*.log| - usunięcie wszystkich plików z logami. W ten sposób
+        tracone są dane historyczne, świadczące o kondycji systemu, jego zachowaniu oraz interakcji z otaczającym system informatycznym.
+        Dobrym przykładem, dlaczego podejście to, nie należy do zalecanych są incydenty bezpieczeństwa. 
+        
+        \textbf{Brute-force}\cite{brute_force_attack} - atak słownikowy, którego celem jest zalogowanie się do serwera, strony internetowej lub innego, zabezpieczonego
+        hasłem, zasobu sieciowego. Atak słownikowy, polega na jednorazowym wysyłaniu kolejnych pozycji ze słownika jako nazwy użytkownika lub/oraz
+        hasła. Wykorzystuje on element ludzki - tendencją człowieka jest tworzenie haseł prostych oraz używanie ich wielokrotnie w wielu
+        lokalizacjach. Jeśli atakujący przeprowadza atak podobnie do ataku DDOS (duża ilość żądań pod adres logowania na sekundę lub minutę),
+        administrator jest w stanie wykryć problem organoleptycznie. Niestety, atak może być dużo bardziej subtelny. Próba zalogowania raz
+        na kilka lub nawet kilkanaście minut nie wygląda podejrzanie. Próba uzyskania nieautoryzowanego dostępu trwa dłużej, ale może zostać niewykryta.
+        
+        \begin{figure}[H]
+          \centering
+          \includegraphics[width=0.80\textwidth]{images/brute_force}
+          \caption[Schemat ataku brute-force]{
+              źródło: \url{http://m.eet.com/media/1158622/aes_security_fig2.jpg}
+            }
+            \label{logs:collecting:brute_force}
+        \end{figure}
+        
+        Jeśli w momencie trwania ataku, administrator zdecydował się na usunięcie plików z logami, stałoby się niemożliwe wykrycie ataku poprzez analizę logów w poszukiwania wzorców właściwych dla rodzaju ataku.
+        
+        \subsubsection{Rotacja logów}
+        \label{logs:collecting:rotation}
+        Rozwiązaniem rosnące rozmiaru pliku logów jest \textbf{rotacja}. W nowoczesnych systemach logowania
+        jest to najczęściej domyślnie zaimplementowanie. \textbf{Rotacja} polega na przekopiowaniu 
+        zawartości logów do nowego pliku oraz wyczyszczeniu aktualnego. Kopiowanie jest najczęściej połączone
+        z kompresją\ref{chapter:logs:history:compressed_log_format}, która może stać wykonana od razu lub po upływie pewnego czasu, kiedy to najstarsze
+        pliki stają się najmniej ważne. Archiwizacja jest tutaj szczególnie istotna, ponieważ
+        skompresowane pliki tekstowe zajmują aż do 90 procent oryginalnego rozmiaru.
+        
+        Rotacja również nie jest rozwiązaniem idealnym. Staje się ona bezużyteczna jeśli nie jest połączona
+        z odpowiednią polityką, polegającą na usuwaniu starych archiwów. Tworzenie kolejnych archiwów,
+        szczególnie na maszynie z ograniczoną przestrzenią dyskową, może również doprowadzić do jej wyczerpania.
+        Niemniej problem jest tutaj znacznie oddalony w czasie. Istnieje już niebezpieczeństwo przeprowadzania
+        ataku na system, gdzie zaimplementowana została rotacja logów. Wymagana on wiedzy na temat działania systemu.
+        Odpowiednie stymulowania systemu mogłoby zaowocować ciągłym zwiększaniem rozmiarów logu, a w dalszej kolejności
+        częstszymi rotacjami. Warto w tym miejscu nadmienić, że ta technika archiwizacji jest bardzo często
+        połączona z usuwaniem archiwów starszych niż pewien okres czasu lub, co bardziej niebezpiecznych, będących
+        rezultatem n-tej archiwizacji. Atakujący mógłby zacząć oddziaływać na system w taki sposób, że informacje
+        w logach stałyby się powtarzalne i dotyczyły tej samej czynności, jaką aplikacji by wykonywała.
+        
+        \subsection{Przesyłanie logów do centralnej lokalizacji}
+        \label{logs:collecting:central_location}
+        Centralna agregacja logów jest techniką, którą często stosuje się w połączeniu z rotacją.
+        Pierwsza operacja jest istotna z punktu widzenia długofalowego przetwarzania, analizowania oraz
+        budowania hurtowni danych, gdzie główną daną, podmiotem jest log. Rotacja natomiast jest skoncentrowana
+        na maszynie, na której wygenerowane zostały logi. Jej celem, jak to zostało wspomniane w \ref{logs:collecting:rotation},
+        jest oszczędzenia przestrzeni dyskowej. 
+    
+    \subsection{Techniki zbierania logów}
