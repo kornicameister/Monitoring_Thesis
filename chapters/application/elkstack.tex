@@ -1,4 +1,76 @@
 \section{ELKStack}
 \label{chapter:application:elkstack}
 
-\textbf{ELKStack}
+\textbf{ELKStack} - akronim opisujący stos technologi składający się z 3 elementów:
+\begin{itemize}
+    \item[ElasticSearch] - pełnotekstowy silnik wyszukiwania,
+    \item[Logstash] - scentralizowane przetwarzania danych,
+    \item[Kibana] - interfejs graficzny silnika \textbf{ElasticSearch}
+\end{itemize}
+
+\subsection{Logstash}
+    Logstash jest wysoce elastycznym narzędziem, nie tylko w kontekście architektury \textbf{ELKStack}.
+    Możliwe jest skonfigurowanie go, aby działał jako kolektor danych, jako ich filtr czy też
+    transformator. Składa się on z 3 elementów:
+    \begin{itemize}
+        \item sekcji wejścia,
+        \item sekcji przetwarzania,
+        \item sekcji wyjścia
+    \end{itemize}
+    Każda z nich może składać się z więcej niż jednego bloku, opisującego jej zadania.
+    Innymi słowy ilość wejść jest nieograniczona tak samo jak możliwości przetworzenia
+    odebranych danych oraz ostatecznie wysłania ich do więcej niż jednej lokalizacji.
+    Ponadto dla każdej z nich możliwe jest napisania własnego modułu lub wykorzystanie
+    jednego z, ciągle rosnącej listy, publicznie dostępnych.
+    
+    Jest to ponadto rozwiązanie szybkie oraz łatwo skalowalne. Uruchomienie kolejnej
+    instancji sprowadza się do przygotowania odpowiedniego pliku konfiguracyjnego
+    i dostarczenia go jako argumentu wejściowego do pliku wykonywalnego aplikacji logstash.
+    
+    \todo[inline]{Opisać korzyści ???}
+
+\subsection{ElasticSearch}
+    Pełnotekstowych, indeksowany silnik wyszukiwania. Jednak \textbf{ElasticSearch} jest także
+    nierelacyjną bazą danych opartą o koncepcję dokumentów. Możliwość przechowywania oraz wyszukiwania
+    informacji pośród zgromadzonych danych, które mogą mieć zarówno ustaloną strukturę, jak i  luźną, jest
+    szczególnie istotna dla zarządzania logami. Tym co wyróżnia każdy z nich jest informacja, wiadomość
+    zawarta w kolejnych rekordach, a która jest inna dla każdego z nich. 
+    
+    ElasticSearch oferuje możliwość pełnotekstowej wyszukiwarki na przechowywanych danych, dzięki
+    indeksacji. Każda informacja, która wpływa do aplikacji, nie jest po prostu tam zapisywana.
+    Specjalnie skonfigurowane indeksy pozwalają na określenie tego, co jest istotne. Ale nie jest
+    to konieczne. Jedną z wartych wspomnienia funkcji, jest automatyczna detekcja typów danych, na ich
+    podstawie. Wspomniane indeksy są tworzone automatycznie, aby jak najszybciej można było
+    wykorzystać możliwości oferowane przez \textbf{ElasticSearch}.
+    
+    \textbf{Multitenancy}, cecha, wyróżnik chmur obliczeniowych, jest bardzo łatwo do osiągnięcia
+    dzięki grupowania i indeksacji w \textbf{ElasticSearch}. Grupa idealnie oddaje koncepcję tenanta.
+    Wszystkie dane dla niego zgromadzone mogą zostać odszukane, poprzez wskazania indeksu. Jest on
+    tożsamy z grupą, a w dalszej kolejności tenantem.
+    
+    Jest to także rozwiązania łatwo skalowalne. \textbf{ElasticSearch} posiada ten mechanizm wbudowany.
+    Innymi słowy każda nowo uruchomiana instancja poszukuje w sieci, w której działa, innych instancji
+    samoistnie budując klaster złożony z lidera oraz replik. 
+    Lider odpowiedzialny jest za koordynacją pracy klastra i może również przechowywać dane.
+    Repliki stanowią odzwierciedlenie stanu lidera. Jeśli którakolwiek z instancji zostanie wyłączona z klastra,
+    potrafi się o samodzielnie przebudować. Dane przesyłane są między replikami. Ostatecznie uzyskuje się
+    stan równowagi. Utracenie lidera nie stanowi przeszkody dla poprawnego działania. Pozostałe maszyny 
+    negocjują wybór nowego i całość jest ponownie gotowa do świadczenia pełnej funkcjonalności w relatywnie
+    krótkim czasie.
+
+\subsection{Kibana}
+    Ostatni z elementów \textbf{ELKStack}. Zadaniem \textbf{Kibana} jest dostarczyć graficznego interfejsu
+    użytkownika dla \textbf{ElasticSearch}. Z poziomu aplikacji dostępnej przez przeglądarkę możliwe
+    jest przeglądania wszystkich danych zgromadzonych przez \textbf{Logstash} z użyciem tradycyjnych
+    metod przeszukiwania danych:
+    \begin{itemize}
+        \item filtrowanie,
+        \item kwerendy, w tym wypadku pełnotekstowe,
+        \item generowanie wykresów,
+        \item kolaboracja poprzez specjalne obiekty zwane \textit{dashboards}
+    \end{itemize}
+    
+    \textbf{Kibana} jest szczególna, ponieważ z jednej strony wykorzystuje \textbf{ElasticSearch}
+    jako źródło danych, a z drugiej strony jest on dla niej miejscem do zapisu własnej konfiguracji.
+    
+    \todo[inline] Omówić bardziej znane funkcje.
