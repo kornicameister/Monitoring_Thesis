@@ -6,6 +6,56 @@
     logi pochodzące z urządzeń fizycznych - każdy z powyższego rodzaju może zawierać informacje potrzebne
     dla administratorów systemu. 
     
+    \subsection{Źródła logów}
+    \label{logs:collecting:source}
+    Źródła, z których pochodzą logi, można podzielić na dwie główne kategorie:
+    \begin{itemize}
+        \item[\textbf{push-based}]
+            Aplikacja lub urządzenie zapisuje kolejne rekordy do pliku zlokalizowanego
+            na tej samej maszynie. Konieczne jest więc zalogowanie się do niej, aby 
+            mieć wgląd do tego, co działo się z danym programem. Z tego powodu, istnieje
+            alternatywna droga, która może być wymienna z pierwszą lub być komplementarna do niej.
+            Program może jednocześnie zapisać dane do pliku oraz wysyłać je przez sieć. W tym
+            wypadku, konieczne jest posiadania serwera skonfigurowanego do odbierania logów 
+            \cite{logging_log_management}.
+        \item[\textbf{pull-based}]
+            Podejście odwrotne do omówionego w powyżej. W tym wypadku,
+            klientem jest aplikacja, która pobiera logi z monitorowanego programu. Jest ona najczęściej
+            implementowana w architekturze \textbf{klient-serwer}\footnote{Klient-Serwer - Model architektury
+                systemów. Serwer udostępnia usługi, które wykorzystuje klient, aby zrealizować zadania
+                pochodzące od użytkownika systemu}. Inną cechą szczególną jest własnościowy format logu.
+            Logi są pobierane z programu aktywnie, w podobny sposób w jaki, na żądania, realizowana
+            jest pewna usługa klienta \cite{logging_log_management}.
+    \end{itemize}
+    
+        \subsubsection{Syslog}
+        \label{logs:collecting:source:syslog}
+        Obecnie wiodące rozwiązanie na platformie Unix, umożliwiające efektywne zbierania logów. 
+        W podstawowej wersji składa się on z demona \textbf{syslogd} - usługi
+        uruchamianej wraz ze startem systemu operacyjnego i zatrzymywanej przy jego wyłączaniu. 
+        Aplikacja, która chce zapisywać logi z jego wykorzystaniem, wykorzystuje bibliotekę \textbf{syslog}.
+        Udostępnione przez nią funkcję pozwalają na wygenerowanie odpowiedniego zdarzanie, które jest
+        w dalszej kolejności wysyłane poprzez socket, do działającej usługi \textbf{syslogd}. Możliwe jest
+        również wykorzystanie protokołu \textit{UDP} do tego samego celu.
+        Nowsze implementacje \textbf{syslog}, takie jak \textbf{rsylog} czy też \textbf{syslog-ng}, 
+        wykorzystują protokół \textit{TCP}. Podstawą różnicą między nimi jest bezpieczeństwo. TCP
+        gwarantuje dostarczenie wiadomości, w znacznie większym stopniu niż UDP \cite{logging_log_management}.
+        Jego głównymi zaletami jest centralna konfiguracja oraz popularność.
+        
+        \subsubsection{Windows Event Log}
+        \label{logs:collecting:source:windows_event_log}
+        Własnościowe rozwiązanie firmy \textbf{Microsoft}. Dla systemów rodziny \textbf{Windows}
+        ma on prawdopodobnie takie same znaczenie jak \textbf{syslog}(\ref{logs:collecting:source:syslog})
+        dla systemów Unix'owych. Zastosowanie tego systemu jest:
+        \begin{itemize}
+            \item zbieranie logów systemowych,
+            \item zbieranie logów aplikacji
+        \end{itemize}
+        Jako logi systemowe rozumie się wszelkie wydarzenia pochodzące od samego systemu. W ich skład
+        wliczane są między innymi: wydarzenia związane z bezpieczeństwem, np. 
+        logowanie użytkownika oraz zdarzenia systemowe, pochodzące z jądra systemu. Aplikacje
+        również mogą wykorzystać \textbf{Windows Event Log}.
+    
     \subsection{Archiwizowanie logów}
     Dowolny program generuje logi nieprzerwanie. Zazwyczaj główny miejscem docelowym, gdzie możliwe jest
     przeanalizowanie logów, jest plik tekstowy zapisanych na maszynie, gdzie aplikacja funkcjonuje.
@@ -64,12 +114,11 @@
         rezultatem n-tej archiwizacji. Atakujący mógłby zacząć oddziaływać na system w taki sposób, że informacje
         w logach stałyby się powtarzalne i dotyczyły tej samej czynności, jaką aplikacji by wykonywała.
         
-        \subsection{Przesyłanie logów do centralnej lokalizacji}
+        \subsubsection{Przesyłanie logów do centralnej lokalizacji}
         \label{logs:collecting:central_location}
         Centralna agregacja logów jest techniką, którą często stosuje się w połączeniu z rotacją.
         Pierwsza operacja jest istotna z punktu widzenia długofalowego przetwarzania, analizowania oraz
         budowania hurtowni danych, gdzie główną daną, podmiotem jest log. Rotacja natomiast jest skoncentrowana
         na maszynie, na której wygenerowane zostały logi. Jej celem, jak to zostało wspomniane w \ref{logs:collecting:rotation},
-        jest oszczędzenia przestrzeni dyskowej. 
+        jest oszczędzenia przestrzeni dyskowej.
     
-    \subsection{Techniki zbierania logów}
