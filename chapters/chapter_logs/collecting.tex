@@ -1,5 +1,5 @@
 \section{Efektywne zbieranie logów}
-\label{logs:collecting}
+\label{chapter:logs:collecting}
 
     Nawet małej wielkości system informatyczny jest w stanie wygenerować kilka tysięcy logów w ciągu
     zaledwie kilku godzin swojego działania. Logi systemowe, audyty bezpieczeństwa, logi aplikacji oraz
@@ -7,7 +7,7 @@
     dla administratorów systemu. 
     
     \subsection{Źródła logów}
-    \label{logs:collecting:source}
+    \label{chapter:logs:collecting:source}
     Źródła, z których pochodzą logi, można podzielić na dwie główne kategorie:
     \begin{itemize}
         \item[\textbf{push-based}]
@@ -29,7 +29,7 @@
     \end{itemize}
     
         \subsubsection{Syslog}
-        \label{logs:collecting:source:syslog}
+        \label{chapter:logs:collecting:source:syslog}
         Obecnie wiodące rozwiązanie na platformie Unix, umożliwiające efektywne zbierania logów. 
         W podstawowej wersji składa się on z demona \textbf{syslogd} - usługi
         uruchamianej wraz ze startem systemu operacyjnego i zatrzymywanej przy jego wyłączaniu. 
@@ -43,7 +43,7 @@
         Jego głównymi zaletami jest centralna konfiguracja oraz popularność.
         
         \subsubsection{Windows Event Log}
-        \label{logs:collecting:source:windows_event_log}
+        \label{chapter:logs:collecting:source:windows_event_log}
         Własnościowe rozwiązanie firmy \textbf{Microsoft}. Dla systemów rodziny \textbf{Windows}
         ma on prawdopodobnie takie same znaczenie jak \textbf{syslog}(\ref{logs:collecting:source:syslog})
         dla systemów Unix'owych. Zastosowanie tego systemu jest:
@@ -55,13 +55,24 @@
         wliczane są między innymi: wydarzenia związane z bezpieczeństwem, np. 
         logowanie użytkownika oraz zdarzenia systemowe, pochodzące z jądra systemu. Aplikacje
         również mogą wykorzystać \textbf{Windows Event Log}.
-    
+        
+        \subsubsection{Problem wielu źródeł}
+        \label{chapter:logs:collecting:multiple_sources}
+        Logi, to praktycznie nigdy (wyłączając małe aplikacji, które działają na pojedynczej maszynie),
+        jedno źródło danych. W przypadku aplikacji biznesowych, mogą być one rozsiane na kilku lub nawet
+        kilkunastu różnych serwerach oraz pochodzić z więcej niż jednego programu na nim uruchomionego.
+        Przekłada się to, w stosunku 1:1, na kilka lub kilkanaście oddzielnych miejsc źródłowych, z których
+        log może zostać pobrany. Jeśli doliczyć do tego logi systemowe (lub inne możliwe rodzaje(\ref{chapter:logs:classification}),
+        ilość ta, może jeszcze wzrosnąć \cite{guide_to_computer_security_log_management}.
+
     \subsection{Archiwizowanie logów}
+    \label{chapter:logs:collecting:archive}
     Dowolny program generuje logi nieprzerwanie. Zazwyczaj główny miejscem docelowym, gdzie możliwe jest
     przeanalizowanie logów, jest plik tekstowy zapisanych na maszynie, gdzie aplikacja funkcjonuje.
     Niestety nie jest to równoznaczne z archiwizacją.
-    
+
         \subsubsection{Problem rosnącego pliku}
+        \label{chapter:logs:collecting:archive:larger_and_larger}
         Kolejne wpisy w pliku przekładają się w efekcie na rosnący rozmiar pliku i zmniejszanie przestrzeni dyskowej,
         potrzebnej dla innych, kluczowych celów, dla których dany program mógł zostać zaprojektowany.
         Problem ten dotyczy procesów, generujących logi z niską częstotliwością - informując jedynie 
@@ -89,13 +100,13 @@
           \caption[Schemat ataku brute-force]{
               źródło: \url{http://m.eet.com/media/1158622/aes_security_fig2.jpg}
             }
-            \label{logs:collecting:brute_force}
+            \label{chapter:logs:collecting:brute_force}
         \end{figure}
         
         Jeśli w momencie trwania ataku, administrator zdecydował się na usunięcie plików z logami, stałoby się niemożliwe wykrycie ataku poprzez analizę logów w poszukiwania wzorców właściwych dla rodzaju ataku.
         
         \subsubsection{Rotacja logów}
-        \label{logs:collecting:rotation}
+        \label{chapter:logs:collecting:rotation}
         Rozwiązaniem rosnące rozmiaru pliku logów jest \textbf{rotacja}. W nowoczesnych systemach logowania
         jest to najczęściej domyślnie zaimplementowanie. \textbf{Rotacja} polega na przekopiowaniu 
         zawartości logów do nowego pliku oraz wyczyszczeniu aktualnego. Kopiowanie jest najczęściej połączone
@@ -115,10 +126,10 @@
         w logach stałyby się powtarzalne i dotyczyły tej samej czynności, jaką aplikacji by wykonywała.
         
         \subsubsection{Przesyłanie logów do centralnej lokalizacji}
-        \label{logs:collecting:central_location}
+        \label{chapter:logs:collecting:central_location}
         Centralna agregacja logów jest techniką, którą często stosuje się w połączeniu z rotacją.
         Pierwsza operacja jest istotna z punktu widzenia długofalowego przetwarzania, analizowania oraz
         budowania hurtowni danych, gdzie główną daną, podmiotem jest log. Rotacja natomiast jest skoncentrowana
-        na maszynie, na której wygenerowane zostały logi. Jej celem, jak to zostało wspomniane w \ref{logs:collecting:rotation},
+        na maszynie, na której wygenerowane zostały logi. Jej celem, jak to zostało wspomniane w \ref{chapter:logs:collecting:rotation},
         jest oszczędzenia przestrzeni dyskowej.
     

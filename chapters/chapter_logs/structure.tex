@@ -1,4 +1,5 @@
 \section{Log jako struktura danych}
+\label{chapter:logs:structure}
     Log jest prostą strukturą danych, a właściwie bazą danych rządząca się kilkoma regułami.
     Możliwe jest dopisywania jedynie do końca pliku, a kolejne wiersze posortowaną są rosnące
     według znacznika czasowego. Innymi słowy wpisy utworzone później znajdą się bliżej końca pliku,
@@ -16,7 +17,7 @@
     \end{figure}
 
     \subsubsection{Wpisy w logach - kolejne pozycje}
-    \label{chapter:logs:history:log_as_data_structure}
+    \label{chapter:logs:structure:record_structure}
     Wpis jako struktura danych przypomina formatem CSV lub FixedLength\footnote{Formaty danych oparte odpowiednio o przecinek, długość kolumny 
         jako separator oddzielający kolejne fragmenty logicznie spójnej informacji \cite{csv_definition}}. 
     Logiczne ułożenie elementów w pojedynczym wierszu jest silnie uzależnione od źródła z którego pochodzi log, 
