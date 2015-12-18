@@ -8,6 +8,78 @@
 % TODO(caption) add missing quotation, Kevin Mitnick
 
 \section{Monitorowanie}
-\section{Techniki monitorowania}
-\section{Korzyści monitorowania}
-\section{Monitorowania jako serwis - MaaS}
+    Monitorowanie, w informatyce, nie różni się szczególnie od monitorowania w innych dziedzinach nauki lub przemysłu. 
+    W najszerszym tego słowa znaczeniu, odnosi się ono uzyskania wiedzy na temat tego, co się dzieje aktualnie w systemie.
+    Jest to proces, w wyniku którego możliwe jest uzyskania wiedzy na temat obciążanie systemu, rozmiarów oraz przepływu przez niego
+    danych. Monitorowanie jest zestawem aplikacji z zakresu przetwarzania danych w czasie rzeczywistym oraz analizy. 
+    Głównym zadaniem, jakie przyświeca omawianej gałęzi informatyki, jest alarmowania administratorów systemu o wszelkich
+    odchyleniach od normy, które jeśli się utrzymają, mogą zaowocować nawet między innymi w wyłączeniu monitorowanego
+    komponentu przez co niemożliwe będzie normalne praca całego systemu. Najlepszym tutaj przykładem, takiej sytuacji, 
+    byłby wzrost ilości niedostarczonych wiadomości w kolejce (przykładowo Kafka lub RabbitMQ). Jeśli, wspomniana kolejka,
+    stanowiłaby integralną część systemu, innymi słowy jej zadanie polegałoby na przesyłaniu danych istotnych z punktu
+    widzenia użytkownika końcowego, awaria tego typu zatrzymałaby cały system \cite{monitoring_and_alerting}.
+    
+    \subsection{Techniki monitorowania}
+    Wyróżnić można dwie podstawowe gałęzie. Podejście \textbf{pasywne} oraz \textbf{aktywne}. Oba z nich wzajemnie się uzupełniają.
+    W pierwszy z nich, administrator systemu wyłączony jest z procesu monitorowania stanu dopóty, dopóki pewien
+    punkty krytyczny nie zostanie przekroczony. W tym momencie wystosowywane jest powiadomienie informujący o zaistniałej
+    sytuacji. Z drugiej strony, w podejściu aktywnym, administrator może na bieżąco analizować dane spływające z systemu.
+    Rozwiązania monitoringu aplikacji najczęściej dostarczane są razem z programami, których celem jest 
+    wizualizacji zebranych próbek w formie diagramów oraz wykresów. W połączeniu z faktem, że monitorowania odbywa się
+    w czasie rzeczywistym, również administrator, w czasie rzeczywistym, może zauważyć niepokojące symptomy wskazującego
+    na nieprawidłowe działania pewnych komponentów lub systemu jako całości.
+    Rozwiązania pasywne utożsamiane jest z alarmowaniem, podczas gdy aktywne z monitorowaniem \cite{monitoring_and_alerting}.
+    
+\section{Z czego składa się monitowanie ?}
+    \subsection{Metryki i serie danych}
+    \subsection{Alarmy}
+    \subsection{Wizualizacja}
+    \subsection{Agenci}
+
+\section{Korzyści monitorowania - zalety i wady}
+\label{chapter:monitoring:advantages}
+
+    \subsection{Wczesne wykrycie problemu}
+    \label{chapter:monitoring:advantages:early_detection}
+    Jednocześnie podstawowa cecha oraz korzyść wynikająca z posiadania systemu monitorowania. 
+    Jest to także najbardziej krytyczna funkcja w której stykają się problemy odnoszące się
+    do szybkości, dokładności oraz wydajności. Im szybciej administrator zostanie
+    powiadomiony o potencjalnym problemie, tym większa szansa, że uda uniknąć się potencjalnej
+    awarii systemu lub jej skutki będą zminimalizowane. Niestety, w tym samym czasie, 
+    aby system monitorowania mógł dokładnie określić, że obserwowana sytuacja odbiega od normy,
+    musi on zebrać więcej niż kilka próbek. Uzyskania zadanej dokładności wymaga czasu, 
+    przez co szybkość detekcji spada. Ponadto, podobnie jak każdy program, również procesu
+    monitoringu zajmują czas procesora oraz pamięć. Im bardziej skomplikowany jest algorytm
+    detekcji tym większych zasobów systemu może on wymagać. Oczywistym jest, że wymaganiem
+    stawianym twórców tego typu oprogramowania jest dostarczenie wymaganej funkcjonalności
+    bez zbyt dużego wpływu na wydajności docelowego systemu \cite{monitoring_and_alerting}. 
+    
+    \subsection{Wysoka dostępność}
+    \label{chapter:monitoring:advantages:high_availability}
+    Zapewnienie ciągłości w świadczeniu usługi jest możliwe dzięki wczesnej detekcji
+    wszelkich sytuacji anormalnych (\ref{chapter:monitoring:advantages:early_detection}) w kontekście danego systemu. 
+    Termin, mimo ogólności, jest szczególnie istotny w przypadku usług działających w chmurach, dostępnych
+    dla szerokiego grona użytkowników. Awaria systemu, w takim przypadku, jest sytuacją niedopuszczalną. Dlatego
+    też podejmowane są wszelkie kroki, pozwalające świadczyć usługi bez przerwy. Dzięki możliwości
+    monitorowania systemu i wynikającej z tego korzyści jaką niesie wiedza o jego stania, pozwala
+    administratorom na aktywne przeciwdziałania tego typu sytuacjom \cite{monitoring_and_alerting}. 
+    
+    \subsection{Automatyzacja}
+    Uzyskania wysokiej dostępności w sposób ręczny, z udziałem czynnika ludzkiego, jest praktycznie niemożliwe.
+    Mimo, że to właśnie człowiek jest w stanie zrozumieć przyczyny problemu aby zapobiec ich ponownemu wystąpieniu, 
+    nie jest on zdolny do zapewnienia, że system będzie świadczył usługę nieprzerwania. Wysoka dostępność (\ref{chapter:monitoring:advantages:high_availability}) tożsama jest z automatycznym procesem, w wyniku którego
+    komponent zgłaszający problem, może zostać wyłączony lub odłączony od reszty systemu i zastąpiony inną instancją.
+    Rozwiązania tego typu są najczęściej oparte o technologie takie jak \textbf{Docker}, gdzie gotowy system
+    operacyjny wraz z przygotowaną aplikacją zapisane są w kontenerze (podobnym do maszyny wirtualnej), który po 
+    uruchomieniu jest natychmiast gotowy do pracy. Nie tylko zastępowania komponentów jest możliwe. Dzięki
+    danym napływającym z monitorowania, wskazującym na wyższe obciążania systemu, możliwe jest uruchomienie
+    kolejnych instancji, które wspomogą już działające, a zwiększony ruch zostanie rozłożony na więcej elementów,
+    przez co sumarycznie poszczególnie instancje zaczną działać pod mniejszym obciążaniem. Odwracając sytuację, jeśli
+    dodatkowe instancje nie będą już potrzebne mogą zostać one automatycznie wyłączone. Taki rodzaj pracy, jest również
+    znany pod nazwą oprogramowania autonomicznego, zdolnego do samodzielnego skalowania oraz przywracania do stanu równowagi 
+    \cite{monitoring_and_alerting}. 
+    
+    \todo[inline]{czy opisywać te dalsze również?}
+    
+    \subsection{Tuningowanie systemu}
+    \subsection{Podejmowanie decyzji}
