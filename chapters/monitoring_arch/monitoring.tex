@@ -1,0 +1,77 @@
+\section{Monitorowanie}
+    Monitorowanie, w informatyce, nie różni się szczególnie od monitorowania w innych dziedzinach nauki lub przemysłu. 
+    W najszerszym tego słowa znaczeniu, odnosi się ono uzyskania wiedzy na temat tego, co się dzieje aktualnie w systemie.
+    Jest to proces, w wyniku którego możliwe jest uzyskania wiedzy na temat obciążanie systemu, rozmiarów oraz przepływu przez niego
+    danych. Monitorowanie jest zestawem aplikacji z zakresu przetwarzania danych w czasie rzeczywistym oraz analizy. 
+    Głównym zadaniem, jakie przyświeca omawianej gałęzi informatyki, jest alarmowania administratorów systemu o wszelkich
+    odchyleniach od normy, które jeśli się utrzymają, mogą zaowocować nawet między innymi w wyłączeniu monitorowanego
+    komponentu przez co niemożliwe będzie normalne praca całego systemu. Najlepszym tutaj przykładem, takiej sytuacji, 
+    byłby wzrost ilości niedostarczonych wiadomości w kolejce (przykładowo Kafka lub RabbitMQ). Jeśli, wspomniana kolejka,
+    stanowiłaby integralną część systemu, innymi słowy jej zadanie polegałoby na przesyłaniu danych istotnych z punktu
+    widzenia użytkownika końcowego, awaria tego typu zatrzymałaby cały system \cite{monitoring_and_alerting}.
+    
+    \subsection{Techniki monitorowania}
+    Wyróżnić można dwie podstawowe gałęzie. Podejście \textbf{pasywne} oraz \textbf{aktywne}. Oba z nich wzajemnie się uzupełniają.
+    W pierwszy z nich, administrator systemu wyłączony jest z procesu monitorowania stanu dopóty, dopóki pewien
+    punkty krytyczny nie zostanie przekroczony. W tym momencie wystosowywane jest powiadomienie informujący o zaistniałej
+    sytuacji. Z drugiej strony, w podejściu aktywnym, administrator może na bieżąco analizować dane spływające z systemu.
+    Rozwiązania monitoringu aplikacji najczęściej dostarczane są razem z programami, których celem jest 
+    wizualizacji zebranych próbek w formie diagramów oraz wykresów. W połączeniu z faktem, że monitorowania odbywa się
+    w czasie rzeczywistym, również administrator, w czasie rzeczywistym, może zauważyć niepokojące symptomy wskazującego
+    na nieprawidłowe działania pewnych komponentów lub systemu jako całości.
+    Rozwiązania pasywne utożsamiane jest z alarmowaniem, podczas gdy aktywne z monitorowaniem \cite{monitoring_and_alerting}.
+    
+    \subsection{Monitorowanie - części składowe}
+    Niezależnie od przyjętego modelu monitoringu, niezmiennie składa się ona zawsze z metryk, danych, gdzie nadrzędną 
+    ich własnością jest czas, alarmów, notyfikacji oraz agentów.
+    
+        \subsubsection{Agenci}
+        Proces monitorowania rozpoczyna się od agentów. Jest to specjalny program, działający nieprzerwanie w systemie, którego
+        zadaniem jest zbieranie informacji na temat jego działania. Warto w tym miejscu nadmienić, że agent może zbierać zarówno
+        dane odnoszące się do pojedynczej aplikacji. Jego zadaniem jest, poza pobraniem danych, przetłumaczenia ich na dane 
+        numeryczne. Wynika stąd pewna własność metryk - kolejne pomiary muszą być reprezentowane za pomocą wartości numerycznych.
+        Nie jest to problem dla statystyk takich jak aktualnego zużycie procesora lub pamięci. Z drugiej strony, zadaniem agenta
+        może być również weryfikacja czy na danej maszynie działa serwer WWW. Poniekąd zachodzi wtedy normalizacja danych. Fakt, że
+        serwer działa i jest w stanie obsługiwać żądania, może być reprezentowany za pomocą liczby 1, odwrotnie 0, mogłoby sygnalizować
+        przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany. 
+        
+        \subsubsection{Metryki}
+        Dane zebrane od agentów, przechowywane są w formie metryk. Jest to struktura danych optymalizowana pod kątem
+        efektywnego przechowywania liczb. Nie miałyby one jednak większego znaczenia bez kontekstu w którym zostały
+        zabrane. Dlatego też każda pojedyncza metryka opisana jest zestawem innych wartości dającymi wgląd w takie
+        informacje jak na przykład:
+        \begin{itemize}
+            \item miejsce pochodzenia,
+            \item rodzaj metryki,
+            \item data zebrania.
+        \end{itemize}
+        Faktyczna liczba \textit{wymiarów}\footnote{\textbf{Dimensions} - meta dane opisujące zabraną metrykę} może
+        zostać dowolnie ustalana. Dzięki nim możliwe jest, w późniejszym czasie, przeglądania zebranych pomiarów
+        na dowolnym poziomie agregacji. W dalszym procesie przetwarzania metryki grupowane są w serie czasowe. Ich ilość
+        zależy przede wszystkim od rodzaju informacji jaką chce się uzyskać.
+        
+        \subsubsection{Alarmy}
+        Generowane są na podstawie metryk przez oprogramowanie zwane monitorem. Alarm, jeśli zostanie wygenerowany, 
+        odnosi się do sytuacji szczególnej, która zaistniała w systemie. Wspomniane aplikacje analizują wygenerowane metryki, 
+        porównując otrzymana wartości z dostarczoną im konfiguracją. Bazując na niej, są w stanie stwierdzić, że jeśli
+        własność A przekroczyła maksymalną lub minimalną wartość określoną ilość razy, konieczne jest poinformowania o tym
+        administratora systemu. Jednocześnie alarm, najczęściej, zapisywany jest do bazy danych. Pozwala to na późniejszą analizę 
+        w kontekście historycznym. 
+        
+        \subsubsection{Powiadomienia}
+        Notyfikacje są generowane przez system monitoringu jeśli dany alarm przejdzie w stan aktywny. Mogą przyjąć praktycznie
+        dowolną formę, wszystko zależy od pomysłowości programistów stojących za przygotowaniem takiego rozwiązania.
+        Najczęściej spotykane jest wysłania wiadomości mailowej na wskazane adres, informując o 
+        przekroczeniu pewnych wartości granicznych w określonym komponencie całego systemu. Spotyka się również inne formy:
+        \begin{itemize}
+            \item[SMS] - na wskazany numer telefonu wysłana jest wiadomość SMS, zawierająca skrócony opis zaistniałego problemu,
+            \item[ITS] - z angielskiego - \textbf{Issue Tracking System}. Notyfikacja może przyjąć także bardziej wyrafinowaną formę.
+            \textbf{ITS} są specjalnymi rodzajami stron internetowych, w których zgłaszane są wszelkie problemy, jakie napotkano
+            podczas użytkowania systemu. Ich nadrzędnym celem jest dostarczenie właściwych rozwiązań administracyjnych, mających
+            na celu naprawę zaistniałej sytuacji oraz późniejsze jej przeciwdziałania.
+        \end{itemize}
+        Mogą się one zarówno wzajemnie wykluczać, jak i uzupełniać. Alarmy mogą również same definiować jaki rodzaj notyfikacji
+        powinien zostać w ich przypadku wykorzystany.
+        
+        \subsubsection{Wizualizacje}
+        W formie graficznej, wykresów oraz diagramów, reprezentuje się serie czasowe tworzone na podstawie metryk.
