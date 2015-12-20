@@ -1,0 +1,29 @@
+\section{Monitorowanie w dużej skali}
+\label{chapters:monitoring:at_scale}
+
+Oczywistą cechą dużych systemów informatycznych jest ilość komponentów, aplikacji oraz maszyn połączonych ze sobą.
+Wszystkie z nich posiadają pewne zadania i każdy z nich może stać się źródłem problemów dla całej infrastruktury. 
+Wszelakiego rodzaju incydenty rozumiane są jako straty w dochodach, pośrednio lub bezpośrednie. Jeśli na skutek 
+awarii, spowolniony zostanie dostęp do strony lub też będzie ona czasowo niedostępny, potencjalny klient
+skieruje się do konkurencyjnej witryny. Z tego też powodu, aby uniknąć ujemne bilansu, organizacje kładę duży nacisk
+na wszelkiej maści środki zaradcze, działający nieprzerwanie. Podobnie do ilości danych krytycznych dla modelu 
+biznesowego i działający w nim usług, również ilość metryk jest tutaj znacząca.
+
+Modelowania alarmów oraz ich ograniczeń jest wynikiem ciągłego procesu ich doskonalenia, dostosowania do zmieniającego
+się systemu oraz patrzenie na metryki jako ciągle ewoluujący model danych.
+Operatorzy dokładają także wszelkich starań aby unikać duplikowania się alarmów. Szczególna uwaga
+przykłada jest do poprawnej ich organizacji. Sytuacja wygląda podobnie do unikania nieporządku na półce z książkami.
+Zakładając trzy-poziomową organizację po gatunku, autorze oraz tytule sytuacja w przypadku alarmów wyglądałaby podobnie.
+Pierwszym etapem ich hierarchizacji byłoby przypisanie do pewnej przestrzeni nazw oznaczającej na przykład
+pewną sferę systemu. W dalszej kolejności, operator, mógłby grupować alarmy w odniesieniu do komponentu (urządzenia lub aplikacji).
+Ostatni etap organizacji odnosiłby się już do konkretnego rodzaju monitorowanej własności, na przykład opóźnienia w sieci.
+Przykładowy model hierarchizacji alarmów może wyglądać zupełnie inaczej, jednak wynika z niego, że systematyczne oraz spójne
+nazewnictwo daje, w późniejszym etapie, wymierne korzyści. Łatwo, patrząc jedynie na nazwę alarmu zapisanego w powiadomieniu, 
+czego on dotyczy, w którym miejscu rozległej infrastruktury system monitorujący zauważył problem. Z drugiej strony, jeśli
+usunięto by pewien segment systemu, usunięcie skorelowanych z nim alarmów, byłoby znacznie uproszczone.
+Organizacja jest pierwszym wyznacznikiem dobrego zarządzania monitoringiem, jednak nie jest jedyna. Metryki spływające
+z całego systemu rozumiane są jako model danych, który podlega ciągłym zmianom. Wynika z tego, że ograniczenie, nałożone w początkowym
+etapie ich projektowania, nie są wartością stałą. Powinno być one poddane ciągłemu procesowi ewaluacji, aby lepiej 
+oddawać charakterystykę systemu. Może to skutkować w podnoszeniu pewnych limitów, podczas gdy inne ulegać będą zmniejszeniu. Konieczne 
+może okazywać się także zwiększania ilości alarmów w pewnych miejscach, podczas gdy dla innych 
+segmentów ich ilość powinna być zmniejszana \cite{monitoring_and_alerting}.

@@ -8,7 +8,19 @@
         \item fałsz, alarm jest obecnie nieaktywny, a system lub komponent pracuje zgodnie z założeniami.
     \end{itemize}
     Czasami definiuje się funkcję, która zwrócić może 3 wartości. Dodatkowa możliwości sugeruje brak 
-    potrzebnych danych, a alarm w takim wypadku, znajdować się może w stanie nieokreślonym. 
+    potrzebnych danych, a alarm w takim wypadku, znajdować się może w stanie nieokreślonym. Na tym poziomie alarm
+    jest podobny do neuronu w komputerowych sieciach neuronowych, a w rzeczywistości zachowuje się podobnie tak jak on.
+    Jedną z czynności zalecanych przy monitorowaniu jest okresowe dostosowanie jej konfiguracji, swoiste uczenie całego
+    systemu w taki sposób, aby wszelkie zgłaszane incydenty były nimi naprawdę. Swoisty fałszywy alarm, może
+    przynieść więcej problemów niż korzyści, z drugiej strony otrzymanie powiadomień odnośnie przekraczania zużycia
+    procesora powyżej 50 procent kilkanaście razy na dobą, nie jest pożądane. 
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/alarm_anatomy}
+        \caption[Anatomia alarmu]{Anatomia alarmu, źródło: {opracowanie własne}}
+        \label{chapter:monitoring:anatomy_of_alarm:picture}
+    \end{figure}
    
     \subsection{Dane wejściowe}
     Wejściem dla danej funkcji mogą być metryki, inne alarmy lub funkcje czasu. Teoretycznie jednak, nie ma ustalonej
@@ -45,7 +57,7 @@
         generował on żadnych powiadomień. Wykluczania automatyczne opiera się na podstawowej własności
         alarmu - jest to funkcja logiczna. Możliwe jest więc zdefiniowane monitora - alarmu, który wchodząc
         w stan aktywności byłby informacją dla innych alarmów, aby pozostać w stanie spoczynku. Jednocześnie
-        mógłby on generować notyfikacje, jeśli byłoby to konieczne. 
+        mógłby on generować notyfikacje, jeśli byłoby to konieczne.
     
         \subsubsection{Rola funkcji czasu}
         Funkcje czasu, w przypadku wykluczeń alarmów są szczególnie użyteczne, jeśli intencją jest czasowe wyłączenie

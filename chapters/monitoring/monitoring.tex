@@ -74,4 +74,20 @@
         powinien zostać w ich przypadku wykorzystany.
         
         \subsubsection{Wizualizacje}
-        W formie graficznej, wykresów oraz diagramów, reprezentuje się serie czasowe tworzone na podstawie metryk.
+        W formie graficznej, wykresów oraz diagramów, reprezentuje się serie czasowe tworzone na podstawie metryk. Reprezentacja graficzna metryk nie jest bezpośrednio wykorzystywana w przypadku alarmu,
+        niemniej nie umniejsza to jej znaczenia. Tego typu funkcjonalność, często dostarczana z oprogramowaniem
+        monitorującym, daje wgląd w stan systemu w czasie rzeczywistym. Poszczególne metryki, mogą być
+        przeglądane na dowolnym poziomie szczegółowości, te same dane mogą być przedstawione w formie
+        wykresu słupkowego lub kołowego, zależnie od potrzeby. Dla operatora jest
+        to możliwość dokładnego prześledzenia stanu systemu w zadanym zakresie czasu, przed lub po
+        nastąpieniu awarii. Doświadczony administrator, znający charakterystykę systemu, jest w stanie
+        wykryć awarię zanim jeszcze zostanie ona wykryta przez system monitorujący. Przykładowo, ciągle
+        rosnący zużycie pamięci, może wskazywać, że pewna aplikacja niepoprawnie zarządza przydziałem
+        pamięci operacyjnej - nie zwalnia zajętych zasobów. W tym samym momencie, alarm powinien przejść
+        w stan aktywny po przekroczeniu co najmniej 80 procent. Administrator jednak, widząc, że zużycia pamięci
+        stale wzrastało w przeciągu ostatnich 8 godzin, ma szansę zgłosić ten fakt, a zespół programistów
+        może wprowadzić poprawki do oprogramowania usuwające usterkę. Podobne zastosowanie, wizualizację,
+        mogą znaleźć dla zużycia przestrzeni dyskowej. Wspomniana sytuacje można przypisać do komponentów
+        systemowych - niskiego poziomu w stosunku do aplikacji. Programy jednak również można monitorować,
+        i tak więc, niepokojącą oznaką aplikacji internetowej może być ciągle wydłużający się czas 
+        ładowania strony, wskazujący na problemy z serwerem lub na niezbyt wydajną architekturę samej aplikacji. 

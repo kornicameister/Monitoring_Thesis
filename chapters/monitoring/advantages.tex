@@ -38,10 +38,10 @@
     kolejnych instancji, które wspomogą już działające, a zwiększony ruch zostanie rozłożony na więcej elementów,
     przez co sumarycznie poszczególnie instancje zaczną działać pod mniejszym obciążaniem. Odwracając sytuację, jeśli
     dodatkowe instancje nie będą już potrzebne mogą zostać one automatycznie wyłączone. Taki rodzaj pracy, jest również
-    znany pod nazwą oprogramowania autonomicznego, zdolnego do samodzielnego skalowania oraz przywracania do stanu równowagi 
-    \cite{monitoring_and_alerting}. 
+    znany pod nazwą oprogramowania autonomicznego, zdolnego do samodzielnego skalowania oraz przywracania do stanu równowagi \cite{monitoring_and_alerting}.
     
-    \todo[inline]{czy opisywać te dalsze również?}
-    
-    \subsection{Tuningowanie systemu}
-    \subsection{Podejmowanie decyzji}
+    \subsection{Dostosowywanie parametrów systemu}
+    Informacji pochodzące z alarmu można wykorzystać do zmiany parametrów systemu lub komponentów,
+    które powinny działać bardziej wydajnie. Czasami modyfikacja tego typu mogą wynikać z zauważonych
+    problemów (\ref{chapter:monitoring:advantages:early_detection}), skutkujących w przepełnianiu
+    kolejek lub zajęciu całej pamięci operacyjnej. 
