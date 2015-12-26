@@ -60,22 +60,48 @@
 
     Ostatecznie jest to także \textbf{REST}-owe API. Cała funkcjonalność dostępne jest poprzez
     protokół HTTP. Możliwe jest również administrowaniem klastra przez to samo medium.
-    
-    \todo[inline]{Coś jeszce ?}
 
 \subsection{Kibana}
+\label{chapter:application:elkstack:kibana}
+
     Ostatni z elementów \textbf{ELKStack}. Zadaniem \textbf{Kibana} jest dostarczyć graficznego interfejsu
     użytkownika dla \textbf{ElasticSearch}. Z poziomu aplikacji dostępnej przez przeglądarkę możliwe
     jest przeglądania wszystkich danych zgromadzonych przez \textbf{Logstash} z użyciem tradycyjnych
-    metod przeszukiwania danych:
+    metod przeszukiwania:
     \begin{itemize}
         \item filtrowanie,
-        \item kwerendy, w tym wypadku pełnotekstowe,
-        \item generowanie wykresów,
-        \item kolaboracja poprzez specjalne obiekty zwane \textit{dashboards}
+        \item kwerendy, w tym wypadku pełnotekstowe
     \end{itemize}
     
-    \textbf{Kibana} jest szczególna, ponieważ z jednej strony wykorzystuje \textbf{ElasticSearch}
-    jako źródło danych, a z drugiej strony jest on dla niej miejscem do zapisu własnej konfiguracji.
+    Niemniej, to co jest szczególnie użyteczne to wizualizacja danych. Domyślny widok pozwala przeglądać 
+    rekordy w formie zbliżonej do tabeli. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/kibana_main_view}
+        \caption[Ekran główny w Kibana]{
+            Ekran główny w Kibana, źródło: \url{https://www.elastic.co/guide/en/kibana/current/introduction.html}
+        }
+        \label{chapter:application:elkstack:kibana:main_view}
+    \end{figure}
+    W tym samym miejscu, można zaobserwować jak Kibana współpracuje z ElasticSearch. Na rysunku \ref{chapter:application:elkstack:kibana:main_view} po lewej stronie widoczny jest pasek szybkiego
+    wyszukiwania. Znajdujące się tam pozycje odpowiadają kolejnym właściwościom przeglądanego zbioru danych.
+    Korzystając z niego, potencjalny użytkownik, ma możliwość szybkiego filtrowania danych, a ilość filtrów jest
+    nieograniczona. Po włączeniu wszystkich szybkiej filtracji, użytkownik w dalszym ciągu, może napisać
+    własne zapytania \textbf{QueryDSL} i przesłać je do serwera. Kibana, domyślnie, sortuje dane w kolejności
+    rosnącej względem skonfigurowanego pola dla danego indeksu. Rekordy można oglądać w dowolnym wycinku czasu.
     
-    \todo[inline] Omówić bardziej znane funkcje.
+    Szczególnie interesującą cechą wyników wyszukiwań, które można przeglądać w Kibana, jest to, że bezboleśnie
+    łączą się one z dowolną formą wizualizacji. I tak samo, jak użytkownik, mógłby chcieć przejrzeć dane 
+    jedynie z konkretnych dwóch godzin, konkretnego dnia, tak samo, możliwe jest uruchomienie podobnego
+    filtru dla wykresu kołowego lub słupkowego.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/kibana_dashboards}
+        \caption[Ekran współdzielony w Kibana]{
+            Ekran współdzielony w Kibana, źródło: \url{https://www.elastic.co/guide/en/kibana/current/introduction.html}
+        }
+        \label{chapter:application:elkstack:kibana:dashboard}
+    \end{figure}
+    Wykresy, w dalszym ciągu można łączyć w tak zwane \textbf{dashboards}, które stanowią idealne narzędzia do kolaboracji
+    w tym samym zespole. Prócz tego, że pozwalają ona na pokazanie jednocześnie więcej niż jednej wizualizacji, z których
+    każda odnosi się do samego momentu w czasie, da się je zapisywać i przekazywać innym członkom zespołu. 
