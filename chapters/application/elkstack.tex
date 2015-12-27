@@ -25,9 +25,16 @@
     
     Jest to ponadto rozwiązanie szybkie oraz łatwo skalowalne. Uruchomienie kolejnej
     instancji sprowadza się do przygotowania odpowiedniego pliku konfiguracyjnego
-    i dostarczenia go jako argumentu wejściowego do pliku wykonywalnego aplikacji logstash.
-    
-    \todo[inline]{Opisać korzyści ???}
+    i dostarczenia go jako argumentu wejściowego do pliku wykonywalnego aplikacji Logstash.
+    Dzięki ciągle rozbudowywanej bazie wtyczek potrafi on jednak o wiele więcej. 
+    Rozszerzenia można podzielić na 3 grupy, które odpowiadają omówionych wyżej sekcjom.
+    Możliwe jest wybranie dowolnego rodzaju źródła danych. Nie musi być nim wcale plik fizyczny.
+    Logstash może czytać także z kolejek, takich jak Kafka, bazy danych lub socket'ów.
+    W sekcji przetwarzania można umieścić logikę odpowiedzialną za dodawania, usuwania poszczególnych
+    pól. Możliwe jest także umieszczenie w środku małego programu napisanego w języku Ruby, jeśli
+    jest to konieczne. Ostatecznie, ilość obsługiwanych wyjść można zacząć opisywać od innego
+    elementu stosu technologicznego jakim jest \textbf{ELKStack}, czyli samej bazy danych
+    \textbf{ElasticSearch}, a zakończyć na wypisywaniu kolejnych wydarzeń na konsolę. 
 
 \subsection{ElasticSearch}
     Pełnotekstowych, indeksowany silnik wyszukiwania. Jednak \textbf{ElasticSearch} jest także
@@ -57,9 +64,20 @@
     stan równowagi. Utracenie lidera nie stanowi przeszkody dla poprawnego działania. Pozostałe maszyny 
     negocjują wybór nowego i całość jest ponownie gotowa do świadczenia pełnej funkcjonalności w relatywnie
     krótkim czasie.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/es_query}
+        \caption[Przykładowe zapytania do ElasticSearch]{
+            Przykładowe zapytania do ElasticSearch, źródło: \url{http://i.stack.imgur.com/GFMUd.png}
+        }
+        \label{chapter:application:elkstack:es:query}
+    \end{figure}
 
     Ostatecznie jest to także \textbf{REST}-owe API. Cała funkcjonalność dostępne jest poprzez
     protokół HTTP. Możliwe jest również administrowaniem klastra przez to samo medium.
+    
+    \todo[inline]{Coś jeszce ?}
 
 \subsection{Kibana}
 \label{chapter:application:elkstack:kibana}

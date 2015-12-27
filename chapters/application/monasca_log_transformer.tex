@@ -1,4 +1,5 @@
 \section{monasca-log-transformer - proste transformacje}
+\label{chapter:monasca:monasca_log_transformer}
 
 \textbf{monasca-log-transformer} jest komponentem znajdującym się bezpośrednio
 za \textbf{monasca-log-api}. Jest to ponownie specjalnie skonfigurowana instancje
@@ -10,3 +11,19 @@ logu. Na obecną chwilę jedyną operacją, którą ma za zadanie wykonać jest 
 aby wykryć jego poziom. Implementacja opiera się na wyrażeniu regularnym, którym objęty jest wycinek
 całego logu. W wyniku działania wyrażenia regularnego, do struktury całej wiadomości dodawana jest informacja
 o poziomie logu. 
+
+\begin{listing}
+    \inputminted[
+    fontfamily=monospace,
+    fontsize=\scriptsize,
+    obeytabs=true,
+    samepage=true
+    ]{rb}{listingings/transformer.conf}
+    \caption[Przykładowa konfiguracja monasca-log-transformer]{
+        Przykładowa konfiguracja monasca-log-transformer, źródło: \url{https://raw.githubusercontent.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-elkstack/master/templates/transformer.conf.j2}}
+    \label{chapter:monasca:monasca_log_transformer:configuration_code}
+\end{listing}
+
+Powyższy (\ref{chapter:monasca:monasca_log_transformer:configuration_code}) wycinek kodu przedstawia
+sekcję filtracji programu Logstash. Zawarty w niej kod Ruby oraz dopasowanie Grok pozwala na 
+pobranie poziomu logu oraz znormalizowania jej do spójnej wartości. 

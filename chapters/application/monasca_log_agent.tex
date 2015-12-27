@@ -37,11 +37,18 @@
     to jednak logicznie spójna całość, którą on sam analizował by w takim kontekście. Agent musi więc wiedzieć,
     w jaki sposób połączyć oddzielnie linie w jedno i w takiej formie przesłać je do wyjścia.
     
-    \subsection{Problem wielu linii}
-    
     \subsection{Konfiguracja agenta}
         \label{chapter:monasca:monasca_log_agent:configuration}
-        \todo[inline]{przykładowa konfiguracja}
+        \begin{listing}
+            \inputminted[
+            fontfamily=monospace,
+            fontsize=\scriptsize,
+            obeytabs=true,
+            samepage=true
+            ]{rb}{listingings/monasca_log_agent.conf}
+            \label{chapter:monasca:monasca_log_agent:configuration:example_code}
+            \caption[Przykładowa konfiguracja monasca-log-agent]{Przykładowa konfiguracja monasca-log-agent, źródło: opracowanie własne}
+        \end{listing}
         
         \subsubsection{Obserwacja wskazanego pliku z logami}
             Do konfiguracji logstash'a przekazywana jest ścieżka lub wyrażenia regularnego wskazującego
@@ -56,7 +63,18 @@
                 \item utworzenia adekwatnego wyrażenia regularnego opisującego początek lub koniec wydarzenia,
                 \item określenie kierunku łączenia kolejnych rekordów
             \end{enumerate}
-            \todo[inline]{Ansible i przygotowane szablony dla multiline}
+            
+            \begin{listing}
+                \inputminted[
+                fontfamily=monospace,
+                fontsize=\scriptsize,
+                obeytabs=true,
+                samepage=true
+                ]{yaml}{listingings/monasca_log_agent_multiline.yml}
+                \label{chapter:monasca:monasca_log_agent:configuration:multiline_code}
+                \caption[Wsparcie dla wielu linii]{Wsparcie dla wielu linii, źródło: 
+                    \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/vars/main.yml}}
+            \end{listing}
             
         \subsubsection{Dodawania informacji o tenancie chmury obliczeniowej}
             Agent, jak zostało to wcześniej wspomniane, działa na konkretnej maszynie. Jedną z jej własności jest
@@ -71,6 +89,11 @@
             
         \subsubsection{Wskazania na aplikację}
             Informacja o logu zostaje wzbogacona o dane, które pozwalają określić typ oraz samą aplikacją.
+            Jest to informacja przydatna, ponieważ jeden program, może zapisać logi do więcej niż jednego pliku.
+            Przykładowo taka sytuacja występuje w przypadku serwera Tomcat. Oprócz rekordów pochodzących
+            z uruchomionej aplikacji, możliwe jest także zebrania danych na temat wszystkich możliwych
+            żądań, jakie zostały odebrane przez serwer, a także logi związane z autoryzacją użytkowników, jeśli
+            takowa odbywa się ze wsparciem Tomcat'a.
             
          \subsubsection{Wysyłanie danych do monasca-log-api}
              Wysyłania danych do monasca-log-api jest poprzedzone logowanie do chmury obliczeniowej, jeśli nie

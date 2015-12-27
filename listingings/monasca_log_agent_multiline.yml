@@ -1,0 +1,18 @@
+log_filters:
+  - {
+      name: "multiline",
+      type: '"python"',
+      configuration: {
+        pattern: '"^(Traceback \(most recent call last\):|\s{2,4}(File)?.+|\w+:\s{1,}.+)"',
+        what: '"previous"'
+      }
+    }
+  - {
+      name: "multiline",
+      type: '"go"',
+      configuration: {
+        pattern: '"^\[(?!signal)\w+\]"',
+        what: '"previous"',
+        negate: '"true"'
+      }
+    }

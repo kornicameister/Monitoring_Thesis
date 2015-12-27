@@ -1,0 +1,53 @@
+\section{Architektura aplikacji}
+\label{chapter:application:architecture}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/application_arch}
+    \caption[Architektura aplikacji]{
+        Architektura aplikacji, źródło: opracowanie własne
+    }
+    \label{chapter:application:architecture:diagram}
+\end{figure}
+
+Część praktyczna pracy dyplomowej, przedstawiona na rysunku \ref{chapter:application:architecture:diagram}, 
+zaprojektowana została w architekturze rozproszonej - mikro serwisu. Głównym zadaniem takiego rozwiązania
+jest rozbicie faktycznej aplikacji na mniejsze programy. Poszczególne części składowe posiadają jedno, 
+jasno określone, zadania i jedynie za nie są odpowiedzialne. Niemniej, zasada pojedynczej odpowiedzialności, znana także jako
+jeden z wyznaczników dobrej klasy w rozumieniu programowania obiektowego, jest także i tutaj rozumiana w szerszym
+kontekście. Pojedynczy serwis współpracuje z innymi. Przykładowa aplikacja mogłaby realizować funkcjonalność 
+sklepu internetowego. Jednymi z wielu zamkniętych w środków serwisów, mogłyby by być te odpowiedzialne za zarządzania
+klientami lub ogólnie użytkownikami oraz te, których zadaniem byłoby, wsparcie w kierunku zarządzania towarami oferowanymi
+przez sklep. Oba, z kolei, wymagałyby wsparcia kolejnego serwisu - bazy danych. Z przedstawionego opisu wynikają jasno pewne
+szczególne cechy tego typu architektury:
+\begin{itemize}
+    \item[\textbf{skalowalność}] - konieczność uruchomienia kolejnych serwisów tego samego typu nie jest trudnym zadaniem. Dzięki temu, 
+    że są to aplikacje małe, są one jednocześnie łatwe w zarządzaniu. Ponadto skalowania w kierunku osi OY jest tańsze. Koszt
+    dodania średniej mocy maszyny, na której działałaby kolejne instancja serwisu, jest niższy niż dołożenia szybszych podzespołów
+    do już istniejącej maszyny, co jest cechą znamienną skalowania wertykalnego,
+    \item[\textbf{nauczenie się aplikacji}] - łatwiej jest zrozumieć prostą aplikację, mechanizmy jej działania, aniżeli dogłębnie poznać
+    jedną większą. Okazuje się to szczególnie przydatne w dynamicznych zespołach programistów, gdzie rotacja ludzi jest wysoka albo
+    częstym zmianą podlegają wymagania,
+    \item[\textbf{lepsze izolowanie}] - żaden program nie jest wolny od błędów. Izolowania poszczególnych serwisów jest szczególnie
+    przydatne, jeśli dana aplikacja ma problemy z zarządzaniem pamięcią lub przestrzenią dyskową. Inwestygacja mająca 
+    na celu ustalenie problemu w dużym programie zajęłaby dużo więcej czasu, nie wspominając już o jego wyeliminowania. 
+    W małych aplikacjach ilość wzajemnych korelacji między poszczególnymi jej komponentami jest znacznie niższa od tej
+    spotykanych w średnich i dużych programach,
+    \item[\textbf{niezależność}] - model aktualizacji lub bardziej ogólnie przekazywania gotowej aplikacji do środowiska produkcyjnego
+    staje się również uproszczony. W architekturze mikro-serwisów, każdy serwis może być rozwijany niezależnie od innych i 
+    w takiej samej formie, można wypuszczać jego nowe wersje. Jest to także udogodnienie dla klientów, którzy mogą
+    pobrać jedynie mały plik binarny lub archiwum. Sam proces aktualizacji jest również narażony na mniejszą ilość
+    trudnych do przewidzenia problemu \cite{microservice_architecture}. 
+\end{itemize}
+
+Najważniejszą jednak cechą, z którą borykają się systemy informatyczne, jest wyeliminowania \textbf{single-point-of-failure}.
+To angielskie pojęcia, w praktyce oznaczana, wadę architektury systemu lub nawet i aplikacji. Najczęściej jednak odnosi się
+ona do systemu jako całości. Umieszczenie w jednym miejscu jednej dużej aplikacji lub kilku mniejszych współpracujących 
+między sobą, powoduje powstania newralgicznego punktu całego systemu, który jeśli ulegnie awarii, w najlepszy wypadku spowoduje
+jedynie opóźnienie w dostarczaniu potrzebnych usług, a w najgorszym całkowicie wyłączy system. Warto w tym miejscu dodać, że
+awarie, nie muszą być wcale spowodowane przez sam program. Sytuacje takie jak wyczerpania się pamięci operacyjnej lub 
+zajęcia całej mocy obliczeniowej procesora, stanowią ułamek możliwych niefortunnych komplikacji. Należy tutaj brać pod uwagę
+także awarię sprzętu, przerwy w dostawie prądu, a także konieczność przeprowadzania prac serwisów lub wymiany istniejących
+komponentów komputera na lepsza.  
+
+Poszczególne podrozdziały poniżej opisują kolejne serwisy całej aplikacji oraz ich zadania.
