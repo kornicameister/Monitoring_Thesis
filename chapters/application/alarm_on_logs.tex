@@ -1,0 +1,16 @@
+\subsection{Alarmy a logi}
+\label{chapter:application:plans:alarm_on_logs}
+
+Jednym z głównych założeń projektu \textbf{monasca} jest powiadamiania użytkownika o 
+sytuacjach krytycznych zaistniałych w systemie. Funkcjonalność realizowana jest na podstawie
+metryk, zbieranych z całego systemu. Przekroczenie, założonych przez administratora, wartości
+krytycznych, skutkuje wygenerowaniem alarmu. Jednak idea ta, nie może zostać
+tak łatwo przełożona na logi. 
+
+    \subsubsection{Idea implementacji}
+    Całość implementacji miałaby
+
+    \subsubsection{Metryki nieciągłe}
+    W przeciwieństwie do danych dotyczących, chociażby, zużycia przestrzeni dyskowej lub, podlegającemu większej
+    fluktuacji, obciążeniu procesora, logi stanowią element zbioru metryk nieciągłych
+    \footnote{Sparse metric - metryki okresowe, zwracające wartości okresowe}. 

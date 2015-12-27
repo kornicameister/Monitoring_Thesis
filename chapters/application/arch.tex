@@ -50,4 +50,46 @@ zajęcia całej mocy obliczeniowej procesora, stanowią ułamek możliwych niefo
 także awarię sprzętu, przerwy w dostawie prądu, a także konieczność przeprowadzania prac serwisów lub wymiany istniejących
 komponentów komputera na lepsza.  
 
-Poszczególne podrozdziały poniżej opisują kolejne serwisy całej aplikacji oraz ich zadania.
+\subsection{Proces instalacji}
+\label{chapter:application:architecture:installation}
+    Część praktyczna, jak zostało wcześniej omówione, została zrealizowana w architekturze mikro-serwisów. Warto w tym miejscu dodać,
+    że oprócz komponentów omówionych w poniższych rozdziałach, jest to tak naprawdę rozszerzenie istniejącego rozwiązania typu \textbf{MaaS}
+    (\ref{chapter:monitoring_architecture:maas}) - monasca. W przypadku tak dużego systemu, składającego się z wielu elementów, 
+    konieczne było opracowanie spójnej metody instalacji. Wybór padł na \textbf{Ansible}. 
+    
+    \subsubsection{Ansible - Simple IT Automation}
+    Ansible jest odpowiedzią na pytania - Jak wdrożyć kompleksowy system na więcej niż jednej maszynie. Architektura tego rozwiązania,
+    zakłada przygotowanie pakietów instalacyjnych w relacji 1:1 do komponentu, który ma on instalować. Wspomniany pakiet, istnieje pod nazwą roli.
+    Jest to najmniejsza cegiełka w całym ekosystemie. Domem, korzystając w dalszej części z metafory, jest tak zwany \textbf{playbook}.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/43-ansible-multi-node-deployment-workflow}
+        \caption[Wdrożenia z Ansible]{
+            Wdrożenia z Ansible, 
+            źródło: \url{https://d1cg27r99kkbpq.cloudfront.net/static/extra/43-ansible-multi-node-deployment-workflow.png}
+        }
+        \label{chapter:application:architecture:installation:ansible_diagram}
+    \end{figure}
+     
+    Pozwala on na budowania scenariusza instalacji według koncepcji przedstawionej na diagramie 
+    \ref{chapter:application:architecture:installation:ansible_diagram}. Pojedyncza maszyna, zwana dalej
+    maszyną kontrolną, posiada wiedzę o wszystkich hostach wchodzących w skład całego systemu. Na niej
+    również zlokalizowane są scenariusze. Ręcznie lub automatyczne zarządzenie infrastrukturą jest
+    tutaj aspektem wykraczającym poza ramy pracy dyplomowej, dlatego też nie zostanie omówione. 
+    Warto jedynie dodać, że sam proces instalacji na maszynach, możliwy jest do monitorowania na co najmniej
+    dwa sposoby:
+    
+    \begin{itemize}
+        \item[Ansible Tower] - rozwiązanie zaprojektowane specjalnie z myślą o monitorowaniu pracy
+        procesu wdrożeniowego. Pozwala na przeglądanie listy wszystkich maszyn, obecnego statusu
+        zadań (ról),
+        \item[Syslog] - wszelka aktywność (tj. operacja), które \textbf{Ansible} wykonuje logowane są
+        z użyciem protokołu Syslog na danej maszynie. Dostęp do logów pozwala na prześledzenie operacji oraz
+        ewentualnego uzyskania wiedzy na temat przyczyn nieprawidłowego (zakończonego niepowodzeniem) wdrożenia
+    \end{itemize}
+    
+    Najistotniejszą cechą \textbf{Ansible} jest jednak możliwość wskazania, praktycznie nieskończonej,
+    ilości maszyn docelowych (fizycznych, wirtualnych lub nawet kontenerów Docker), na których ma zostać ona wprowadzona. 
+    Dzięki temu, skalowanie aplikacji na kolejne maszyny, przestaje być operacją problematyczną. Wystarczy dodać 
+    informację o jej adresie IP oraz skonfigurować komunikację protokołem SSH.
