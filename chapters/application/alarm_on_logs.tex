@@ -25,6 +25,17 @@ tak łatwo przełożona na logi.
     
     \subsubsection{Analiza dynamiczna w strumieniu}
     \label{chapter:application:plans:alarm_on_logs:streaming}
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/aol_stream}
+        \caption[Analiza w strumieniu - schemat]{
+            Analiza w strumieniu - schemat, 
+            źródło: opracowanie własne
+        }
+        \label{chapter:application:plans:alarm_on_logs:streaming:diagram}
+    \end{figure}
+    
     Jest to alternatywa, która idealnie wpisuje się w rzeczywisty charakter danych, jakimi są logami. Ponadto, jest to rozwiązanie, w którym
     wyeliminowana zostaje konieczność iterowanie po zbiorach danych, których wielkość może znacząco spowalniać proces analizy. W programowaniu,
     pętle są najczęściej wskazywane jako najwolniejsze elementy aplikacji, chociaż oczywiście momentami nie da się ich uniknąć. Ponadto, nie ma 
@@ -62,6 +73,17 @@ tak łatwo przełożona na logi.
     
     \subsubsection{Analiza tradycyjna na zbiorze}
     \label{chapter:application:plans:alarm_on_logs:bulk}
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/aol_batch}
+        \caption[Analiza na zbiorze - schemat]{
+            Analiza na zbiorze - schemat, 
+            źródło: opracowanie własne
+        }
+        \label{chapter:application:plans:alarm_on_logs:bulk:diagram}
+    \end{figure}
+    
     Rozwiązanie alternatywne do omówionego w \ref{chapter:application:plans:alarm_on_logs:streaming}. Rozwiązuje ono wszystkie, przedstawione
     wyżej wymaganie, jakie musiałby spełnić silnik alarmujący, łącznie z grupowaniem. Aplikacja mogłaby pobierać dane, w określonym oknie czasowym,
     ze wskazaniem na poziomu logów oraz aplikacje. Jeśli w odebranych wynikach znalazłyby się odpowiednia
