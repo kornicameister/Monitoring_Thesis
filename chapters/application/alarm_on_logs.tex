@@ -8,9 +8,93 @@ krytycznych, skutkuje wygenerowaniem alarmu. Jednak idea ta, nie może zostać
 tak łatwo przełożona na logi. 
 
     \subsubsection{Idea implementacji}
-    Całość implementacji miałaby
+    \textbf{monasca-agent} jest programem, którego głównym zadaniem jest zbierania metryk z systemu, na którym
+    został on zainstalowany. Podejście takie sprawdza się w pełni i właściwie jest jedynym możliwym rozwiązaniem,
+    jeśli chodzi o monitoring stanu systemu operacyjnego, maszyny lub aplikacji na nim uruchomionych. Niekoniecznie,
+    jest to jednak podejście właściwie dla podobnej analizy w przypadku logów. W rozwiązaniu typu \textbf{LaaS}, 
+    jednym z celów jest przesłanie danych do centralnej lokalizacji - archiwizacja. W tym samym punkcie, lub
+    przesłane dalej, są one podmiotem analizy. Implementacja będzie, przynajmniej koncepcyjne, zbliżona do \textbf{monasca-agent}.
+    
+    Możliwe są dwie implementacja:
+    \begin{itemize}
+        \item[dynamiczna] - potencjalny program miałby być zlokalizowany w za \textbf{monasca-log-transformer} (\ref{chapter:monasca:monasca_log_transformer}).
+        Odbierałby on logi ze wspomniane programu, które wysyłane byłyby na ten sam lub inny \textbf{topic} i poddawał je prostej analizie. 
+        \item[statyczna] - oparta o okresowe pobierania relatywnie małych ilości danych z bazy ElasticSearch (\ref{chapter:application:elkstack:elasticsearch}). 
+        Zapytanie oczywiście byłoby zoptymalizowanie na pobranie jedynie tych rekordów, gdzie poziom logu osiągnął zadaną przez operatora wartość.
+    \end{itemize}
+    
+    \subsubsection{Analiza dynamiczna w strumieniu}
+    \label{chapter:application:plans:alarm_on_logs:streaming}
+    Jest to alternatywa, która idealnie wpisuje się w rzeczywisty charakter danych, jakimi są logami. Ponadto, jest to rozwiązanie, w którym
+    wyeliminowana zostaje konieczność iterowanie po zbiorach danych, których wielkość może znacząco spowalniać proces analizy. W programowaniu,
+    pętle są najczęściej wskazywane jako najwolniejsze elementy aplikacji, chociaż oczywiście momentami nie da się ich uniknąć. Ponadto, nie ma 
+    konieczności także okresowego pobierania danych, co znacząco wydłuża czas odpowiedzi program. Pod uwagę należy jednak wziąć pewne punkty wymagania,
+    które musiałyby być spełnione, a które są wyznacznikami przetwarzania w czasie rzeczywistym.
+    \begin{itemize}
+        \item[ciągły przepływ] - dane, zgodnie z filozofią przetwarzania strumieniowego, muszą przepływać przez aplikację. Wynika z tego, że szybkość
+        przetwarzania jest tutaj nadrzędnym celem do osiągnięcia,
+        \item[przeciwdziałania strumieniowi] - mimo, że brzmi to jak jeden z antywzorców programowania,
+        \footnote{\textbf{Fighting against framework} - próba celowego wykorzystania biblioteki lub wzorca do zadań, do których nie został on zaprojektowany},
+        jest to ważna cecha przetwarzania danych w czasie rzeczywistym. Podobnie, jak w rzeczywistym potoku, dane, jak ryby, mogą pływać ławicami, ale mogą
+        również napływać pojedynczo, w określonych, i co ważne - nieregularnych, odstępach czasu. Ważne jest więc, aby nie blokować programu, w oczekiwaniu
+        na dane. Rozwiązaniem jest zastosowanie mechanizmów takich jak okna przesuwne, których działania powinno się zakończyć po określonym upływie czasu lub
+        aktywne nasłuchiwania na pojawiające się dane na wejściu. Szczęśliwie, istnieje odpowiednie biblioteki, które realizuję funkcję aktywnego oczekiwania,
+        i wznawiają właściwy wątek programu, jeśli takowa wiadomość nadejdzie. Z drugiej strony, dane mogą napływać dużo szybciej niż aplikacja jest w stanie
+        je przetworzyć. W tym wypadku, konieczne może okazać się minimalne buforowanie danych lub przetwarzanie napływających informacji w sposób równoległy.
+        \item[powtarzalne rezultaty] - aby silnik alarmujący na podstawie logów generował powtarzalne i, przede wszystkim, 
+        spójne rezultaty konieczne jest, aby dane analizować, nie tyle pod kątem poziomu logu, ale także pod względem czasu w jakim został on wygenerowany. 
+        Jest to szczególnie istotne, ponieważ system generujący alarm na podstawie tylko jednego punktu wykraczającego poza skalę byłby 
+        narażony na zgłaszanie zbyt dużej liczby fałszywych alarmów. Innymi słowy, jeśli system wykryje n-krotne powtórzenie 
+        niepoprawnej wartości, powinien wtedy, i tylko wtedy wygenerować alarm. 
+        Co prawda, w przypadku logów, omówiona sytuacja, nie zawsze musi być prawdą. Jednostkowe przekroczenie zużycia procesora, nie jest sytuacją anormalną.
+        Niemniej, tylko jeden błąd zalogowany przez aplikację o krytycznym znaczeniu może oznaczać błąd. Ale, jeśli program zapisuje w logach jedynie ostrzeżenia,
+        dopiero pewna ich liczba, zaobserwowana w, przykładowo, ostatnich 10 minutach działania aplikacji, może zostać uznana, ze problem. Jeśli dane, nie byłyby
+        przeglądane pod kątem czasu, w którym powstał wpis, rezultaty analizy byłyby nierzetelne. 10 krotne zaobserwowania wartości \textbf{WARNING} mogłoby tak naprawdę
+        pochodzić z próbek wygenerowanych w ciągu ostatnich 30 minutach, a sam fakt, zgłoszenia błędu spowodowany tym, że dotarły one do silnika analizującego
+        w oknie czasowym o długości co najwyżej 10 minut \cite{8_requirements_of_real_time_processing}.
+        \item[grupowanie] - nie jest to problem, jeśli analizuje się zbiór danych. W danej próbce kontrolnej, dane można łatwo posortować i na jej podstawie 
+        wygenerować pewien wynik. Sytuacja komplikuje się dla danych przetwarzanych w potoku. Potencjalny silnik alarmujący otrzymywałby dane pochodzącego z,
+        potencjalnie, nieskończonej, liczby różnych programów. Operator, mógłby tak skonfigurować alarmy, aby wykrywać 5 krotne pojawienie się wartości \textbf{ERROR}
+        dla aplikacji A, w ciągu 5 minut. Innymi słowy, aplikacja analityczny, musiałaby zapamiętać pojawienia się pierwszego wystąpienia problematycznej wartości.
+        Kolejny wymogiem byłoby monitorowanie czasu, jaki upłynął od momentu zauważania wartości po raz pierwszy. Ostatecznie, wygenerowania odpowiedniego,
+        alarmu powinna ograniczać się do tych wartości, które wykryto jedynie dla konkretnej aplikacji.
+    \end{itemize}
+    
+    \subsubsection{Analiza tradycyjna na zbiorze}
+    \label{chapter:application:plans:alarm_on_logs:bulk}
+    Rozwiązanie alternatywne do omówionego w \ref{chapter:application:plans:alarm_on_logs:streaming}. Rozwiązuje ono wszystkie, przedstawione
+    wyżej wymaganie, jakie musiałby spełnić silnik alarmujący, łącznie z grupowaniem. Aplikacja mogłaby pobierać dane, w określonym oknie czasowym,
+    ze wskazaniem na poziomu logów oraz aplikacje. Jeśli w odebranych wynikach znalazłyby się odpowiednia
+    ilość rekordów, gdzie wartości byłyby przekroczone, byłby to sygnał do wygenerowania alarmu. Niemniej, rozwiązanie tego typu, cechuje się
+    narzutem wynikającym z:
+    \begin{itemize}
+        \item konieczność wygenerowania żądania, otrzymania odpowiedzi i ostatecznie rozpakowania danych do postaci, w której mogłyby zostać
+        przetworzone,
+        \item program nie może pobierać danych zbyt szybko. Pomijając fakt, że mogłoby to negatywnie wpłynąć na jej wydajność bazy danych, która
+        musiałaby przeznaczyć więcej zasobów, aby zrealizować żądanie, wynikałoby to również z konieczności zakończenie przetwarzania już
+        otrzymanych danych,
+        \item program operowałby na zbiorze, o zmiennej wielkości. Nie byłoby, oczywiście, problematyczne zweryfikowanie małego lub pustego zbioru,
+        niemniej otrzymanie dużej ilości rekordów, przełożyłoby się na łączne (czas przesłania, przetworzenia do zrozumiałego formatu, iteracji)
+        wydłużenia czasu operacyjnego zaszytego algorytmu. 
+    \end{itemize}
+    W środowisku, gdzie konieczne jest, szybkie reagowania na ciągle zmieniające się warunki, jakiekolwiek opóźnienia są same w sobie, źródłem
+    problemu. Niemniej rozwiązanie to, ma tę szczególną zaletę, że opiera się na istniejącej bazie danych o rozbudowanym API, zdolnym
+    zwrócić dane w kompaktowej formie.
+    
+    Poboczną zaletą obu rozwiązań, jeśli wybranego by oddzielny topic przeznaczony jedynie dla programów analizujących dane, byłoby wykreowania
+    swoistej tablicy trasowania (działającej na zasadzie zbliżonej do tej znanej z urządzeń sieciowych), co w dalszej kolejności mogłoby
+    służyć do rozdysponowania przekształconych logów do różnych punktów docelowych, gdzie stałyby się one podmiotem całkowicie odrębnych operacji.
+    Program miałby za zadania analizować zawartość przesłanych logów. Jeśli poziom, którekolwiek z nich przekroczył by zadaną (skonfigurowaną przez
+    administratora lub operatora) wartość, aplikacja tworzyłaby odpowiednią metrykę.
+    Obie z implementacji zostały zaproponowane przez autora pracy dyplomowej jako przeciwne do siebie, łącznie z ich zaletami oraz wadami.
 
     \subsubsection{Metryki nieciągłe}
-    W przeciwieństwie do danych dotyczących, chociażby, zużycia przestrzeni dyskowej lub, podlegającemu większej
-    fluktuacji, obciążeniu procesora, logi stanowią element zbioru metryk nieciągłych
-    \footnote{Sparse metric - metryki okresowe, zwracające wartości okresowe}. 
+    W obu przypadkach, niezależnie od przyjętej implementacji, problem jest przedstawienie zebranych danych w postaci metryk - czyli wartości
+    numerycznych. W przeciwieństwie do danych dotyczących, chociażby, zużycia przestrzeni dyskowej lub, podlegającemu większej
+    fluktuacji, obciążeniu procesora, logi stanowią element zbioru metryk nieciągłych \footnote{Sparse metric - metryki okresowe,
+    zwracające wartości w nieregularnych odstępach czasu}. Częścią rozwiązania problemu, byłaby modyfikacja aplikacji \textbf{monasca-thresh},
+    odpowiedzialnej za faktyczne generowania alarmów. Na obecną chwilę, jeśli dla danej metryki, brak jest danych, monitor zdefiniowany
+    dla danego alarmu powoduje jego wejście w stan \textbf{UNDETERMINED}. W przypadku logów, nie jest to jednak sytuacja oczekiwana. 
+    Przykładowo, brak wystąpień błędów dla danej aplikacji, powinien faktycznie oznaczać, że aplikacja lub system pracuje poprawnie i
+    potencjalny operator nie ma powodów do niepokoju. Innymi słowy, odpowiadałoby to stanowi \textbf{OK}. Dopiero, co najmniej jedna wartość
+    wykraczająca poza ramy danego alarmu, powinna spowodować przejście alarmu w stan wysoki oraz wygenerowanie powiadomienia lub powiadomień.
