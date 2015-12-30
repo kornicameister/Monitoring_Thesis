@@ -33,7 +33,12 @@
         Nie jest to problem dla statystyk takich jak aktualnego zużycie procesora lub pamięci. Z drugiej strony, zadaniem agenta
         może być również weryfikacja czy na danej maszynie działa serwer WWW. Poniekąd zachodzi wtedy normalizacja danych. Fakt, że
         serwer działa i jest w stanie obsługiwać żądania, może być reprezentowany za pomocą liczby 1, odwrotnie 0, mogłoby sygnalizować
-        przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany. 
+        przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany.
+        \newglossaryentry{monitoring_agent}{
+            name=Agent,
+            plurals=Agenci,
+            description=Aplikacja działająca na monitorowaniej maszynie, odpowiedzialna ze zbieranie metryk
+            } 
         
         \subsubsection{Metryki}
         Dane zebrane od agentów, przechowywane są w formie metryk. Jest to struktura danych optymalizowana pod kątem

@@ -1,6 +1,8 @@
 \chapter{Część praktyczna}
 \label{chapter:application}
 
+\newglossaryentry{horizon}{name={Horizon},description={Aplikacje internetowa, do zarządzania chmurzę obliczeniową OpenStack}}
+
 Cześć praktyczna pracy dyplomowej dotyczy implementacji oprogramowania typu \textbf{LaaS} (\ref{chapter:monitoring_architecture:laas}).
 W założeniu ma ono stanowić część całego stosu oferowanego przez firmę Fujitsu dla kompleksowego monitorowania chmur obliczeniowych.
 Niemniej, możliwe jest również wykorzystania części lub całości, do monitoringu standardowych systemów informatycznych. 
@@ -11,6 +13,20 @@ we współpracy z takimi firmami:
 \begin{itemize}
     \item Hewlett Packard,
     \item Time Warner Cable.
+\end{itemize}
+
+Implementacja stanowi rozszerzenie projektu monasca, oryginalnie przygotowanego i opublikowanego przez firmę HP.
+Całość infrastruktury składa się z następujących programów:
+\begin{itemize}
+    \item[monasca-api] - REST'owe API, z którym komunikują się pozostałe komponenty, celem zapisywania metryk, alarmów (oraz ich definicji).
+    Pozwala także na dostęp do wspomnianych danych.
+    \item[monasca-agent] - rozbudowane narzędzie do monitorowania systemu lub aplikacji na maszynie na której został zainstalowany.
+    \item[monasca-persister] - prowadzi aktywny nasłuch na kolejce. Wszelkie zmiany stanu na alarmach oraz przekazane metryki, zapisuje,
+    poprzez \textbf{monasca-api} do bazy danych.
+    \item[monasca-thresh] - jest w stanie, na podstawie zebranych metryk, określić stan w jakim powinien znaleźć się alarm.
+    \item[monasca-notification] - na podstawie alarmów, generuje powiadomienie na skonfigurowanego punkty docelowe,
+    \item[monasca-ui] - komponent zrealizowany jako wtyczka do \glslink{horizon}{Horizon}, dające wgląd w alarmy, pozwalająca tworzyć ich definicje (monitory).
+    Jej główną zaletą jest również wbudowana obsługa do Grafana, która pozwala na przeglądania metryk w czasie rzeczywistym w postaci wykresów.
 \end{itemize}
 
 \input{chapters/application/arch}

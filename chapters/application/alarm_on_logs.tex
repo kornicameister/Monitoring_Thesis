@@ -18,7 +18,7 @@ tak łatwo przełożona na logi.
     Możliwe są dwie implementacja:
     \begin{itemize}
         \item[dynamiczna] - potencjalny program miałby być zlokalizowany w za \textbf{monasca-log-transformer} (\ref{chapter:monasca:monasca_log_transformer}).
-        Odbierałby on logi ze wspomniane programu, które wysyłane byłyby na ten sam lub inny \textbf{topic} i poddawał je prostej analizie. 
+        Odbierałby on logi ze wspomniane programu, które wysyłane byłyby na ten sam lub inny \glslink{kafka_topic}{\textbf{topic}} i poddawał je prostej analizie. 
         \item[statyczna] - oparta o okresowe pobierania relatywnie małych ilości danych z bazy ElasticSearch (\ref{chapter:application:elkstack:elasticsearch}). 
         Zapytanie oczywiście byłoby zoptymalizowanie na pobranie jedynie tych rekordów, gdzie poziom logu osiągnął zadaną przez operatora wartość.
     \end{itemize}
@@ -119,4 +119,4 @@ tak łatwo przełożona na logi.
     dla danego alarmu powoduje jego wejście w stan \textbf{UNDETERMINED}. W przypadku logów, nie jest to jednak sytuacja oczekiwana. 
     Przykładowo, brak wystąpień błędów dla danej aplikacji, powinien faktycznie oznaczać, że aplikacja lub system pracuje poprawnie i
     potencjalny operator nie ma powodów do niepokoju. Innymi słowy, odpowiadałoby to stanowi \textbf{OK}. Dopiero, co najmniej jedna wartość
-    wykraczająca poza ramy danego alarmu, powinna spowodować przejście alarmu w stan wysoki oraz wygenerowanie powiadomienia lub powiadomień.
+    wykraczająca poza ramy danego alarmu, powinna spowodować jego przejście w stan wysoki oraz wygenerowanie powiadomienia lub powiadomień.
