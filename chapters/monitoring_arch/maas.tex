@@ -1,2 +1,40 @@
 \section{\textbf{MaaS} - Monitorowania jako serwis}
 \label{chapter:monitoring_architecture:maas}
+
+Kontrolowanie stanu programu, monitorowanie przebiegu jego pracy, nie jest, samo w sobie, pojęciem nowym. Istnieje praktycznie od początku 
+aplikacji komputerowych. Najprostszego, najbardziej trywialnego przykładu można doszukiwać się już w momencie tworzenia aplikacji.
+Debugowanie, czyli proces krokowej analizy przebiegu działania, jest dla programisty sposobem odnalezienia wadliwego miejsca w algorytmie.
+Podobne zastosowanie można znaleźć dla analizy logów, a w szczególności stosu błędów. Każda ze wspomnianych czynności, wpisuje się w tradycyjny model
+monitorowania znany jako \textbf{Monitoring On-Premise}. Posiada on, oprócz długiego czasu istnienia, wiele zalet takich jak:
+\begin{itemize}
+    \item zlokalizowany jest blisko monitorowanego systemu, co oznacza często, że znajduje się wewnątrz tej samej, prywatnej, sieci,
+    \item prywatna sieć, znacząco podnosi bezpieczeństwo danych zebranych z monitorowanych komponentów, ponieważ pakiety nie muszą,
+    wędrować w globalnej sieci,
+    \item ciągła dostępność, z uwagi na bycie faktyczną częścią sieci internetowej, która może działać niezależnie od globalnej,
+    \item elastyczność, dzięki której wbudowane rozwiązanie może zostać ściśle dopasowane do konkretnych potrzeb
+\end{itemize}
+
+Mimo wymienionych zalet, rozwiązanie szyte na miarę, ma jedną znaczącą wadę. Koszt oraz czas potrzebny na jego wstępne przygotowania oraz
+późniejszego dopasowywania. To co, oferuje chmura w tym aspekcie, można podsumować w następujący sposób:
+\begin{itemize}
+    \item[niższe koszty] - chodzi tutaj zarówno o początkowy kapitał, potrzebny, w przypadku standardowego modelu biznesowego, do
+    rozpoczęcia działalności. Dla firm informatycznych jest to koszt przygotowania rozwiązania, wśród których znaleźć
+    można koszty opłacania programistów, zakupu sprzętu. Innym ważnym elementem jest czas. Implementacja nowych funkcji, testy, naprawa
+    błędów oraz ostatecznie wsparcie, prócz aspektu czasowego, również stanowią element kosztorysu. Większość z nich znika, w momencie
+    kiedy cała infrastruktura oraz aplikacja są już dostępne w chmurze, a potencjalne przedsiębiorstwo musi jedynie opłacać korzystanie z nich.
+    \item[brak kosztów infrastruktury] - wynika on, z omawianego wyżej punktu. Pod pojęciem infrastruktury, rozumieć tutaj należy nie
+    tylko fizyczny sprzęt, ale również i wszelkie oprogramowania konieczne dla napisania programu. Przykładowo, już od pewnego czasu,
+    dostępne są, w pełni funkcjonalnego, edytory online, w wielu miejscach nie ustępujące standardowym, instalowanym na komputerach.
+    Wspomniane \textbf{IDE}\footnote{IDE - \textit{Integreted Development Environment}, zintegrowane środowiska programistyczne}, zgodnie
+    z nazwą integrują się z innymi aplikacjami, również dostępnymi przez przeglądarkę i działającymi w chmurze, których zadaniem jest
+    testowanie kodu w sposób automatyczny. Wynika stąd, że konieczność kupowania drogich komercyjnych licencji, przestaje nią być.
+    \item[wsparcie techniczne] - osoby, posiadające wysoką wiedzę ekspercką w danej dziedzinie, dostępne są poza organizacją. Ponownie,
+    znika koszt zatrudnienia, i w dalszej kolejności opłacania, programistów posiadających szczegółową wiedzę na temat serwisów, pozwalających
+    na automatyczne monitorowanie, czy też testowanie aplikacji. Wszystko dostępne jest w modelu \textbf{SaaS} - \textit{Software As A Service}.
+    To przedsiębiorstwa, je oferujące, zatrudniają odpowiednio wyszkolonych pracowników, jako pomoc techniczną w danej dziedziczenie \cite{maas_does_it_work}.
+\end{itemize}
+
+Pod szyldem \textbf{MaaS} znaleźć można wszelkiego rodzaju aplikacja komputerowe, których głównym celem jest dostarczenie użytkownikowi końcowemu (typowo administratorowi) zestawu narzędzi, pozwalających na monitorowanie docelowego systemu. Docelowo, oprogramowanie tego typu, to natychmiastowy dostęp do gotowego rozwiązania,
+zaprojektowanego z myślą o wsparciu serwerów, baz danych, sieci (w tym również urządzeń sieciowych), dysków twardych
+oraz ostatecznie samych aplikacji. Co ciekawe, \textbf{MaaS} może być również zastosowany do monitorowania
+samej chmury obliczeniowej oraz samego siebie. 
