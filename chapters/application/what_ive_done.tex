@@ -1,0 +1,219 @@
+\newglossaryentry{keystone}{
+    name={Keystone},
+    description={Aplikacja o kluczowym znaczeniu dla chmury obliczeniowej \textbf{OpenStack}. Dzięki niej możliwe jest tworzenia nowych użytkowników, zarządzania ich uprawnieniami oraz ostatecznie autentykacja i autoryzacja}
+}
+\newglossaryentry{frontend}{
+    name={Frontend},
+    description={odnosi się, w przypadku aplikacji komputerowych, do tych ich części, która jest bezpośrednio widoczna dla użytkownika końcowego. Z nią też, użytkownik wchodzi
+        w interakcje rozumiane jako akcje. Bezpośrednim ich skutkiem jest komunikacja z warstwą \textbf{backend'u}, przetwarzającą żądania i zwracającą wynik. Rezultaty są później, prezentowane
+        użytkownikowi, przykładowo, w postaci tabeli lub okna dialogowego}
+}
+\newglossaryentry{backend}{
+    name={Backend},
+    description={w najprostszym tego słowa rozumieniu, znajduje się za częścią
+        wizualną aplikacji (\textbf{frontend}) i w oczywisty sposób nie jest bezpośrednio widoczny dla
+        użytkownika. Innymi słowy, nie musi wcale wiedzieć o jego istnieniu lub znać jego poziomu złożoności.
+        Zadaniem, tej warstwy, jest odebrania żądania, przetworzenie go i zwrócenie wyniku, nie zajmując
+        się szczegółami związanymi z graficzną wizualizacją rezultatów}
+}
+\newglossaryentry{node_js}{
+    name={NodeJS},
+    description={oparty o silnik \textbf{Chrome V8}, oferuje rozwiązanie pozwalająca na uruchamiania kodu \textbf{JavaScript} poza jej tradycyjnym
+        środowiskiem, a mianowicie, jako pełnoprawny program, podobny między innymi do \textbf{Google Chrome} czy też \textbf{Notatnika}. Jego
+        dewizą jest \textbf{JavaScript on Server}. Dzięki niemu możliwe jest tworzenia kodu serwera w języku originalnie zaprojektowanym
+        do wzbogania interfejsu użytkownika na stronach internetowych, podobnie jak to jest czynione w językach takich jak \textbf{Java} lub \textbf{Python}}
+}
+\newglossaryentry{wsgi}{
+    name={WSGI},
+    description={Specyfikacja dla języka Python opisująca komunikacją między serwerem a aplikacją. 
+    Stanowi zbiór wytycznych oraz reguł realizujące podwaliny spójnej bazy dla tworzonych programów.
+    Dzięki temu większość aplikacji, napisanych dla WSGI, jest w stanie współpracować, bez żadnych lub
+    z małymi modyfikacjami, z większością implementacji WSGI
+    }
+}
+
+\section{Wkład w część praktyczną}
+\label{chapter:application:own_work}
+
+Autor, poniższej pracy dyplomowej, zaangażowany był w tworzenia modyfikacji dla praktycznie wszystkich z omawianych powyżej komponentów i w przyszłości będzie kontynuował pracę związaną z ich dalszą rozbudową.
+Projekty, oryginalnie zaproponowane, przez firmę HP (takie jak na przykład: \textbf{monasca-api} lub \textbf{monasca-thresh})
+są dostosowywane aby zintegrować platformę \textbf{ELKStack} z \textbf{monasca}.
+Jeżeli chodzi o część odpowiedzialną za dodania \textbf{LaaS}, autor pracy dyplomowej zajmuje się
+tworzeniem nowych rozwiązań, które dotykają więcej niż jednego aspektu. Tematyka rozciąga się
+od zadań związanych z \glslink{frontend}{\textbf{frontend'em}} 
+do \glslink{backend}{\textbf{backend'u}}, poprzez więcej niż jeden język lub paradygmat programowania.
+
+\subsection{Kibana + Keystone}
+\label{chapter:application:own_work:kibana_and_keystone}
+
+\textbf{Kibana} domyślnie nie posiada włączonego żadnego mechanizmu autentykacji użytkownika, który
+chciałby przeglądać dane, przechowywane w \textbf{ElasticSearch}(\ref{chapter:application:elkstack:elasticsearch}), 
+przy jej użyciu. Istnieje prosty mechanizm, który opiera się na standardowym logowaniu przy użyciu
+hasła i nazwy użytkownika. Jednakże, z uwagi na późniejsze plany związane z omawianą aplikacją, a które 
+omówione zostaną w kolejnym rozdziale, było to rozwiązanie niewystarczające. Fakt ten wynika z natury
+integracji, która odbywa się w chmurze obliczeniowej. Konieczne było rozszerzenie Kibany o możliwość
+komunikacji z \glslink{keystone}{\textbf{Keystone}}.
+
+Ponieważ dostęp do \textbf{Kibana}, w przypadku tworzonego projektu, dostępny jest z poziomu \glslink{horizon}{\textbf{Horizon}}, inni
+członkowie zespołu zajęli się przygotowaniem logiki odpowiedniej dla uruchomienie jej ze wspomnianego miejsca. Autor pracy 
+dyplomowej, zaprojektował odpowiedni mechanizm autentykacji zrealizowany według następujących punktów.
+
+    \subsubsection{Na poziomie serwera}
+    W przypadku \textbf{Kibana} należy rozróżnić dwie części składowe - klienta oraz serwer. Dodanie autentykacji
+    na poziomie frontend'u nie byłoby rozwiązaniem poprawnym. Użytkownik końcowy miałby możliwość faktycznego
+    uruchomienie strony oraz pobrania danych zanim wykryte by zostało, że nie ma koniecznych do tego uprawnień.
+    Wolumin logów, a tym samych danych, które \textbf{Kibana} pobiera z \textbf{ElasticSearch} jest bardzo duży.
+    Z tego powodu obciążania komponentów aby zwrócić dane potencjalnie niepotrzebnie zostało
+    natychmiastowo wykluczone. Z tego też powodu odpowiednia implementacja znalazła się po stronie serwera.
+    
+    \subsubsection{Jako filtr}
+    \begin{listing}
+        \begin{minted}{js}
+app.use('/elasticsearch', require('./lib/keystone'));
+        \end{minted}
+        \label{chapter:application:own_work:kibana_and_keystone:filter_code}
+        \caption[Autoryzacja z Keystone w Kibana]{Autoryzacja z Keystone w Kibana, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana/blob/master/src/server/app.js}}
+    \end{listing}
+    Zrealizowana została jako filtr. Jest to specyficzna część aplikacji internetowych, która
+    uruchamia się dla wszystkich lub wybranych żądań odbieranych przez serwer.
+    
+    \begin{listing}
+        \begin{minted}{js}
+var config = require('../../config');
+var express = require('express');
+
+var router = module.exports = express.Router();
+
+if (config.keystone) {
+    router.use(require('./auth'));
+    router.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.send({message: err.message});
+    });
+} else {
+    router.use(function (req, res, next) {
+        next();
+    });
+}
+        \end{minted}
+        \label{chapter:application:own_work:kibana_and_keystone:filter_configuration}
+        \caption[Autoryzacja z Keystone w Kibana - konfiguracja]{Autoryzacja z Keystone w Kibana - konfiguracja, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana/blob/master/src/server/lib/keystone/index.js}}
+    \end{listing}
+    
+    Warto dodać, że pomimo wbudowania filtru do \textbf{Kibana}, nie oznacza to, że musi on być aktywny. Kod
+    przedstawiony na listingu \ref{chapter:application:own_work:kibana_and_keystone:filter_configuration} oznacza,
+    że będzie on włączony jedynie jeśli w pliku konfiguracyjnym dla serwera \textbf{Kibana} znajdzie się odpowiedni
+    segment zawierający następujące informacje:
+    \begin{itemize}
+        \item adres URL serwera \textbf{Keystone},
+        \item port dostępu nieuprzywilejowanego,
+        \item port dostępu uprzywilejowanego
+    \end{itemize}
+    
+    Filtr posiada jedno wejście i co najmniej dwa, istotne z punktu widzenia omawianego zagadnienia, wyjścia:
+    \begin{itemize}
+        \item[sukces] - jeśli autoryzacja użytkownika się powiedzie, filtr zwraca logiczną wartość - prawda,
+        która jest sygnałem dla dalszego przetwarzania żądania,
+        \item[blokada] - sytuacja odwrotna do sukcesu. W tym momencie, żądania zostaje odrzucone
+        i pojawia się odpowiedni komunikat informujący użytkownika o zbyt niskich uprawnieniach.
+    \end{itemize}
+    
+    \subsubsection{Dla komunikacji z ElasticSearch}
+    Część serwera \textbf{Kibana} nie zajmuje się jedynie dostarczeniem dostępu do bazy danych
+    \textbf{ElasticSearch}. Poza tym, przy jego pomocy, serwowane są media właściwe dla stron internetowych
+    (pliki HTML, CSS, JS) lub inne media. Sprawdzania praw użytkowników dla
+    każdego z takiego typu żądań okazuje się być wysoce nieefektywne, ponieważ nie ma faktycznego
+    przełożenia na aspekt bezpieczeństwa. Z tego tez powodu, jedynie żądania o dane, są wcześniej 
+    weryfikowane, aby zezwolić lub zabronić \textbf{Kibana}, i w dalszej kolejności użytkowniki,
+    dostępu do nich. Omówione powody, wynikają z natury filtrów, które uruchamiania są dla 
+    wszystkich żądań trafiających pod konkretny adres.
+
+Kompletny kod źródłowy aplikacji dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana}.
+
+\subsection{keystone-v3-client}
+Omówiona w \ref{chapter:application:own_work:kibana_and_keystone} funkcjonalność, zaimplementowana w \textbf{Kibana}, nie byłaby możliwa
+bez biblioteki do komunikacji z \textbf{Keystone} w aplikacji napisanej w \glslink{node_js}{\textbf{NodeJS}}.
+W momencie jej implementacji, żadna z istniejących bibliotek nie wspierała nowej wersji \textbf{Keystone} - \textbf{V3}. 
+Było to bodźcem dla napisania własnej, której autor poniższej pracy dyplomowej, jest, na obecną chwilę, jedynym autorem. Zwrot \textit{obecna chwila}
+jest tutaj istotny, ponieważ \textbf{biblioteka} została udostępniona publicznie na licencji \textbf{Apache V2}. Skutkiem tego jest to, że
+każdy programista z dowolnego miejsca na świecie, może stać się jej współtwórcą. 
+
+Jak zostało wspomniane powyżej, nadrzędnym celem \textbf{keystone-v3-client} jest dostarczenie programistom \textbf{NodeJS} możliwości
+komunikacji z nową wersją \textbf{Keystone}. Sam \textbf{Keystone} jest tak naprawdę uruchamiany jako serwer, z którym komunikować się można,
+wysyłając żądania HTTP. Lista możliwych żądań jest zbyt długa, aby w pełni ją tutaj przedstawić 
+\footnote{Pełna specyfikacja \textbf{Keystone} dostępna jest pod adresem \url{http://developer.openstack.org/api-ref-identity-v3.html}}. Jednak,
+dla każdego z możliwych adresów \textbf{keystone-v3-client} udostępnia odpowiednie funkcje, która pozwalają te żądania wykonać.
+    \begin{listing}
+        \begin{minted}{js}
+module.exports.tokens = require('./tokens');
+module.exports.service_catalog = require('./service-catalog');
+module.exports.endpoints = require('./endpoints');
+module.exports.domains = require('./domains');
+module.exports.projects = require('./projects');
+module.exports.users = require('./users');
+module.exports.groups = require('./groups');
+module.exports.credentials = require('./credentials');
+module.exports.roles = require('./roles');
+module.exports.policies = require('./policies');
+        \end{minted}
+        \label{chapter:application:own_work:keystone_v3_client:endpoints}
+        \caption[Definicja obsługiwanych adresów \textbf{Keystone}]{
+            Definicja obsługiwanych adresów \textbf{Keystone} jako moduł NodeJS, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client/blob/master/lib/keystone/index.js}}
+    \end{listing}
+
+Kompletny kod źródłowy biblioteki dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client}.
+Została ona również opublikowana na \url{https://www.npmjs.com}. 
+Opis paczki znaleźć można pod adresem \url{https://www.npmjs.com/package/keystone-v3-client}
+
+\subsection{monasca-log-api}
+
+    \subsubsection{monasca-log-api - Java}
+    Implementacja \textbf{monasca-log-api} pojawiła się jako pierwsza. Była ona suplementem dla \textbf{monasca-api}, również napisanego w Java.
+    Jednakże, podczas gdy drugi z omawianych komponentów służy do pracy z alarmami oraz metrykami, \textbf{monasca-log-api} pozwala na zapisywania
+    logów do bazy danych. Autor pracy dyplomowej, mimo że nie jest oryginalnym autorem tego rozwiązania, miał duży wkład w następujące aspekty
+    implementacji:
+    \begin{itemize}
+        \item poprawa logiki aplikacji odnośnie dodawania meta danych do odbieranych logów,
+        \item naprawa zauważonych błędów,
+        \item podniesienie jakości kodu,
+        \item lepszą walidacją rozmiaru żądania, tym samym maksymalnego rozmiaru logu
+    \end{itemize}
+
+Odpowiedź na trend w przenoszeniu komponentów, będących częścią chmury obliczeniowej OpenStack, na język Python. Autor, poniższej pracy dyplomowej, jest autorem tej implementacji \textbf{monasca-log-api}. Na obecną chwilę jest ona komplementarna do wersji w języku Java. Całość została oparta o szybki serwer \textbf{Gunicorn} kompatybilny z \glslink{wsgi}{\textbf{WSGI}}. Dzięki
+temu aplikacja może zostać łatwo przeniesiona na inną implementacją \textbf{WSGI}, bez większych trudności,
+jeśli zajdzie taka potrzeba. Implementacja obejmuje:
+\begin{itemize}
+    \item przygotowanie całej architektury aplikacji, włącznie z:
+    \begin{itemize}
+        \item ładowaniem ustawień,
+        \item rozłożeniem kodu na logiczne, współpracuje ze sobą, elementy,
+        \item klasy odpowiedzialne za obsługę żądań HTTP
+    \end{itemize}
+    \item utworzeniem logiki odnośnie walidacji nadchodzących wiadomości:
+    \begin{itemize}
+        \item poprawna struktura nagłówków żądania,
+        \item dwu etapowa walidacja rozmiaru wiadomości,
+    \end{itemize}
+    \item autoryzacja dostępu,
+    \item mechanizm weryfikacji stanu (z angielskiego \textbf{healtcheck}),
+    \item tworzenia struktury gotowej do przekazania dla \textbf{monasca-log-transformer}
+\end{itemize}
+
+Warto w tym miejscu dodać, że \textbf{monasca-log-api}, w języku Python, spotkała się z dużo
+większym odzewem ze strony społeczności. Na obecną chwilę, kod aplikacji, ma więcej niż 1 kontrybutora.
+Kod, wersji Java oraz Python, znajduje się pod adresem \url{https://github.com/openstack/monasca-log-api/}.
+Dodatkowo, równoległe do samego API, autor pracy dyplomowej, rozszerzył rolę \textbf{Ansible} (\ref{chapter:application:architecture:installation:ansible}) o
+możliwość instalacji, na wskazanych hostach, napisanej przez siebie implementacji. Kod źródłowy, wspomnianego komponentu, znajduje się
+pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-api}.
+
+\subsection{ORM dla monasca-api oraz monasca-thresh}
+
+\subsection{Problem wielu linii w monasca-log-agent}
+
+\subsection{Rotacja logów}
+
+\subsection{Ocena kodu tworzonego w społeczności}
+
+\subsection{Nominacja do status code-reviewer}
+
+\todo[inline]{przejrzeć resztę kontrybucji i wpisać}
