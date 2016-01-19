@@ -31,6 +31,14 @@
     z małymi modyfikacjami, z większością implementacji WSGI
     }
 }
+\newglossaryentry{orm}{
+    name={ORM},
+    description={
+        Mapowanie obiektowo-relacyjne jest techniką według, której możliwe jest reprezentowanie bazy danych pod postacią obiektów.
+        Inną nadrzędną cechą jest możliwość współpracy z więcej niż jednym silnikiem bazodanowym bez konieczności,
+        lub z małymi zmianami, bazy kodu.
+    }
+}
 
 \section{Wkład w część praktyczną}
 \label{chapter:application:own_work}
@@ -207,13 +215,187 @@ możliwość instalacji, na wskazanych hostach, napisanej przez siebie implement
 pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-api}.
 
 \subsection{ORM dla monasca-api oraz monasca-thresh}
+Oryginalnie oba z komponentów zostały zaprojektowane z myślą o wsparciu dla relacyjnej bazy danych \textbf{MySQL}. 
+Pierwszą z kontrybucji dla \textbf{monasca} było rozszerzenie obsługi baz danych o \textbf{PostgreSQL}. Nie zostało
+to jednak osiągnięte poprzez dodania nowego zestawu klas, napisanych z myślą o wsparciu jedynie tej bazy danych. Zamiast
+tego, wprowadzono rozwiązanie znane pod nazwą \glslink{frontend}{textbf{ORM}}.
+Autor, poniższej pracy dyplomowej, nie jest oryginalnym autorem rozwiązania. Propozycja, która zostało,
+przedstawiona społeczności, jest dziełem jednego z programistów projektu. Niemniej, twórca pracy magisterskiej był, w późniejszym czasie,
+odpowiedzialny za następujące aspekty tej części całego projektu:
+
+    \subsubsection{Poprawa jakości i struktury kodu}
+    W ramach tego punktu, autor, zajął się między innymi ogólnym podniesienie jakości. Zrealizowane to zostało
+    na trzech płaszczyznach:
+    \begin{itemize}
+        \item[monasca-common]
+        Przepisania od nowa modelu mapowania obiektowo-relacyjnego. Warto dodać, że projekt \textbf{monasca-common} stanowi
+        wspólną bazę dla wszystkich projektów \textbf{monasca}. Z tego też powodu, model danych zaimplementowany jest
+        właśnie w tym projekcie. Nowa wersja warstwy modelu danych cechuje się:
+        \begin{itemize}
+            \item wspólną bazą dla kluczy głównych, które zdefiniowane są jedynie na poziomie klasy abstrakcyjnej,
+            \item jednolitym podejściem do zarządzania obiektami opisujących dane czasowe,
+            \item zgodnym z zalecaniami sposobem obliczenia wartości \textit{hashCode} oraz \textit{equals}
+            \footnote{\textit{hashCode} oraz \textit{equals} - dwie podstawowe metody implementowane przez każdą klasę w języku Java. Stanowią one
+                kluczowy element, między innymi, w pracy z kolekcjami}
+        \end{itemize}
+        \item[monasca-api]
+        
+        \item[monasca-thresh]
+    \end{itemize}
+    
+    \subsubsection{Dopasowanie rozwiązania do MySQL i PostgreSQL}
+    Mimo, że zastosowanym rozwiązaniem był ORM, okazało się, że dopasowanie modelu danych, tak by pasował do 
+    schematu bazy danych \textbf{MySQL} oraz \textbf{PostgreSQL}, jest obarczone dużym stopniem trudności. 
+    W dużej mierze napotkane przeszkody wynikały z:
+    \begin{itemize}
+        \item zastosowaniu dla \textbf{MySQL} typów danych SQL właściwych jedynie dla tej bazy danych,
+        \item trudną w zamodelowaniu specyficznej struktury oraz zależności między tabelami,
+        \item oparciem relacji dla niektórych encji o typ danych UUID
+    \end{itemize}
+    
+    Warto nadmienić, że część ze wspomnianych problemów została zaadresowane również
+    w projekcie \href{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-schema}{ansible-monasca-schema}.
+    Autor poniższej pracy dyplomowej, był odpowiedzialny za:
+    \begin{itemize}
+        \item zamianę typu danych \textit{ENUM} na model reprezentacji tego typu wartości, oparty
+        o pojedyncza tabelę. Głównymi zaletami tego rozwiązania są:
+        \begin{itemize}
+            \item zachowanie wymuszania spójności danych,
+            \item możliwość modyfikacji stałych poprzez operacji \textbf{INSERT}, \textbf{DELETE} oraz \textbf{UPDATE}. Warto
+            dodać, że dla tabeli tego typu zmiany są operacją trywialną. Nie jest to jednak prawda dla wartości ENUM, ponieważ
+            wymaga to zmian bezpośredniości na deklaracji DDL danej tabeli
+        \end{itemize}
+        Warto dodać, że konieczne było zaprojektowanie nowych tabel, aby posiadały jedną tylko kolumnę, będącą jednocześnie
+        wartością oraz kluczem głównym. Celowe złamania zasady normalizacji baz danych podyktowane było, koniecznością
+        dopasowania modelu danych, aby pasował zarówno do \textbf{MySQL} oraz \textbf{PostgreSQL} oraz, co ważniejsze,
+        zminimalizowaniem ilości koniecznych do wprowadzania zmian w \textbf{monasca-api}, na poziomie warstwy dostępu do danych.
+        \item zamianą typu danych \textbf{MEDIUMTEXT} na \textbf{LONGTEXT}. Podczas gdy drugi ze wspomnianych typów jest równoważnie
+        wspierany dla obu baz danych, \textbf{MEDIUMTEXT} działa prawidłowo jedynie dla \textbf{MySQL}
+    \end{itemize}
+    
+    Ostatecznie, oprócz zmian na poziomie modelu danych oraz schematu bazy danych, autor miał wkład w poprawę oraz udoskonalenie
+    kodu warstwy dostępu do danych. Najważniejszymi aspektami tej części było utworzenia odpowiednich klas, implementujących logikę
+    biznesową, oryginalnie dostępną jedynie dla \textbf{MySQL}. Podstawowym warunkiem akceptacji ze strony społeczności było
+    odzwierciedlania wszystkich założeń zaimplementowanych dla \textbf{MySQL}, tak aby możliwe było wykorzystanie mapowania obiektowo-relacyjnego
+    zarówno z bazą danych \textbf{PostgreSQL}, jak i \textbf{MySQL}.
+    
+    \subsubsection{Migracja bazy danych w Ansible}
+    Dopełnieniem wprowadzanie \textbf{ORM} dla projektów \textbf{monasca-api} oraz \textbf{monasca-thresh} było spełnienie
+    wymagań społeczności odnośnie pakietu migracji danych. Żądania dodania tego typu funkcjonalności było następstwem zmian, jakie
+    zostały wprowadzona na poziomie definicji schematu bazy danych dla \textbf{MySQL}. W ramach implementacji, autor poniższej pracy dyplomowej,
+    rozszerzył rolę \textbf{ansible-monasca-schema} o skrypt migracyjny, który miał zapewnić:
+    \begin{itemize}
+        \item zamianę wartości typu \textbf{ENUM} na łańcuchy tekstowe oraz utworzenie dodatkowych tabel
+        \item napisanie procedury, której zadaniem było konwersja danych na nowy format przechowywania,
+        \item zmiana typów kolumn, które były kompatybilne jedynie z \textbf{MySQL}
+    \end{itemize}
 
 \subsection{Problem wielu linii w monasca-log-agent}
+\label{chapter:application:own_work:monasca_log_agent}
+
+W pewnym momencie, stało się jasne, że komponent \textbf{monasca-log-agent} nie wspiera wpisów w logach, znajdujących się w więcej
+niż jednej linii. Twórca pracy dyplomowej był jednym z dwóch autorów rozwiązania, które implementowała wyżej opisaną funkcjonalność.
+Z uwagi na fakt, że \textbf{monasca-log-agent} jest specjalnie skonfigurowaną instancją \textbf{Logstash}, całość wdrożenia została
+umieszczona w roli\textbf{Ansible} - \href{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent}{ansible-monasca-log-agent}.
+Główną ideą było dodania dodanie zestawu stałych, opisujących konfiguracją segmentu filtracji w \textbf{Logstash}.
+
+\begin{listing}[H]
+    \begin{minted}{yaml}
+{
+    name: "multiline",
+    type: '"go"',
+    configuration: {
+        pattern: '"^\[(?!signal)\w+\]"',
+        what: '"previous"',
+        negate: '"true"'
+    }
+}
+    \end{minted}
+    \label{chapter:application:own_work:monasca_log_agent:filter_example}
+    \caption[Detekcja wielu liniach dla języka GOLang]{
+        Detekcja wielu liniach dla języka GOLang, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/vars/main.yml}}
+\end{listing}
+
+Przykładowy kod filtru, widoczny na listingu \ref{chapter:application:own_work:monasca_log_agent:filter_example}, wykorzystuje wtyczkę
+\href{https://www.elastic.co/guide/en/logstash/current/plugins-filters-multiline.html}{multiline} dla aplikacji \textbf{Logstash}.
+Najistotniejszym elementem, w zaprezentowanym kodzie, jest sekcja \textit{configuration}. Jest to mapowanie w stosunku 1:1, odpowiadające
+konfiguracji wspomnianego filtra. Poszczególne elementy oznaczają:
+\begin{itemize}
+    \item[pattern] - wyrażenie regularne, wykorzystane do dopasowania linii kończącej lub rozpoczynającej wydarzenia, zapisane w wielu liniach,
+    \item[what] - wskazuje, czy wartość \textit{pattern}, powinna być wykorzystana do dopasowania pierwszej lub ostatniej linijki odczytanej
+    z monitorowanego pliku,
+    \item[negate] - ściśle powiązane z dopasowaniem lub jego brakiem. Jeśli, korzystając z wyrażenia regularnego, nie uda się dopasować linii,
+    wartość logiczna takiego faktu, powinna zostać odwrócona. Jeśli wyrażenia zwróci fałsz, ustawienie \textit{negate} na \textit{true}, 
+    spowoduje, że faktyczną zwróconą wartością będzie logiczna prawda. Innymi słowy, w omawianym przykładzie, kolejne linie są częścią jednego
+    logu dopóki, dopóty wyrażenie regularne zwraca logiczny fałsz. 
+\end{itemize}
+
+\begin{listing}[H]
+    \begin{minted}{text}
+{% if log_filters is defined and log_filters|length > 0 %}
+   {% if custom_log_filters is defined and custom_log_filters|length > 0 %}
+       {% set log_filters = log_filters + custom_log_filters %}
+   {% endif %}
+       filter {
+           {% for filter in log_filters %}
+               if {{ filter.type }} in [tags] {
+                   {{ filter.name }} {
+                       {% for key,val in filter.configuration.items() %}
+                           {{ key }} => {{ val }}
+                       {% endfor %}
+                    }
+                }
+            {% endfor %}
+        }
+{% endif %}
+    \end{minted}
+    \label{chapter:application:own_work:monasca_log_agent:filter_applying}
+    \caption[Wpisanie filtrów do pliku konfiguracyjnego \textbf{Logstash}]{
+        Wpisanie filtrów do pliku konfiguracyjnego \textbf{Logstash}, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/templates/agent.conf.j2}}
+\end{listing}
+
+Wspomniany filtr z listingu \ref{chapter:application:own_work:monasca_log_agent:filter_example}, jest w dalszej części umieszczany
+w pliku konfiguracyjnym \textbf{Logstash} z wykorzystaniem kodu z listingu \ref{chapter:application:own_work:monasca_log_agent:filter_applying}. 
+Wartymi omówienia cechami jest tutaj:
+\begin{itemize}
+    \item[elastyczność] - sekcja filtracji zostanie umieszczona w wynikowym pliku, tylko jeśli zostaną zdefiniowane jakiekolwiek filtry,
+    \item[spójność] - wspomniana w \ref{chapter:application:own_work:monasca_log_agent:filter_example} sekcja \textit{configuration}, jest
+    w 100 procentach kompatybilna z dostępnymi dla danego filtra opcjami konfiguracyjnymi,
+    \item[możliwość rozszerzenia] - kod jest niewrażliwy na ilość potencjalnych filtrów. Jest on zdolny do umieszczania zarówno konfiguracji dla jednego
+    filtra, ale potrafi też wpisać 100 innych. 
+\end{itemize}
 
 \subsection{Rotacja logów}
+W trakcie tworzenie projektu okazało się, że część z wewnętrznie używanych aplikacji, nie obsługuje automatycznej rotacji logów. Jest
+to operacja, w wyniku której plik logów, po przekroczeniu pewnej wartości granicznej, ulega archiwizacji. Autor, poniższej pracy dyplomowej,
+był częścią dyskusji, w wyniku której wybrano aplikację \textbf{logrorate}. Całość implementacji, jest już autorstwa twórcy pracy magisterskiej.
+Została ona utworzone jako rola \textbf{Ansible}. Dzięki temu uzyskano rozwiązania możliwe do zastosowania na dowolnej liczbie hostów.
 
 \subsection{Ocena kodu tworzonego w społeczności}
+Autor jest obecny w pracach całej społeczności jako \textbf{review}'er wszystkich zmian do dowolnego projektu, niezależnie od tego, czy 
+proponowany kod jest częścią nowej funkcjonalności, czy też jest to naprawa zauważonych błędów i uchybień. Dzięki temu statusowi, ma on
+możliwość oceny jakości kodu, wskazywania potencjalnych problemów lub zgłaszania niepoprawnej implementacji w stosunku do komponentów zależnych.
+Proces oceny oparty jest o 3, niezależne, od siebie oceny:
+\begin{itemize}
+    \item[code review] - odnosi się jedynie do samego kodu. Ocena pozytywna jest sumą elementów takich jak:
+    \begin{itemize}
+        \item poprawne wykorzystania języka programowania,
+        \item efektywne korzystanie ze struktur danych,
+        \item poprawne skorelowania nowego kodu ze starym,
+    \end{itemize}
+    \item[verified] -  ocena poprawności działania. Innymi słowy, funkcjonalność, którą zmiana, wprowadza lub poprawia, powinna działać
+    zgodnie z intencją autora oraz, przynajmniej, nie wpływać negatywnie na inne elementy,
+    \item[workflow] - jest oceną dosyć specyficzną z uwagi na istnienie wartości \textbf{-1}, którą autor zmiany może przyznać sobie sam.
+    Jest to informacja dla osób weryfikujących, że kod nie jest jeszcze gotowy i wymaga dalszej pracy. Z drugiej strony, ocena pozytywna w tej grupie,
+    jest najczęściej ostatnią z przyznawanych, która ostatecznie kwalifikuję zmianą jako zaakceptowaną. W wyniku tego, kod, który był
+    jedynie propozycją, wchodzi do głównej gałęzi
+\end{itemize}
+Swój wkład w tym aspekcie, autor stara się okazywać w każdym z projektów spod szyldy \textbf{monasca}.
 
-\subsection{Nominacja do status code-reviewer}
-
-\todo[inline]{przejrzeć resztę kontrybucji i wpisać}
+\subsection{Nominacja do statusu code-reviewer}
+Status \textbf{code-reviewer} jest, niejako, prestiżową rolą, jaką programista, będący obecny na \url{http://review.openstack.org} może mieć.
+Co ważniejsze, aby uzyskać ten status należy być nominowanym do niego. Sama nominacja pochodzi od innych członków, zrzeszonych wokół
+konkretnych projektów i jest ona jedynie warunkiem koniecznym. Finalna decyzja leży po stronie osób nadzorujących działania społeczności.
+Warto dodać, że status \textbf{code-reviewer} upoważnia programistę do finalnej akceptacji lub odrzucenia proponowanych zmian. W innym wypadku,
+możliwe jest jedynie ocena kodu i ewentualne przetestowanie zmiany. Jednak nie możliwe jest ocenienie jej na oceną, które kwalifikowała
+by zmianę do akceptacji.

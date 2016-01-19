@@ -238,3 +238,93 @@ parent={},%
 %
 }%
 }%
+\ifglsentryexists{orm}{}%
+{%
+\gls@defglossaryentry{orm}%
+{%
+name={ORM},%
+sort={ORM},%
+type={main},%
+first={ORM},%
+firstplural={ORMs},%
+text={ORM},%
+plural={ORMs},%
+description={Mapowanie obiektowo-relacyjne jest techniką według, której możliwe jest reprezentowanie bazy danych pod postacią obiektów. Inną nadrzędną cechą jest możliwość współpracy z więcej niż jednym silnikiem bazodanowym bez konieczności, lub z małymi zmianami, bazy kodu.},%
+descriptionplural={Mapowanie obiektowo-relacyjne jest techniką według, której możliwe jest reprezentowanie bazy danych pod postacią obiektów. Inną nadrzędną cechą jest możliwość współpracy z więcej niż jednym silnikiem bazodanowym bez konieczności, lub z małymi zmianami, bazy kodu.},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{healthcheck}{}%
+{%
+\gls@defglossaryentry{healthcheck}%
+{%
+name={Healthcheck},%
+sort={Healthcheck},%
+type={main},%
+first={Healthcheck},%
+firstplural={Healthchecks},%
+text={Healthcheck},%
+plural={Healthchecks},%
+description={Specjalny adres, dostępny w \textbf {REST}'owym API, który informuje odpytującego o stanie aplikacji. Zależnie od implementacji, można wyróżnić co najmniej dwa typy tego rodzaju komponentów: \begin {itemize} \item \end {itemize}},%
+descriptionplural={Specjalny adres, dostępny w \textbf {REST}'owym API, który informuje odpytującego o stanie aplikacji. Zależnie od implementacji, można wyróżnić co najmniej dwa typy tego rodzaju komponentów: \begin {itemize} \item \end {itemize}},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{loadbalancer}{}%
+{%
+\gls@defglossaryentry{loadbalancer}%
+{%
+name={Load Balancer},%
+sort={Load Balancer},%
+type={main},%
+first={Load Balancer},%
+firstplural={Load Balancers},%
+text={Load Balancer},%
+plural={Load Balancers},%
+description={Rodzaj aplikacji, najczęściej znajdujący się przed klastrem serwerów. Jego nadrzędnym zadaniem jest dystrybuowanie ruchu do poszczególnych węzłów według zadanego algorytmu. Operacja ta ma na celu, równomiernie rozłożenie obciążenia, które generowane jest przez klientów, łączących się do klastra},%
+descriptionplural={Rodzaj aplikacji, najczęściej znajdujący się przed klastrem serwerów. Jego nadrzędnym zadaniem jest dystrybuowanie ruchu do poszczególnych węzłów według zadanego algorytmu. Operacja ta ma na celu, równomiernie rozłożenie obciążenia, które generowane jest przez klientów, łączących się do klastra},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
