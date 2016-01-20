@@ -2,4 +2,56 @@
 \label{chapter:introduction}
 
 \section{Uzasadnienie i wybór tematu}
+
+\textbf{Zbieranie, analiza oraz wnioskowanie - znaczenie logów w chmurach obliczeniowych}. 
+
+Chmury obliczeniowe są obecnie w fazie, która w cyklu życia żywych organizmów, określana jest mianem gwałtownej ekspansji. Wiele firm
+informatycznych takich jak HP, organizacja stojąca za systemem operacyjnym RedHat inwestują swój czas w tematykę związaną z chmurami.
+Najczęściej wynikiem takich działań jest produkt końcowy - dystrybucja OpenStack według przepisu danej firmy. Ciekawostką jest tutaj,
+że, najbardziej obecnie popularne, rozwiązanie, jakim jest OpenStack, to produkt o otwartym kodzie źródłowym. Podobnie zresztą, jak
+aplikacje i biblioteki programistyczne, które powstały, i powstają dalej, jako produkt uboczny prac nad poszczególnymi komponentami
+wspominanej implementacji chmury obliczeniowej. Ten fakt, jest nade wszystko źródłem popularności i powodem, dla którego duże spółki, 
+korporacje informatyczne delegują zespoły programistów aby pracowały nad rozszerzaniem kodu źródłowego, czy to w kontekście
+dodawania nowych funkcji, czy też naprawy zauważonych błędów. Na obecną chwilę (styczeń 2016), na stronie \href{https://wiki.openstack.org/wiki/Contributors/Corporate}{\textbf{OpenStack Contributors}}\footnote{https://wiki.openstack.org/wiki/Contributors/Corporate}
+znaleźć można informację o ponad 310 firmach, które oficjalnie podpisały umowę o współpracy z fundacją OpenStack. Liczba, faktycznych kontrybutorów,
+jest jednak jeszcze większa, ponieważ wspomniana strona nie specyfikuje osób indywidualnie zaangażowanych w rozwój \textbf{OpenStack}.
+Przedstawiony powyżej rozmiar całej społeczności, przekłada się w sposób bezpośredni na szybki rozwój i szybkie adoptowania chmury przez firmy, chcące wykorzystywać ją do realizowania własnych celów biznesowych. Szybko rozwój, stanowił także bodziec lub spopularyzował usługi takie jak
+\textbf{PaaS}\footnote{Platform As a Service},
+\textbf{IaaS}\footnote{Infrastructure As a Service},
+\textbf{SaaS}\footnote{Software As a Service}.
+Ich wspólnym mianownikiem jest natychmiastowa dostępność, odpowiednio, platformy, infrastruktury lub oprogramowania, zaraz po zakupie. Ponadto wszystko
+odbywa się na wirtualnej płaszczyźnie z minimalnym wkładem własnym, ze strony kupującego. Zakres usług oferowanych w modelu \textit{as a service}, ciągle
+się rozszerza. Rozwój odbywa się, zarówno, w płaszczyźnie poziomej, gdzie kolejny aspekty związane z oprogramowaniem, można wykupić, podobnie do karnetu 
+na siłownię, jak i płaszczyźnie pionowej, gdzie coraz to lepsze aplikacje tworzone są, aby zastąpić stare. 
+Temat pracy dyplomowej, który można by przedstawić, po angielsku, jako \textbf{Logging As A Service}, sam w sobie nie jest zagadnieniem
+nowym. Niemniej, został on zaproponowany jako uzupełnienie dla projektu \textbf{monasca}\footnote{Nadrzędnym i pierwszym kontrybutorem była firma HP} przez
+firmę Fujitsu, której autor pracy dyplomowej jest pracownikiem. 
+Podczas, gdy \textbf{monasca} skupia się na zagadnieniu monitorowania aplikacji oraz maszyn, na których te aplikacje działają. Niemniej, informacje
+zebrane przez \textbf{monasca} są zobrazowaniem stanu w jakim znalazł się pewien komponent w danej chwili. Oprócz tych informacji, aplikacje produkują
+również logi. Nawiązując do tematu, okazuje się, że operacje takie jak zbieranie logów z dużego systemu informatycznego, ich przechowywanie
+czy tez w dalszej kolejności przetwarzanie ich na potrzeby analizy, jest dużo bardziej skomplikowane, niż mogłoby się wydawać. 
+Ponadto, źródło informacji, jakimi są kolejne rekordy zapisywane w plikach logów, często okazuje się nieocenione w odnajdywaniu
+pierwszych symptomów, które mogą oznaczać poważne problemy w poprawnym działaniu monitorowanych aplikacji.
+
+\todo[inline]{Czy odniosłem się do tematu w tym wstępie?}
+
 \section{Cel i zakres pracy}
+
+Głównym celem pracy magisterskiej jest zaprezentowanie rozwijającego się trendu \textbf{monitorowania jako serwisu} dla usług działających w chmurach,
+ze wskazaniem na \textbf{logowanie jako serwis}. Pomimo, że \textbf{LaaS}\footnote{Logging as a Service - logowanie jako serwis} 
+może być traktowane jako całkowicie odrębny segment, logicznie jest on częścią monitorowania i możliwości przezeń oferowane wpisują się w ten sam
+zbiór funkcjonalności. 
+Ponadto, uwago zostanie zwrócona również na aspekt pracy dyplomowej związany z otwarto źródłowym charakterem aplikacji oraz
+współpracy autora z zespołem programistów, zatrudnionych w firmie Fujitsu oraz tymi, którzy należą do, ciągle rosnącej, społeczności zrzeszonej wokół projektu \textbf{monasca}. 
+
+Ponadto, poprzez przedstawienie obecnej architektury oraz serwisów, wchodzących w skład całego rozwiązania, autor przedstawi złożoność projektu
+oraz swój osobisty wkład w jego dalszy rozwój, jak i w to, co do tej pory zostało już zaimplementowane. Warto dodać, że całość
+aplikacji tworzona jest na wielu płaszczyznach. Nadrzędnym aspektem jest praca zawodowa, którą autor pracy dyplomowej, wykonuje.
+Ważnym elementem jest także współpraca ze społecznością całego projektu, celem akceptacji proponowanych zmian
+oraz dyskusji, jak powinny wyglądać elementy, które w całym projekcie nie były jeszcze obecnie. Ostatecznie, celem autora 
+jest zaproponowanie nowej funkcjonalności w ramach pracy dyplomowej.
+
+Ostatecznie, celem autora pracy, poprzez omówienia monitorowania oraz logowania w modelu chmury obliczeniowej, jest zdobycie wiedzy
+teoretycznej, pozwalającej na lepsze zrozumienia tworzonego rozwiązania. Tym samym, autor zdobędzie potrzebne umiejętności i informacje, 
+które pozwolą na lepsze i rzeczowe komentowanie, omawianie oraz, ostatecznie także i, proponowanie nowych funkcji oraz rozwijanie
+już istniejących.  
