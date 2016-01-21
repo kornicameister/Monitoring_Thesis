@@ -1,5 +1,52 @@
 \section{Analizowanie logów}
 \label{chapter:logs:analysis}
 
-Analizowania informacji zawartych w logach nie jest operacją trudniejszą od analizy danych numerycznych, w poszukiwania
-pewnych wzorców czy też przewidywaniu anomalii. 
+Analizowania informacji zawartych w logach jest operacją skomplikowaną z uwagi na wysokie zróżnicowanie danych, jakie
+potencjalnie może być reprezentowane. Opisane w rozdziałach problemy, jakie spotyka się
+przy zbieraniu logów z pojedynczego lub rozproszonego systemu informatycznego oraz ich 
+późniejszej normalizacji do postaci wspólnej (\ref{chapter:logs:normalize}, \ref{chapter:logs:collecting}), 
+przekładają się na jeden wniosek. Ciężko jest przyjąć uniwersalny algorytm, będący w stanie sprostać temu wymaganiu.
+Z tego też powodu, to właśnie normalizacja, innymi słowy rozumieniu więcej niż jednego możliwego formatu, jest
+szczególnie istotne, jeśli dalsze zrozumieniu, i to w rozumienie zautomatyzowane, jest celem, który chce się 
+osiągnąć.
+
+    \subsection{Cele analizowanie logów}
+    
+    To dlaczego logi są analizowane, zależy silnie od kontekstu w jakim, ta operacja będzie się odbywać. 
+    Inne dane będą uzyskiwane z logów systemowych, inne z logów urządzeń sieciowych, a w zupełnie innej
+    kategorii znajdą się te informacje, które pochodzić będą od aplikacji działających na systemie. Warto
+    nadmienić, że podział, podobny do przedstawionego powyżej, obecny będzie również na poziomie
+    kolejnych komponentów systemu i programów. Pomijając jednak ten fakt, 
+    można wyróżnić dwa główne cele, z których wszystkie pozostałe będą wynikać,
+    a dla których, analiza logów jest istotna.
+    
+        \subsubsection{Zrozumienie znanych błędów}
+        W przypadku dowolnego programu, można wyróżnić zbiór problemów,
+        z którymi aplikacja styka się już na poziomie implementacji,
+        testów integracyjnych oraz wczesnego etapu działania. Pomimo, że większość tych błędów jest najczęściej
+        naprawiana w trybie natychmiastowym. Niestety nie wszystkie, mają szanse być zaadresowane w ten sposób.
+        Wyróżnić można taki ich podzbiór, gdzie błędy znajdują się niejako poza aplikacją i wynikają z użytych
+        mediów komunikacyjnych (kolejki, protokół) i ujawniają się jedynie w pewnych okolicznościach.
+        Przez taką, a nie inną, charakterystykę są ona ciężkie do wykrycia, tym samym zreprodukowania i naprawy.
+        Niemniej, z uwagi na wspomniane specjalne uwarunkowania, które mogą zostać wykryte, właśnie poprzez analizę logów,
+        możliwa jest wczesna reakcja. Tym też manifestuje się zrozumienie błędów, które zapisane zostały
+        w postaci kolejnych rekordów w pliku z logami. 
+        Z drugiej strony, należy wspomnieć, że zrozumienie znanych błędów, może też odnosić się to incydentów
+        bezpieczeństwa . Fakt niepoprawnego logowania, który powtarza się wielokrotnie, może wskazywać na próby
+        uzyskania nieautoryzowanego dostępu do jakiegoś serwisu. Jeśli są to ciągłe próby, gdzie dwoma, ciągle
+        zmieniającymi się zmiennymi, są użytkownik oraz hasła, będzie to najprawdopodobniej próba złamania hasła
+        metodą ataku siłowego-słownikowego \cite{logging_log_management}. 
+        
+        \subsubsection{Rozpoznanie nowych zagrożeń}
+        Umiejętność zrozumienia istniejących problemów, które mogą zostać wykryte poprzez manualną lub
+        automatyczną analizę logów, jest jedną stroną medalu. Po drugiej strony, znajduje się reagowania
+        na wydarzenia, które są nowe i nieznane. Są one najniebezpieczniejsze z uwagi na swoją 
+        , jeszcze niezrozumianą, naturę oraz implikacje. Cel, jakim jest analiza dążąca ku wykryciu tego
+        typu anomalii, jest jednak trudniejszy do osiągnięcia. Wymaga on dużo bardziej wyrafinowanych narzędzi
+        operujących na dużych zbiorach danych. Warto dodać, że analizowane rzędy wielkości mogą oscylować, i 
+        nierzadko przekraczać, terabajty \cite{logging_log_management}. 
+        
+    \subsection{Metody analizy}
+    
+        \subsubsection{Data Mining}
+        \subsubsection{Analiza statystyczna}
