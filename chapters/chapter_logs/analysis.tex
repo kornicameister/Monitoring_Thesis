@@ -48,5 +48,69 @@ osiągnąć.
         
     \subsection{Metody analizy}
     
-        \subsubsection{Data Mining}
+        \subsubsection{Korelacja danych}
+        \label{chapter:logs:analysis:methods:correlation}
+        Jest to technika analizowania informacji, która może zostać zastosowana nie tylko do logów. Niemniej
+        i tutaj okazuje się ona użyteczna. W ogólnym rozumieniu można ją sformułować w postaci następujących punktów:
+        \begin{itemize}
+            \item w danym momencie wystąpiło wydarzanie \textbf{A},
+            \item po wydarzeniu A, można było zaobserwować wydarzenie \textbf{B}, kilka razy w krótkim odstępie czasu.
+        \end{itemize}
+        Bazując na tym, możliwe jest, że potencjalnie kolejnym zdarzenie będzie wydarzenie \textbf{C}, o krytycznych
+        implikacjach dla działającego systemu. Takimi konsekwencjami mogłoby być na przykład wyłączanie pewnej 
+        aplikacji, a tym samym przerwa w działaniu usługi. Niemniej, z tak przedstawionego schematu, wynika kilka cech
+        tego podejścia. 
+        
+        Korelacja danych, jak sama nazwa wskazuje, umożliwia podjęcia odpowiednich kroków, jeśli dwa lub więcej wydarzeń
+        nastąpi po sobie. Co ważne, wydarzenie te mogą być potencjalnie wcale ze sobą niezwiązane i pochodzić z różnych
+        elementów systemu. Inną cechą, i jednocześnie wadą, jest to, że należy wcześniej wiedzieć, że pewna
+        sekwencja operacji, wydarzeń następujących po sobie (od razu lub w pewnym odstępie) czasu, doprowadzić może
+        do sytuacji krytycznej. Przykładowo, podmiotem korelacji danych mogłaby być kolejka buforująca 
+        komunikację między kilkoma komponentami. Kilka z nich zaczyna zgłaszać, poprzez kolejne rekordy w swoich logach,
+        że nie udało się wpisać nowej wiadomości do kolejki. W tym samym momencie, logi wspólnego medium, pokazują, że
+        kolejka zaczyna się przepełniać. Dla potencjalnego operatora jest to sygnał, że w najbliższym czasie, może dojść
+        do faktycznego przekroczenia limitu maksymalnego liczby nieodczytanych wpisów w buforze. Dodatkowo, wie on, że
+        kolejka spróbuje skorygować ten błąd poprzez usunięcie najstarszych elementów w swoim buforze oraz zresetowaniu
+        wskaźników dla wszystkich producentów oraz konsumentów. Podczas gdy, dla nadawcy wiadomości nie jest to problem,
+        wszyscy lub niektórzy odbiorcy stracili by możliwość odczytania pewnych informacji. Jeśli miałyby one
+        krytyczne znaczenie, zaraportowany problem, powstały poprzez skorelowania opisanych wyżej wydarzeń, miałby jeszcze
+        dalej idące w skutkach konsekwencje.
+        
+        Analiza tego typu, czyli dochodzenie, które sekwencje i powiązane ze sobą wydarzenie, niosą
+        potencjalnie niebezpieczne skutki, może odnosić się do:
+        \begin{itemize}
+            \item[skali mikro] - oparte jest na wiązaniu ze sobą wartości pól, które opisują dane wydarzenia lub
+            ich zbiory. Całe zdarzenie pozostaje tak samo istotne, ale to konkretne informacje w nich zawarte,
+            stają się składnikami równania opisującego korelację między poszczególnymi faktami. 
+            \item[skali makro] - jest rozszerzenie \textbf{skali mikro} o pobierania dodatkowych informacji z zewnętrznych 
+            źródeł dla wspomożenia procesu wnioskowania \cite{logging_log_management}. 
+        \end{itemize}
+        
         \subsubsection{Analiza statystyczna}
+        Metoda korelacji, jak zostało wspomniane w \ref{chapter:logs:analysis}, jest odpowiednim wyborem, jeśli
+        znane są warunki, potrzebne do wystąpienia zdarzenia utożsamianego jako niebezpieczne. Z tego też powodu,
+        jeśli niemożliwe jest sprecyzowanie takich wymagań, konieczne jest wykorzystanie narzędzi statystycznych.
+        
+        Na potrzeby wykrywania zdarzeń niepożądanych, można wyróżnić:
+        \begin{itemize}
+            \item[częstotliwość] - jest to najprostsza, możliwa do zastosowania technika, której opiera się,
+            zgodnie z nazwą, na częstotliwość. Istotne jet więc to, jak często wykrywana jest pewna wartość.
+            Zlokalizowanie jej może odnosić się zarówno do powtarzającej się identycznej wartości lub ciągłym
+            przekraczaniu zadanego progu. Przykładowo, można to odnieść, w pierwszym przypadku,
+            do analizy logów serwera WWW i ciągłych wystąpień tego samego adresu IP jako źródła żądania.
+            Dla administratora może być to sygnał właśnie podejmowanej próby ataku DDOS, jeśli dodatkowo
+            podobne raporty napływają dla innych adresów IP. Z drugiej strony, ciągłe przekraczania wartości
+            maksymalnej lub minimalnej, oznaczać może wysokie i stałe obciążanie procesora lub bardzo
+            niski czas odpowiedzi serwera. 
+            \item[linia bazowa] - idea tej techniki opiera się na ustaleniu progu lub bazy. Pozwala to
+            na określenie poziomu poniżej którego napływające informacje, wskazują na normalne działania
+            monitorowanego systemu. Z drugie strony, przekroczenie progu, będzie wskazywać na jego
+            anormalnego zachowanie. Niestety, podanie poprawnego modelu progu, oddającego
+            specyfikę systemu, jest zadaniem skomplikowanym. Aby ustalić bazę, konieczne jest przede wszystkim
+            zebranie dużych ilości danych oraz wsparcie osób, posiadających wiedzę ekspercką z danej dziedziny.
+            Ich doświadczenie jest konieczne, aby określić jak, w danym przypadku, objawiają się zachowania
+            niepożądane, a co uchodzi za zachowanie normalne. Ważne jest, że po pewnym czasie, to jest
+            po pojawieniu się nowych danych, ponownie wyznaczyć linię bazową. Bez tej operacji mogłoby się okazać,
+            że nie oddaje ona ciągłej dynamiki systemu i analiza jest niemiarodajna \cite{logging_log_management}.
+            \todo[inline]{ehhh....to much bullshit}
+        \end{itemize}
