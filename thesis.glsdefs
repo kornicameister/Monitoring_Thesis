@@ -1,0 +1,330 @@
+\ifglsentryexists{monitoring_agent}{}%
+{%
+\gls@defglossaryentry{monitoring_agent}%
+{%
+name={Agent},%
+sort={Agent},%
+type={main},%
+first={Agent},%
+firstplural={Agents},%
+text={Agent},%
+plural={Agents},%
+description={Aplikacja działająca na monitorowaniej maszynie},%
+descriptionplural={Aplikacja działająca na monitorowaniej maszynie},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{horizon}{}%
+{%
+\gls@defglossaryentry{horizon}%
+{%
+name={Horizon},%
+sort={Horizon},%
+type={main},%
+first={Horizon},%
+firstplural={Horizons},%
+text={Horizon},%
+plural={Horizons},%
+description={Aplikacje internetowa, do zarządzania chmurzę obliczeniową OpenStack},%
+descriptionplural={Aplikacje internetowa, do zarządzania chmurzę obliczeniową OpenStack},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{kafka_topic}{}%
+{%
+\gls@defglossaryentry{kafka_topic}%
+{%
+name={Topic},%
+sort={Topic},%
+type={main},%
+first={Topic},%
+firstplural={Topics},%
+text={Topic},%
+plural={Topics},%
+description={Topic jest w Kafce tożsamy z grupą. Podczas gdy jedna aplikacja wpisuje dane do wskazanej grupy, inne mogą czytać wiadomości zaadresowane do tej grupy. Możliwe jest również czytanie z większej ilości grup},%
+descriptionplural={Topic jest w Kafce tożsamy z grupą. Podczas gdy jedna aplikacja wpisuje dane do wskazanej grupy, inne mogą czytać wiadomości zaadresowane do tej grupy. Możliwe jest również czytanie z większej ilości grup},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{keystone}{}%
+{%
+\gls@defglossaryentry{keystone}%
+{%
+name={Keystone},%
+sort={Keystone},%
+type={main},%
+first={Keystone},%
+firstplural={Keystones},%
+text={Keystone},%
+plural={Keystones},%
+description={Aplikacja o kluczowym znaczeniu dla chmury obliczeniowej \textbf {OpenStack}. Dzięki niej możliwe jest tworzenia nowych użytkowników, zarządzania ich uprawnieniami oraz ostatecznie autentykacja i autoryzacja},%
+descriptionplural={Aplikacja o kluczowym znaczeniu dla chmury obliczeniowej \textbf {OpenStack}. Dzięki niej możliwe jest tworzenia nowych użytkowników, zarządzania ich uprawnieniami oraz ostatecznie autentykacja i autoryzacja},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{frontend}{}%
+{%
+\gls@defglossaryentry{frontend}%
+{%
+name={Frontend},%
+sort={Frontend},%
+type={main},%
+first={Frontend},%
+firstplural={Frontends},%
+text={Frontend},%
+plural={Frontends},%
+description={odnosi się, w przypadku aplikacji komputerowych, do tych ich części, która jest bezpośrednio widoczna dla użytkownika końcowego. Z nią też, użytkownik wchodzi w interakcje rozumiane jako akcje. Bezpośrednim ich skutkiem jest komunikacja z warstwą \textbf {backend'u}, przetwarzającą żądania i zwracającą wynik. Rezultaty są później, prezentowane użytkownikowi, przykładowo, w postaci tabeli lub okna dialogowego},%
+descriptionplural={odnosi się, w przypadku aplikacji komputerowych, do tych ich części, która jest bezpośrednio widoczna dla użytkownika końcowego. Z nią też, użytkownik wchodzi w interakcje rozumiane jako akcje. Bezpośrednim ich skutkiem jest komunikacja z warstwą \textbf {backend'u}, przetwarzającą żądania i zwracającą wynik. Rezultaty są później, prezentowane użytkownikowi, przykładowo, w postaci tabeli lub okna dialogowego},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{backend}{}%
+{%
+\gls@defglossaryentry{backend}%
+{%
+name={Backend},%
+sort={Backend},%
+type={main},%
+first={Backend},%
+firstplural={Backends},%
+text={Backend},%
+plural={Backends},%
+description={w najprostszym tego słowa rozumieniu, znajduje się za częścią wizualną aplikacji (\textbf {frontend}) i w oczywisty sposób nie jest bezpośrednio widoczny dla użytkownika. Innymi słowy, nie musi wcale wiedzieć o jego istnieniu lub znać jego poziomu złożoności. Zadaniem, tej warstwy, jest odebrania żądania, przetworzenie go i zwrócenie wyniku, nie zajmując się szczegółami związanymi z graficzną wizualizacją rezultatów},%
+descriptionplural={w najprostszym tego słowa rozumieniu, znajduje się za częścią wizualną aplikacji (\textbf {frontend}) i w oczywisty sposób nie jest bezpośrednio widoczny dla użytkownika. Innymi słowy, nie musi wcale wiedzieć o jego istnieniu lub znać jego poziomu złożoności. Zadaniem, tej warstwy, jest odebrania żądania, przetworzenie go i zwrócenie wyniku, nie zajmując się szczegółami związanymi z graficzną wizualizacją rezultatów},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{node_js}{}%
+{%
+\gls@defglossaryentry{node_js}%
+{%
+name={NodeJS},%
+sort={NodeJS},%
+type={main},%
+first={NodeJS},%
+firstplural={NodeJSs},%
+text={NodeJS},%
+plural={NodeJSs},%
+description={oparty o silnik \textbf {Chrome V8}, oferuje rozwiązanie pozwalająca na uruchamiania kodu \textbf {JavaScript} poza jej tradycyjnym środowiskiem, a mianowicie, jako pełnoprawny program, podobny między innymi do \textbf {Google Chrome} czy też \textbf {Notatnika}. Jego dewizą jest \textbf {JavaScript on Server}. Dzięki niemu możliwe jest tworzenia kodu serwera w języku originalnie zaprojektowanym do wzbogania interfejsu użytkownika na stronach internetowych, podobnie jak to jest czynione w językach takich jak \textbf {Java} lub \textbf {Python}},%
+descriptionplural={oparty o silnik \textbf {Chrome V8}, oferuje rozwiązanie pozwalająca na uruchamiania kodu \textbf {JavaScript} poza jej tradycyjnym środowiskiem, a mianowicie, jako pełnoprawny program, podobny między innymi do \textbf {Google Chrome} czy też \textbf {Notatnika}. Jego dewizą jest \textbf {JavaScript on Server}. Dzięki niemu możliwe jest tworzenia kodu serwera w języku originalnie zaprojektowanym do wzbogania interfejsu użytkownika na stronach internetowych, podobnie jak to jest czynione w językach takich jak \textbf {Java} lub \textbf {Python}},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{wsgi}{}%
+{%
+\gls@defglossaryentry{wsgi}%
+{%
+name={WSGI},%
+sort={WSGI},%
+type={main},%
+first={WSGI},%
+firstplural={WSGIs},%
+text={WSGI},%
+plural={WSGIs},%
+description={Specyfikacja dla języka Python opisująca komunikacją między serwerem a aplikacją. Stanowi zbiór wytycznych oraz reguł realizujące podwaliny spójnej bazy dla tworzonych programów. Dzięki temu większość aplikacji, napisanych dla WSGI, jest w stanie współpracować, bez żadnych lub z małymi modyfikacjami, z większością implementacji WSGI},%
+descriptionplural={Specyfikacja dla języka Python opisująca komunikacją między serwerem a aplikacją. Stanowi zbiór wytycznych oraz reguł realizujące podwaliny spójnej bazy dla tworzonych programów. Dzięki temu większość aplikacji, napisanych dla WSGI, jest w stanie współpracować, bez żadnych lub z małymi modyfikacjami, z większością implementacji WSGI},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{orm}{}%
+{%
+\gls@defglossaryentry{orm}%
+{%
+name={ORM},%
+sort={ORM},%
+type={main},%
+first={ORM},%
+firstplural={ORMs},%
+text={ORM},%
+plural={ORMs},%
+description={Mapowanie obiektowo-relacyjne jest techniką według, której możliwe jest reprezentowanie bazy danych pod postacią obiektów. Inną nadrzędną cechą jest możliwość współpracy z więcej niż jednym silnikiem bazodanowym bez konieczności, lub z małymi zmianami, bazy kodu.},%
+descriptionplural={Mapowanie obiektowo-relacyjne jest techniką według, której możliwe jest reprezentowanie bazy danych pod postacią obiektów. Inną nadrzędną cechą jest możliwość współpracy z więcej niż jednym silnikiem bazodanowym bez konieczności, lub z małymi zmianami, bazy kodu.},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{healthcheck}{}%
+{%
+\gls@defglossaryentry{healthcheck}%
+{%
+name={Healthcheck},%
+sort={Healthcheck},%
+type={main},%
+first={Healthcheck},%
+firstplural={Healthchecks},%
+text={Healthcheck},%
+plural={Healthchecks},%
+description={Specjalny adres, dostępny w \textbf {REST}'owym API, który informuje odpytującego o stanie aplikacji. Zależnie od implementacji, można wyróżnić co najmniej dwa typy tego rodzaju komponentów: \begin {itemize} \item \end {itemize}},%
+descriptionplural={Specjalny adres, dostępny w \textbf {REST}'owym API, który informuje odpytującego o stanie aplikacji. Zależnie od implementacji, można wyróżnić co najmniej dwa typy tego rodzaju komponentów: \begin {itemize} \item \end {itemize}},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{loadbalancer}{}%
+{%
+\gls@defglossaryentry{loadbalancer}%
+{%
+name={Load Balancer},%
+sort={Load Balancer},%
+type={main},%
+first={Load Balancer},%
+firstplural={Load Balancers},%
+text={Load Balancer},%
+plural={Load Balancers},%
+description={Rodzaj aplikacji, najczęściej znajdujący się przed klastrem serwerów. Jego nadrzędnym zadaniem jest dystrybuowanie ruchu do poszczególnych węzłów według zadanego algorytmu. Operacja ta ma na celu, równomiernie rozłożenie obciążenia, które generowane jest przez klientów, łączących się do klastra},%
+descriptionplural={Rodzaj aplikacji, najczęściej znajdujący się przed klastrem serwerów. Jego nadrzędnym zadaniem jest dystrybuowanie ruchu do poszczególnych węzłów według zadanego algorytmu. Operacja ta ma na celu, równomiernie rozłożenie obciążenia, które generowane jest przez klientów, łączących się do klastra},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%

@@ -112,5 +112,29 @@ osiągnąć.
             niepożądane, a co uchodzi za zachowanie normalne. Ważne jest, że po pewnym czasie, to jest
             po pojawieniu się nowych danych, ponownie wyznaczyć linię bazową. Bez tej operacji mogłoby się okazać,
             że nie oddaje ona ciągłej dynamiki systemu i analiza jest niemiarodajna \cite{logging_log_management}.
-            \todo[inline]{ehhh....to much bullshit}
         \end{itemize}
+        
+        \subsubsection{Data Mining}
+        Warto zacząć od wyjaśnienia pojęcia \textbf{data mining}. Jest to jedna ze znanych technik analizowania
+        danych, pozwalająca na odkrywania, niewidocznych na pierwszy rzut oka, powiązań. Według definicji
+        \href{http://www.britannica.com/technology/data-mining}{Britanica}, podmiotem procesu odkrywczego są
+        duże zbiory danych. Mogą to być zarówno logi, jak i bazy danych. Niezależnie od źródła danych, 
+        \textbf{data mining} najczęściej wykorzystuje zarówno narzędzie statystyczne oraz, jednocześnie, aplikacje
+        z pogranicza lub z rejonu sztucznej inteligencji, jak chociażby sieci neuronowe.
+        
+        Konieczność zastosowania tej techniki dla logów wynika przede wszystkim dużego rozmiaru danych. 
+        Systemy informatyczne, z uwagi na skalę, generują ogromne ilości
+        logów. Analizowanie danych, jeśli miałoby być przeprowadzone przez człowieka, jest zadaniem
+        o wysokim stopniu trudności, narażonym na błędy. Oczywiście, prawdopodobieństwo wyciągnięcia
+        prawidłowych wniosków, wzrasta wraz z doświadczeniem analityka. Niestety, z uwagi na wolumin,
+        informacji wejściowych będzie zawsze więcej, niż analityk jest w stanie przetworzyć. Ponadto, 
+        oprócz rozmiaru, należy wspomnieć o wzajemnych powiązań między logami, a dokładniej
+        aplikacji, z którymi są one związane. Tym samym operator musi znać topologię oraz
+        architekturę systemu, aby wiedzę o tych relacjach nałożyć na już znane fakty. Im więcej powiązań,
+        ukrytych i oczywistych, tym zadanie staje się trudniejsze. Im wyższy stopień trudności,
+        tym więcej krytycznych informacji, może zostać niezauważone. Dla zastosowań, mających związek i zastosowania
+        w problemach bezpieczeństwa oraz kondycji systemu, jest to sytuacja niemożliwa do zaakceptowania.
+        
+        \textbf{Data mining}, ogólnie oraz w przypadku logów, pozwala więc przekierować dużą część zadania, jakim
+        jest analiza, na automatyczne algorytmy. Człowiek, mimo że jego rola jest silnia ograniczone, jest
+        dalej potrzebny, aby ostatecznie wyciągnąć wniosek z wyników, jakie zostały mu dostarczone.
