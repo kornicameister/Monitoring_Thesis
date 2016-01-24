@@ -164,9 +164,9 @@ module.exports.credentials = require('./credentials');
 module.exports.roles = require('./roles');
 module.exports.policies = require('./policies');
         \end{minted}
-        \label{chapter:application:own_work:keystone_v3_client:endpoints}
         \caption[Definicja obsługiwanych adresów \textbf{Keystone}]{
             Definicja obsługiwanych adresów \textbf{Keystone} jako moduł NodeJS, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client/blob/master/lib/keystone/index.js}}
+        \label{chapter:application:own_work:keystone_v3_client:endpoints}
     \end{listing}
 
 Kompletny kod źródłowy biblioteki dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client}.
@@ -238,9 +238,18 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
             \footnote{\textit{hashCode} oraz \textit{equals} - dwie podstawowe metody implementowane przez każdą klasę w języku Java. Stanowią one
                 kluczowy element, między innymi, w pracy z kolekcjami}
         \end{itemize}
-        \item[monasca-api]
-        
-        \item[monasca-thresh]
+        \item[monasca-api, monasca-thresh]
+        Dopasowania repozytoriów danych do nowego modelu obiektowego. Największym sukcesem było
+        wykorzystanie wstępnie przygotowanych zapytań HQL\footnote{HQL - Hibernate Query Language, jest to
+            pseudo obiektowy język zapytań, podobny do SQL}, zamiast tych, które wykorzystywały łączenie
+        łańcuchów znakowych. Takie podejście, jest mało eleganckie i trudne w utrzymaniu. Zaletą HQL są
+        parametry posiadające własną nazwę. Dodatkowo, tam gdzie było to konieczne i możliwe, autor
+        zastosował dynamicznie budowane zapytania, oparte o 
+        \href{https://docs.jboss.org/hibernate/orm/5.0/devguide/en-US/html_single/#d5e3489}{Criteria API}.
+        Dla potencjalnie dużych zbiorów danych, autor zastosował mechanizm podobny do kursora, aby
+        dostarczyć wymaganej funkcjonalności. Ostatecznie był on także autorem poprawek do testów jednostkowych,
+        bazujących na tych, które oryginalnie stworzone zostały na potrzeby repozytoriów, komunikujących się
+        z \textbf{MySQL}.
     \end{itemize}
     
     \subsubsection{Dopasowanie rozwiązania do MySQL i PostgreSQL}
@@ -293,28 +302,28 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
 \subsection{Problem wielu linii w monasca-log-agent}
 \label{chapter:application:own_work:monasca_log_agent}
 
-W pewnym momencie, stało się jasne, że komponent \textbf{monasca-log-agent} nie wspiera wpisów w logach, znajdujących się w więcej
-niż jednej linii. Twórca pracy dyplomowej był jednym z dwóch autorów rozwiązania, które implementowała wyżej opisaną funkcjonalność.
-Z uwagi na fakt, że \textbf{monasca-log-agent} jest specjalnie skonfigurowaną instancją \textbf{Logstash}, całość wdrożenia została
-umieszczona w roli\textbf{Ansible} - \href{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent}{ansible-monasca-log-agent}.
-Główną ideą było dodania dodanie zestawu stałych, opisujących konfiguracją segmentu filtracji w \textbf{Logstash}.
-
-\begin{listing}[H]
+\begin{listing}[h]
     \begin{minted}{yaml}
-{
+    {
     name: "multiline",
     type: '"go"',
     configuration: {
-        pattern: '"^\[(?!signal)\w+\]"',
-        what: '"previous"',
-        negate: '"true"'
+    pattern: '"^\[(?!signal)\w+\]"',
+    what: '"previous"',
+    negate: '"true"'
     }
-}
+    }
     \end{minted}
-    \label{chapter:application:own_work:monasca_log_agent:filter_example}
     \caption[Detekcja wielu liniach dla języka GOLang]{
         Detekcja wielu liniach dla języka GOLang, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/vars/main.yml}}
+    \label{chapter:application:own_work:monasca_log_agent:filter_example}
 \end{listing}
+
+W pewnym momencie, stało się jasne, że komponent \textbf{monasca-log-agent} nie wspiera wpisów w logach, znajdujących się w więcej
+niż jednej linii. Twórca pracy dyplomowej był jednym z dwóch autorów rozwiązania, które implementowały wyżej opisaną funkcjonalność.
+Z uwagi na fakt, że \textbf{monasca-log-agent} jest specjalnie skonfigurowaną instancją \textbf{Logstash}, całość wdrożenia została
+umieszczona w roli\textbf{Ansible} - \href{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent}{ansible-monasca-log-agent}.
+Główną ideą było dodania dodanie zestawu stałych, opisujących konfiguracją segmentu filtracji w \textbf{Logstash}.
 
 Przykładowy kod filtru, widoczny na listingu \ref{chapter:application:own_work:monasca_log_agent:filter_example}, wykorzystuje wtyczkę
 \href{https://www.elastic.co/guide/en/logstash/current/plugins-filters-multiline.html}{multiline} dla aplikacji \textbf{Logstash}.

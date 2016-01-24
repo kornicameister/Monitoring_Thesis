@@ -91,5 +91,11 @@
     rozdzielanie napływających zadań, pomiędzy zarządzane maszyny, celem rozłożenie obciążanie \cite{log_management_to_build_or_to_buy}.
     
     \subsubsection{Dłuższa retencja danych}
-    Aby w pełni wykorzystać logi, potrzebna jet dłuższa ich retencja. Jest to problem związany ściśle z koniecznością posiadania
-    redundancji w przypadku przestrzeni dyskowej \ref{chapter:monitoring_architecture:laas:issue:data_size}.
+    Aby w pełni wykorzystać logi, potrzebna jet dłuższa ich retencja. Jest to problem związany z koniecznością posiadania
+    redundancji w przypadku przestrzeni dyskowej (\ref{chapter:monitoring_architecture:laas:issue:data_size}). 
+    Retencja danych oznacza, że są one przechowywane przez pewien czas. Dla różnego rodzaju danych, wymiar retencji
+    może znacząco się różnić. Będzie on zależał od znaczenia zawartych w nich informacji. W przypadku logów,
+    kwestia wygląda podobnie, a różnice, często dosyć duże, będą w głównym stopniu wynikały z tego, od jakiej
+    aplikacji one pochodzą, czy są one związane z bezpieczeństwem. Jeśli jednak pominąć znaczenie, które 
+    tak naprawdę określane jest przez administratorów lub operatów wykorzystujący \textbf{LaaS}, konieczne jest
+    zapewnienie ich, że dane, jeśli to wymagane, będą dostępne przez wymagany okres czasu. 

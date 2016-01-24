@@ -8,8 +8,6 @@
     może być znacząca, dlatego też pobieranie danych poprzez sieć, znacząco wydłużałoby całkowity czas 
     wszystkich operacji, jakie agent musi wykonać.
     
-    \todo[inline]{schemat rozmieszczania agentów, linie schodzą się do monasca-log-api}
-    
     Agent został oparty o jeden z elementów stosu technologicznego \textbf{ELKStack} - \textbf{Logstash}.
     Do zadań agenta należy:
     \begin{itemize}
@@ -17,7 +15,7 @@
         \item wykrywania i łączenie wpisów składających się z wielu linii,
         \item dodawania informacji o tenancie chmury obliczeniowej,
         \item wskazywania na typ aplikacji, z której logi są zbierane,
-        \item wysyłania danych do \textbf{monasca-log-api} \ref{chapter:monasca:monasca_log_api}
+        \item wysyłania danych do \textbf{monasca-log-api} (\ref{chapter:monasca:monasca_log_api})
     \end{itemize}
     
     Konfiguracja agenta odbywa się w sposób deklaratywny, poprzez plik konfiguracyjny. Poprawne
