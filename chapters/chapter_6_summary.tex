@@ -1,2 +1,33 @@
 \chapter[Podsumowanie]{Podsumowanie}
 \label{chapter:summary}
+
+Celem pracy, jak zostało to wcześniej przedstawione, było nawiązanie do monitorowania aplikacji, 
+rozwijanych w chmurze, a więc i tym samym weryfikowania stanu maszyn (wirtualnych lub fizycznych) poprzez
+okresowe pobieranie metryk, określających ich stan. Dużą rolą w tym aspekcie odgrywają także logi, czyli
+informacja zapisywane przez program do, jak to się najczęściej dzieje, plików tekstowych zlokalizowanych
+na tym samym hoście. Logi pozwalają zobrazować przebieg działania programu i tym różnią się od metryk, że
+wgląd w ich zawartość daje nieprzerwany obraz, podobny do taśmy filmowej, w ciągle zmieniający się stan, w jakim
+aplikacja w danym momencie się znajduje. 
+
+Nawiązując do tematu pracy dyplomowej - \textbf{Zbierania, analiza oraz wnioskowanie - znaczenie logów w chmurach
+    obliczeniowych}, nie udało się osiągnąć wszystkich zamierzonych celów. Autor, dzięki pracy całego zespołu oraz
+społeczności projektu \textbf{monasca}, miał szansę i z sukcesem wprowadził oraz zaimplementował komponenty
+odpowiedzialne przede wszystkim za zbieranie logów oraz wizualną ich analizę. Warto nadmienić, że udział autora
+miał zarówno charakter pośredni (ocena kodu, akceptacja zmian) oraz bezpośredni (implementacja), a same zmiany
+miały wysoce rozproszony charakter. Innymi słowy, fakt że nowe funkcji stały się częścią końcowego produktu, 
+odzwierciedlony był w więcej niż jednym projekcie, wchodzącym w jego skład. Właśnie z tego powodu, niemożliwe było
+skupienie się, na płaszczyźnie praktycznej, na zagadnieniu jakim jest analiza logów, oprócz udziału w kreacji
+koncepcji alarmów na logach (\ref{chapter:application:plans:alarm_on_logs}). Dodatkowo, brak czasu, podyktowany był ciągle
+napływający zgłoszeniami od zespołów zlokalizowanych w innych placówkach Fujitsu, zajmujących się kwestiami testów
+funkcjonalnych oraz bezpieczeństwa.
+
+Pomimo to, autor pracy dyplomowej, odniósł sukces, będąc częścią lub autorem wielu zmian, z których wiele dotyczyło
+właściwych funkcji, a część stanowiła zadania poboczne, wspierające te wcześniej wymienione. Niestety z uwagi
+na charakter części praktycznej, nie wszystkie mogły zostać w pracy dyplomowej omówione i przedstawione (\ref{chapter:application:plans}). Ponadto udało się uzyskać teoretyczny wgląd w całość procesu jakim
+jest monitorowania oraz praca z logami dla systemów informatycznych, głównie na poziomie anatomii metryk, alarmów.
+W kontekście logi, teoretyczne informacje dotyczące procesu efektywnego zbierania, normalizacji oraz archiwizacji, 
+również zostały uzyskane. Dzięki nim, autor pracy magisterskiej, ma szansę na lepsze rozumienie stawianych
+wymagań, a implementowane przez niego zmiany, będą charakteryzować się wyższym poziomie jakości. Okazuje się bowiem, że
+zadania, tak z pozoru trywialne, jak przesyłania kolejnych rekordów z informacji, pobranymi z logów, aby ostatecznie
+zaprezentować je użytkownikowi, są nad wyraz skomplikowane, jeśli we wszystkim obecny jest wysoce rozbudowany
+i rozproszony system informatyczny.
