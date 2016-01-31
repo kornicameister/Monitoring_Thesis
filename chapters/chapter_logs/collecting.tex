@@ -45,8 +45,8 @@
         \subsubsection{Windows Event Log}
         \label{chapter:logs:collecting:source:windows_event_log}
         Własnościowe rozwiązanie firmy \textbf{Microsoft}. Dla systemów rodziny \textbf{Windows}
-        ma on prawdopodobnie takie same znaczenie jak \textbf{syslog}(\ref{chapter:logs:collecting:source:syslog})
-        dla systemów Unix'owych. Zastosowanie tego systemu jest:
+        ma on podobne znaczenie do \textbf{syslog}(\ref{chapter:logs:collecting:source:syslog}),
+        dostępnego w systemach Unix'owych. Zastosowanie tego systemu jest:
         \begin{itemize}
             \item zbieranie logów systemowych,
             \item zbieranie logów aplikacji
@@ -107,7 +107,7 @@
         
         \subsubsection{Rotacja logów}
         \label{chapter:logs:collecting:rotation}
-        Rozwiązaniem rosnące rozmiaru pliku logów jest \textbf{rotacja}. W nowoczesnych systemach logowania
+        Rozwiązaniem rosnącego rozmiaru pliku logów jest \textbf{rotacja}. W nowoczesnych systemach logowania
         jest to najczęściej domyślnie zaimplementowanie. \textbf{Rotacja} polega na przekopiowaniu 
         zawartości logów do nowego pliku oraz wyczyszczeniu aktualnego. Kopiowanie jest najczęściej połączone
         z kompresją\ref{chapter:logs:history:compressed_log_format}, która może stać wykonana od razu lub po upływie pewnego czasu, kiedy to najstarsze

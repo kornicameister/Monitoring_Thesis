@@ -3,17 +3,18 @@
 
     Alarm, z pominięciem jego biznesowego znaczenia, jest niczym więcej jak funkcją logiczną zwracającą:
     \begin{itemize}
-        \item prawdę, wskazującą no to, że alarm jest obecnie aktywna, przekroczone zostały więc
+        \item prawdę, wskazującą no to, że alarm jest obecnie aktywny, przekroczone zostały więc
         pewne wartości graniczne dla niego zdefiniowane,
         \item fałsz, alarm jest obecnie nieaktywny, a system lub komponent pracuje zgodnie z założeniami.
     \end{itemize}
-    Czasami definiuje się funkcję, która zwrócić może 3 wartości. Dodatkowa możliwości sugeruje brak 
+    Czasami definiuje się funkcję, która zwrócić może 3 wartości. Dodatkowa możliwość sugeruje brak 
     potrzebnych danych, a alarm w takim wypadku, znajdować się może w stanie nieokreślonym. Na tym poziomie alarm
     jest podobny do neuronu w komputerowych sieciach neuronowych, a w rzeczywistości zachowuje się podobnie tak jak on.
-    Jedną z czynności zalecanych przy monitorowaniu jest okresowe dostosowanie jej konfiguracji, swoiste uczenie całego
-    systemu w taki sposób, aby wszelkie zgłaszane incydenty były nimi naprawdę. Swoisty fałszywy alarm, może
-    przynieść więcej problemów niż korzyści, z drugiej strony otrzymanie powiadomień odnośnie przekraczania zużycia
-    procesora powyżej 50 procent kilkanaście razy na dobą, nie jest pożądane. 
+    Jedną z czynności zalecanych przy monitorowaniu jest okresowe dostosowanie jej konfiguracji, uczenie całego
+    systemu w taki sposób, aby wszelkie zgłaszane incydenty były nimi naprawdę. Fałszywy alarm, może
+    przynieść więcej problemów niż korzyści. Także otrzymywanie powiadomień odnośnie przekroczenia, na przykład, zużycia
+    procesora do kilkunastu razy na dobę, może oznaczać sytuację niepoprawną konfigurację
+    lub całkowicie normalne działanie systemu.
     
     \begin{figure}[H]
         \centering

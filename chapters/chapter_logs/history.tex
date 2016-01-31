@@ -8,19 +8,20 @@
     dla aplikacji \textbf{Sendmail}\footnote{Sendmail - \url{https://www.sendmail.com/sm/open_source/}}. Od tamtego momentu,
     doczekało się wielu implementacji, aż w końcu zostało uznane za standard w roku 2009\footnote{RFC-5424 \url{https://tools.ietf.org/html/rfc5424}}.
 
-	\subsection{Czym jest log ?}
+    \subsection{Czym jest log ?}
     \label{chapter:logs:history:what_is_log}
-	W informatyce log jest nieodłącznym elementem każdej, dobrze napisanej, aplikacji. 
-    W przypadku takiego programu jest to narzędzie dzięki któremu informuje on
-    o kondycji swojej, lub systemu \footnote{Dobrym przykładem jest tutaj \textit{/var/log/messages} w systemach Unix, 
-    gdzie zapisywane są wydarzenia pochodzące z całego systemu, a nie tylko z konkretnej aplikacji}, potencjalnego obserwatora.
-    Z tego też powodu log nie jest faktycznym wynikiem, wyjściem pewnego algorytmu. Niemniej nie umniejsza to jego znaczenia.
-    Logi \textit{access.log} serwera WWW Tomcat stanowią doskonałe poparcie tego stwierdzenia. 
-    Wewnątrz może odnaleźć informacje o każdym żądaniu odebranym przez daną instancję serwera \cite{tomcat_logs}.
+    W informatyce log jest nieodłącznym elementem każdej, dobrze napisanej, aplikacji. 
+    W logach znaleźć można informacje świadczące o kondycji programu, przebiegu jego działania, w tym również
+    wszelkich błędów lub wpisów wskazujących na, przykładowo, błędną konfigurację. Z tego też powodu log nie jest faktycznym wynikiem,
+    wyjściem pewnego algorytmu. Nie umniejsza to jego znaczenia, ponieważ wspomniane powyżej informacje, stanowią
+    istotny punkt podczas analizowania przyczyn napotkanych awarii. Warto także zwrócić uwagę na inny aspekt,
+    w którym logi okazują się być przydatne. W przypadku serwera aplikacji \textbf{Tomcat}, warto wspomnieć
+    plik \textit{access.log}. Znaleźć w nim możne wpisy informujące o wszystkich żądaniach HTTP, jakie
+    serwer odebrał \cite{tomcat_logs}.
     
     \subsection{Znaczenie logów w procesach biznesowych oraz administracyjnych}
     Zgodnie z paragrafem \ref{chapter:logs:history:what_is_log}, log często jest elementem systemu informatycznego, 
-    który pozwala na nie tyle lepsze jego zrozumienie, ale także reagowanie na pewne wydarzenia wyjątkowego.
+    który pozwala na nie tyle lepsze jego zrozumienie, ale także reagowanie na pewne wydarzenia wyjątkowe.
     Z punktu widzenia administratorów systemu dane zawarte w logach serwera WWW pozwalają na określenie 
     sekwencji żądań wysłanych do serwera i mogą na przykład przysłużyć się wykryciu ataku sieciowego.
     Atak sieciowy, z definicji, jest atakiem przeprowadzonym z użyciem sieci komputerowej.

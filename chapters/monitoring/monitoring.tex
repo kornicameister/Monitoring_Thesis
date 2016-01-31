@@ -3,27 +3,27 @@
     W najszerszym tego słowa znaczeniu, odnosi się ono uzyskania wiedzy na temat tego, co się aktualnie dzieje w systemie.
     Jest to proces, w wyniku którego możliwe jest uzyskania wiedzy na temat obciążanie systemu, rozmiarów oraz przepływu przez niego
     danych. Monitorowanie jest zestawem aplikacji z zakresu przetwarzania danych w czasie rzeczywistym oraz analizy. 
-    Głównym zadaniem, jakie przyświeca omawianej gałęzi informatyki, jest alarmowania administratorów systemu o wszelkich
-    odchyleniach od normy, które jeśli się utrzymają, mogą zaowocować nawet między innymi w wyłączeniu monitorowanego
-    komponentu przez co niemożliwe będzie normalne praca całego systemu. Najlepszym tutaj przykładem, takiej sytuacji, 
+    Głównym zadaniem, jakie przyświeca omawianej gałęzi informatyki, jest alarmowanie administratorów systemu o wszelkich
+    odchyleniach od normy, które jeśli się utrzymają, mogą skutkować nawet wyłączeniem monitorowanego
+    komponentu przez co niemożliwa będzie normalne praca całego systemu. Najlepszym tutaj przykładem, takiej sytuacji, 
     byłby wzrost ilości niedostarczonych wiadomości w kolejce (przykładowo Kafka lub RabbitMQ). Jeśli, wspomniana kolejka,
-    stanowiłaby integralną część systemu, innymi słowy jej zadanie polegałoby na przesyłaniu danych istotnych z punktu
+    stanowiłaby integralną część systemu, jej zadanie polegałoby na przesyłaniu danych istotnych z punktu
     widzenia użytkownika końcowego, awaria tego typu zatrzymałaby cały system \cite{monitoring_and_alerting}.
     
     \subsection{Techniki monitorowania}
     Wyróżnić można dwie podstawowe gałęzie. Podejście \textbf{pasywne} oraz \textbf{aktywne}. Oba z nich wzajemnie się uzupełniają.
-    W pierwszy z nich, administrator systemu wyłączony jest z procesu monitorowania stanu dopóty, dopóki pewien
-    punkty krytyczny nie zostanie przekroczony. W tym momencie wystosowywane jest powiadomienie informujący o zaistniałej
+    W pierwszym z nich, administrator systemu wyłączony jest z procesu monitorowania stanu dopóki pewien
+    punkty krytyczny nie zostanie przekroczony. W tym momencie wystosowywane jest powiadomienie informujące o zaistniałej
     sytuacji. Z drugiej strony, w podejściu aktywnym, administrator może na bieżąco analizować dane spływające z systemu.
-    Rozwiązania monitoringu aplikacji najczęściej dostarczane są razem z programami, których celem jest 
-    wizualizacji zebranych próbek w formie diagramów oraz wykresów. W połączeniu z faktem, że monitorowania odbywa się
-    w czasie rzeczywistym, również administrator, w czasie rzeczywistym, może zauważyć niepokojące symptomy wskazującego
+    Rozwiązania monitoringu najczęściej dostarczane są razem z programami, pozwalającymi na
+    wizualizację zebranych próbek w formie diagramów oraz wykresów. W połączeniu z faktem, że monitorowania odbywa się
+    w czasie rzeczywistym, administrator może szybciej zauważyć niepokojące symptomy wskazujące
     na nieprawidłowe działania pewnych komponentów lub systemu jako całości.
-    Rozwiązania pasywne utożsamiane jest z alarmowaniem, podczas gdy aktywne z monitorowaniem \cite{monitoring_and_alerting}.
+    Rozwiązanie pasywne utożsamia się z alarmowaniem, podczas gdy aktywne z monitorowaniem \cite{monitoring_and_alerting}.
     
     \subsection{Monitorowanie - części składowe}
-    Niezależnie od przyjętego modelu monitoringu, niezmiennie składa się ona zawsze z metryk, danych, gdzie nadrzędną 
-    ich własnością jest czas, alarmów, notyfikacji oraz agentów.
+    Niezależnie od przyjętego modelu monitoringu, niezmiennie składa się on zawsze z metryk, danych, gdzie nadrzędną 
+    ich własnością jest czas, alarmów, notyfikacji oraz agentów \cite{monitoring_and_alerting}.
     
         \subsubsection{Agenci}
         Proces monitorowania rozpoczyna się od agentów. Agent, jest to specjalny program, działający nieprzerwanie w systemie, którego
@@ -33,7 +33,7 @@
         Nie jest to problem dla statystyk takich jak aktualnego zużycie procesora lub pamięci. Z drugiej strony, zadaniem agenta
         może być również weryfikacja czy na danej maszynie działa serwer WWW. Poniekąd zachodzi wtedy normalizacja danych. Fakt, że
         serwer działa i jest w stanie obsługiwać żądania, może być reprezentowany za pomocą liczby 1, odwrotnie 0, mogłoby sygnalizować
-        przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany.
+        przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany \cite{monitoring_and_alerting}.
         \newglossaryentry{monitoring_agent}{
             name=Agent,
             plurals=Agenci,
@@ -53,7 +53,7 @@
         Faktyczna liczba \textit{wymiarów}\footnote{\textbf{Dimensions} - meta dane opisujące zabraną metrykę} może
         zostać dowolnie ustalana. Dzięki nim możliwe jest, w późniejszym czasie, przeglądania zebranych pomiarów
         na dowolnym poziomie agregacji. W dalszym procesie przetwarzania metryki grupowane są w serie czasowe. Ich ilość
-        zależy przede wszystkim od rodzaju informacji jaką chce się uzyskać.
+        zależy przede wszystkim od rodzaju informacji jaką chce się uzyskać \cite{monitoring_and_alerting}.
         
         \subsubsection{Alarmy}
         Generowane są na podstawie metryk przez oprogramowanie zwane monitorem. Alarm, jeśli zostanie wygenerowany, 
@@ -61,7 +61,7 @@
         porównując otrzymana wartości z dostarczoną im konfiguracją. Bazując na niej, są w stanie stwierdzić, że jeśli
         własność A przekroczyła maksymalną lub minimalną wartość określoną ilość razy, konieczne jest poinformowania o tym
         administratora systemu. Jednocześnie alarm, najczęściej, zapisywany jest do bazy danych. Pozwala to na późniejszą analizę 
-        w kontekście historycznym. 
+        w kontekście historycznym \cite{monitoring_and_alerting}. 
         
         \subsubsection{Powiadomienia}
         Notyfikacje są generowane przez system monitoringu jeśli dany alarm przejdzie w stan aktywny. Mogą przyjąć praktycznie
@@ -76,10 +76,11 @@
             na celu naprawę zaistniałej sytuacji oraz późniejsze jej przeciwdziałania.
         \end{itemize}
         Mogą się one zarówno wzajemnie wykluczać, jak i uzupełniać. Alarmy mogą również same definiować jaki rodzaj notyfikacji
-        powinien zostać w ich przypadku wykorzystany.
+        powinien zostać w ich przypadku wykorzystany \cite{monitoring_and_alerting}.
         
         \subsubsection{Wizualizacje}
-        W formie graficznej, wykresów oraz diagramów, reprezentuje się serie czasowe tworzone na podstawie metryk. Reprezentacja graficzna metryk nie jest bezpośrednio wykorzystywana w przypadku alarmu,
+        W formie graficznej, wykresów oraz diagramów, reprezentuje się serie czasowe tworzone na podstawie metryk. 
+        Reprezentacja graficzna metryk nie jest bezpośrednio wykorzystywana w przypadku alarmu,
         niemniej nie umniejsza to jej znaczenia. Tego typu funkcjonalność, często dostarczana z oprogramowaniem
         monitorującym, daje wgląd w stan systemu w czasie rzeczywistym. Poszczególne metryki, mogą być
         przeglądane na dowolnym poziomie szczegółowości, te same dane mogą być przedstawione w formie

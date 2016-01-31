@@ -1,8 +1,8 @@
 \section{Log jako struktura danych}
 \label{chapter:logs:structure}
     Log jest prostą strukturą danych, a właściwie bazą danych rządząca się kilkoma regułami.
-    Możliwe jest dopisywania jedynie do końca pliku, a kolejne wiersze posortowaną są rosnące
-    według znacznika czasowego. Innymi słowy wpisy utworzone później znajdą się bliżej końca pliku,
+    Możliwe jest dopisywanie jedynie do końca pliku, a kolejne wiersze posortowane są rosnąco
+    według znacznika czasowego lub. Innymi słowy wpisy utworzone później znajdą się bliżej końca pliku,
     niż wpisy wcześniejsze. Warto zaznaczyć, że moment, w którym log został wygenerowany nie ma
     nic wspólnego z fizycznym czasem obowiązującym na serwerze. Ważne jest kiedy dane wydarzenia
     miało miejsce, a nie kiedy wpis pojawił się w pliku docelowym.
@@ -70,8 +70,11 @@
     
     \subsection{Płaska struktura logów}
     Logi zazwyczaj opisywane są strukturą płaską. Innymi słowy kolejne wpisy nie są ze sobą w żaden sposób
-    związane, nie istnieje między nimi żadna relacja. Pliki tekstowe, w których zazwyczaj, aplikacja lub
-    urządzania zapisuje logi posiada więc płaską strukturę \cite{logging_log_management}.
+    związane, nie istnieje między nimi żadna relacja. Pliki tekstowe, w których zazwyczaj aplikacja lub
+    urządzania zapisuje logi, posiadają więc płaską strukturę \cite{logging_log_management}. Powyższe stwierdzenie
+    pozostaje prawdziwe także wpisów umieszczonych w więcej niż jednej linii. Jest to spowodowane tym, że
+    jest to wciąż jeden rekord, logicznie odnoszący się do jednego wydarzenia, takie jak zrzut błędu
+    \footnote{Stacktrace - ciąg wywołań funkcji, które doprowadziły do błędu}
     
     \subsection{Binarne pliki logów}
     Jak nazwa wskazuje, logi przechowywane są w formacie binarnym. Główną wadą takiego
