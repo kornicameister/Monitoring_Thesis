@@ -1,5 +1,5 @@
 \subsection{Alarmy a logi}
-\label{chapter:application:plans:alarm_on_logs}
+\label{chapter:application_own:plans:alarm_on_logs}
 
 Jednym z głównych założeń projektu \textbf{monasca} jest powiadamiania użytkownika o 
 sytuacjach krytycznych zaistniałych w systemie. Funkcjonalność realizowana jest na podstawie
@@ -24,7 +24,7 @@ tak łatwo przełożona na logi.
     \end{itemize}
     
     \subsubsection{Analiza dynamiczna w strumieniu}
-    \label{chapter:application:plans:alarm_on_logs:streaming}
+    \label{chapter:application_own:plans:alarm_on_logs:streaming}
     
     \begin{figure}[H]
         \centering
@@ -33,7 +33,7 @@ tak łatwo przełożona na logi.
             Analiza w strumieniu - schemat, 
             źródło: opracowanie własne
         }
-        \label{chapter:application:plans:alarm_on_logs:streaming:diagram}
+        \label{chapter:application_own:plans:alarm_on_logs:streaming:diagram}
     \end{figure}
     
     Jest to alternatywa, która idealnie wpisuje się w rzeczywisty charakter danych, jakimi są logami. Ponadto, jest to rozwiązanie, w którym
@@ -72,7 +72,7 @@ tak łatwo przełożona na logi.
     \end{itemize}
     
     \subsubsection{Analiza tradycyjna na zbiorze}
-    \label{chapter:application:plans:alarm_on_logs:bulk}
+    \label{chapter:application_own:plans:alarm_on_logs:bulk}
     
     \begin{figure}[H]
         \centering
@@ -81,10 +81,10 @@ tak łatwo przełożona na logi.
             Analiza na zbiorze - schemat, 
             źródło: opracowanie własne
         }
-        \label{chapter:application:plans:alarm_on_logs:bulk:diagram}
+        \label{chapter:application_own:plans:alarm_on_logs:bulk:diagram}
     \end{figure}
     
-    Rozwiązanie alternatywne do omówionego w \ref{chapter:application:plans:alarm_on_logs:streaming}. Rozwiązuje ono wszystkie, przedstawione
+    Rozwiązanie alternatywne do omówionego w \ref{chapter:application_own:plans:alarm_on_logs:streaming}. Rozwiązuje ono wszystkie, przedstawione
     wyżej wymaganie, jakie musiałby spełnić silnik alarmujący, łącznie z grupowaniem. Aplikacja mogłaby pobierać dane, w określonym oknie czasowym,
     ze wskazaniem na poziomu logów oraz aplikacje. Jeśli w odebranych wynikach znalazłyby się odpowiednia
     ilość rekordów, gdzie wartości byłyby przekroczone, byłby to sygnał do wygenerowania alarmu. Niemniej, rozwiązanie tego typu, cechuje się

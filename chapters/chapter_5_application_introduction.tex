@@ -1,0 +1,38 @@
+\chapter{Część praktyczna - wprowadzenie}
+\label{chapter:application}
+
+\newglossaryentry{horizon}{name={Horizon},description={Aplikacje internetowa, do zarządzania chmurzę obliczeniową OpenStack}}
+
+Cześć praktyczna pracy dyplomowej dotyczy implementacji oprogramowania typu \textbf{LaaS} (\ref{chapter:monitoring_architecture:laas}).
+W założeniu ma ono stanowić część całego stosu oferowanego przez firmę Fujitsu dla kompleksowego monitorowania chmur obliczeniowych.
+Niemniej, możliwe jest również wykorzystanie części lub całości, do monitoringu standardowych systemów informatycznych. 
+Specyficzną oraz wyjątkową cechą części praktycznej, oprócz realizowania jej również na płaszczyźnie zawodowej, jest jej otwartość.
+Całość implementacji dostępna jest jako oprogramowania otwarte na licencji \textbf{Apache License V2.0}. 
+Dzięki temu też, autor poniższej pracy dyplomowej, ma możliwość tworzenia aplikacji we współpracy z takimi firmami:
+\begin{itemize}
+    \item Hewlett Packard,
+    \item Time Warner Cable.
+\end{itemize}
+
+Implementacja stanowi rozszerzenie projektu \textbf{monasca}, oryginalnie przygotowanego i opublikowanego przez firmę HP.
+W ramach tego rozwiązania można wyróżnić następujące części składowe:
+\begin{itemize}
+    \item[monasca-api] - REST'owe API, z którym komunikują się pozostałe komponenty, celem zapisywania metryk, alarmów (oraz ich definicji).
+    Pozwala także na dostęp do wspomnianych danych.
+    \item[monasca-agent] - rozbudowane narzędzie do monitorowania systemu lub aplikacji na maszynie na której został zainstalowany.
+    \item[monasca-persister] - prowadzi aktywny nasłuch na kolejce. Wszelkie zmiany stanu na alarmach oraz przekazane metryki, zapisuje,
+    poprzez \textbf{monasca-api} do bazy danych.
+    \item[monasca-thresh] - jest w stanie, na podstawie zebranych metryk, określić stan w jakim powinien znaleźć się alarm.
+    \item[monasca-notification] - na podstawie alarmów, generuje powiadomienie na skonfigurowanego punkty docelowe,
+    \item[monasca-ui] - komponent zrealizowany jako wtyczka do \glslink{horizon}{Horizon}, dające wgląd w alarmy, pozwalająca tworzyć ich definicje (monitory).
+    Jej główną zaletą jest również wbudowana obsługa do Grafana, która pozwala na przeglądania metryk w czasie rzeczywistym w postaci wykresów.
+\end{itemize}
+Część praktyczna, jak zostało wcześniej wspomniane, będzie uzupełnieniem dla \textbf{monasca}, praktycznej implementacji
+\textbf{MaaS}, o możliwości opisane technologią \textbf{LaaS}.
+
+\input{chapters/application/arch}
+\input{chapters/application/elkstack}
+\input{chapters/application/monasca_log_agent}
+\input{chapters/application/monasca_log_api}
+\input{chapters/application/monasca_log_transformer}
+\input{chapters/application/monasca_log_persister}

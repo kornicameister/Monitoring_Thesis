@@ -41,7 +41,7 @@
 }
 
 \section{Wkład w część praktyczną}
-\label{chapter:application:own_work}
+\label{chapter:application_own:own_work}
 
 Autor, poniższej pracy dyplomowej, zaangażowany był w tworzenia modyfikacji dla praktycznie wszystkich z omawianych powyżej komponentów i w przyszłości będzie kontynuował pracę związaną z ich dalszą rozbudową.
 Projekty, oryginalnie zaproponowane, przez firmę HP (takie jak na przykład: \textbf{monasca-api} lub \textbf{monasca-thresh})
@@ -55,7 +55,7 @@ do \glslink{backend}{\textbf{backend'u}}, poprzez więcej niż jeden język lub 
 \label{chapter:application:own_work:kibana_and_keystone}
 
 \textbf{Kibana} domyślnie nie posiada włączonego żadnego mechanizmu autentykacji użytkownika, który
-chciałby przeglądać dane, przechowywane w \textbf{ElasticSearch}(\ref{chapter:application:elkstack:elasticsearch}), 
+chciałby przeglądać dane, przechowywane w \textbf{ElasticSearch}(\ref{chapter:application_own:elkstack:elasticsearch}), 
 przy jej użyciu. Istnieje prosty mechanizm, który opiera się na standardowym logowaniu przy użyciu
 hasła i nazwy użytkownika. Jednakże, z uwagi na późniejsze plany związane z omawianą aplikacją, a które 
 omówione zostaną w kolejnym rozdziale, było to rozwiązanie niewystarczające. Fakt ten wynika z natury
@@ -79,7 +79,7 @@ dyplomowej, zaprojektował odpowiedni mechanizm autentykacji zrealizowany wedłu
         \begin{minted}{js}
 app.use('/elasticsearch', require('./lib/keystone'));
         \end{minted}
-        \label{chapter:application:own_work:kibana_and_keystone:filter_code}
+        \label{chapter:application_own:own_work:kibana_and_keystone:filter_code}
         \caption[Autoryzacja z Keystone w Kibana]{Autoryzacja z Keystone w Kibana, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana/blob/master/src/server/app.js}}
     \end{listing}
     Zrealizowana została jako filtr. Jest to specyficzna część aplikacji internetowych, która
@@ -104,12 +104,12 @@ if (config.keystone) {
     });
 }
         \end{minted}
-        \label{chapter:application:own_work:kibana_and_keystone:filter_configuration}
+        \label{chapter:application_own:own_work:kibana_and_keystone:filter_configuration}
         \caption[Autoryzacja z Keystone w Kibana - konfiguracja]{Autoryzacja z Keystone w Kibana - konfiguracja, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana/blob/master/src/server/lib/keystone/index.js}}
     \end{listing}
     
     Warto dodać, że pomimo wbudowania filtru do \textbf{Kibana}, nie oznacza to, że musi on być aktywny. Kod
-    przedstawiony na listingu \ref{chapter:application:own_work:kibana_and_keystone:filter_configuration} oznacza,
+    przedstawiony na listingu \ref{chapter:application_own:own_work:kibana_and_keystone:filter_configuration} oznacza,
     że będzie on włączony jedynie jeśli w pliku konfiguracyjnym dla serwera \textbf{Kibana} znajdzie się odpowiedni
     segment zawierający następujące informacje:
     \begin{itemize}
@@ -139,7 +139,7 @@ if (config.keystone) {
 Kompletny kod źródłowy aplikacji dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana}.
 
 \subsection{keystone-v3-client}
-Omówiona w \ref{chapter:application:own_work:kibana_and_keystone} funkcjonalność, zaimplementowana w \textbf{Kibana}, nie byłaby możliwa
+Omówiona w \ref{chapter:application_own:own_work:kibana_and_keystone} funkcjonalność, zaimplementowana w \textbf{Kibana}, nie byłaby możliwa
 bez biblioteki do komunikacji z \textbf{Keystone} w aplikacji napisanej w \glslink{node_js}{\textbf{NodeJS}}.
 W momencie jej implementacji, żadna z istniejących bibliotek nie wspierała nowej wersji \textbf{Keystone} - \textbf{V3}. 
 Było to bodźcem dla napisania własnej, której autor poniższej pracy dyplomowej, jest, na obecną chwilę, jedynym autorem. Zwrot \textit{obecna chwila}
@@ -166,7 +166,7 @@ module.exports.policies = require('./policies');
         \end{minted}
         \caption[Definicja obsługiwanych adresów \textbf{Keystone}]{
             Definicja obsługiwanych adresów \textbf{Keystone} jako moduł NodeJS, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client/blob/master/lib/keystone/index.js}}
-        \label{chapter:application:own_work:keystone_v3_client:endpoints}
+        \label{chapter:application_own:own_work:keystone_v3_client:endpoints}
     \end{listing}
 
 Kompletny kod źródłowy biblioteki dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client}.
@@ -210,7 +210,7 @@ jeśli zajdzie taka potrzeba. Implementacja obejmuje:
 Warto w tym miejscu dodać, że \textbf{monasca-log-api}, w języku Python, spotkała się z dużo
 większym odzewem ze strony społeczności. Na obecną chwilę, kod aplikacji, ma więcej niż 1 kontrybutora.
 Kod, wersji Java oraz Python, znajduje się pod adresem \url{https://github.com/openstack/monasca-log-api/}.
-Dodatkowo, równoległe do samego API, autor pracy dyplomowej, rozszerzył rolę \textbf{Ansible} (\ref{chapter:application:architecture:installation:ansible}) o
+Dodatkowo, równoległe do samego API, autor pracy dyplomowej, rozszerzył rolę \textbf{Ansible} (\ref{chapter:application_own:architecture:installation:ansible}) o
 możliwość instalacji, na wskazanych hostach, napisanej przez siebie implementacji. Kod źródłowy, wspomnianego komponentu, znajduje się
 pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-api}.
 
@@ -300,7 +300,7 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
     \end{itemize}
 
 \subsection{Problem wielu linii w monasca-log-agent}
-\label{chapter:application:own_work:monasca_log_agent}
+\label{chapter:application_own:own_work:monasca_log_agent}
 
 \begin{listing}[h]
     \begin{minted}{yaml}
@@ -316,7 +316,7 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
     \end{minted}
     \caption[Detekcja wielu liniach dla języka GOLang]{
         Detekcja wielu liniach dla języka GOLang, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/vars/main.yml}}
-    \label{chapter:application:own_work:monasca_log_agent:filter_example}
+    \label{chapter:application_own:own_work:monasca_log_agent:filter_example}
 \end{listing}
 
 W pewnym momencie, stało się jasne, że komponent \textbf{monasca-log-agent} nie wspiera wpisów w logach, znajdujących się w więcej
@@ -325,7 +325,7 @@ Z uwagi na fakt, że \textbf{monasca-log-agent} jest specjalnie skonfigurowaną 
 umieszczona w roli\textbf{Ansible} - \href{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent}{ansible-monasca-log-agent}.
 Główną ideą było dodania dodanie zestawu stałych, opisujących konfiguracją segmentu filtracji w \textbf{Logstash}.
 
-Przykładowy kod filtru, widoczny na listingu \ref{chapter:application:own_work:monasca_log_agent:filter_example}, wykorzystuje wtyczkę
+Przykładowy kod filtru, widoczny na listingu \ref{chapter:application_own:own_work:monasca_log_agent:filter_example}, wykorzystuje wtyczkę
 \href{https://www.elastic.co/guide/en/logstash/current/plugins-filters-multiline.html}{multiline} dla aplikacji \textbf{Logstash}.
 Najistotniejszym elementem, w zaprezentowanym kodzie, jest sekcja \textit{configuration}. Jest to mapowanie w stosunku 1:1, odpowiadające
 konfiguracji wspomnianego filtra. Poszczególne elementy oznaczają:
@@ -358,17 +358,17 @@ konfiguracji wspomnianego filtra. Poszczególne elementy oznaczają:
         }
 {% endif %}
     \end{minted}
-    \label{chapter:application:own_work:monasca_log_agent:filter_applying}
+    \label{chapter:application_own:own_work:monasca_log_agent:filter_applying}
     \caption[Wpisanie filtrów do pliku konfiguracyjnego \textbf{Logstash}]{
         Wpisanie filtrów do pliku konfiguracyjnego \textbf{Logstash}, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/templates/agent.conf.j2}}
 \end{listing}
 
-Wspomniany filtr z listingu \ref{chapter:application:own_work:monasca_log_agent:filter_example}, jest w dalszej części umieszczany
-w pliku konfiguracyjnym \textbf{Logstash} z wykorzystaniem kodu z listingu \ref{chapter:application:own_work:monasca_log_agent:filter_applying}. 
+Wspomniany filtr z listingu \ref{chapter:application_own:own_work:monasca_log_agent:filter_example}, jest w dalszej części umieszczany
+w pliku konfiguracyjnym \textbf{Logstash} z wykorzystaniem kodu z listingu \ref{chapter:application_own:own_work:monasca_log_agent:filter_applying}. 
 Wartymi omówienia cechami jest tutaj:
 \begin{itemize}
     \item[elastyczność] - sekcja filtracji zostanie umieszczona w wynikowym pliku, tylko jeśli zostaną zdefiniowane jakiekolwiek filtry,
-    \item[spójność] - wspomniana w \ref{chapter:application:own_work:monasca_log_agent:filter_example} sekcja \textit{configuration}, jest
+    \item[spójność] - wspomniana w \ref{chapter:application_own:own_work:monasca_log_agent:filter_example} sekcja \textit{configuration}, jest
     w 100 procentach kompatybilna z dostępnymi dla danego filtra opcjami konfiguracyjnymi,
     \item[możliwość rozszerzenia] - kod jest niewrażliwy na ilość potencjalnych filtrów. Jest on zdolny do umieszczania zarówno konfiguracji dla jednego
     filtra, ale potrafi też wpisać 100 innych. 
