@@ -67,10 +67,11 @@ członkowie zespołu zajęli się przygotowaniem logiki odpowiedniej dla uruchom
 dyplomowej, zaprojektował odpowiedni mechanizm autentykacji zrealizowany według następujących punktów.
 
     \subsubsection{Na poziomie serwera}
-    W przypadku \textbf{Kibana} należy rozróżnić dwie części składowe - klienta oraz serwer. Dodanie autentykacji
-    na poziomie frontend'u nie byłoby rozwiązaniem poprawnym. Użytkownik końcowy miałby możliwość faktycznego
+    W przypadku \textbf{Kibana} należy rozróżnić dwie części składowe - klient oraz serwer. Dodanie autentykacji
+    na poziomie warstwy klienta nie byłoby rozwiązaniem poprawnym. Użytkownik końcowy miałby możliwość faktycznego
     uruchomienie strony oraz pobrania danych zanim wykryte by zostało, że nie ma koniecznych do tego uprawnień.
     Wolumin logów, a tym samych danych, które \textbf{Kibana} pobiera z \textbf{ElasticSearch} jest bardzo duży.
+    \todo[inline]{wczesne wyjscie - tak napisac}
     Z tego powodu obciążania komponentów aby zwrócić dane potencjalnie niepotrzebnie zostało
     natychmiastowo wykluczone. Z tego też powodu odpowiednia implementacja znalazła się po stronie serwera.
     
