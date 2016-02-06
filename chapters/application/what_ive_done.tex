@@ -1,57 +1,4 @@
-\newglossaryentry{keystone}{
-    name={Keystone},
-    description={Aplikacja o kluczowym znaczeniu dla chmury obliczeniowej \textbf{OpenStack}. Dzięki niej możliwe jest tworzenia nowych użytkowników, zarządzania ich uprawnieniami oraz ostatecznie autentykacja i autoryzacja}
-}
-\newglossaryentry{frontend}{
-    name={Frontend},
-    description={odnosi się, w przypadku aplikacji komputerowych, do tych ich części, która jest bezpośrednio widoczna dla użytkownika końcowego. Z nią też, użytkownik wchodzi
-        w interakcje rozumiane jako akcje. Bezpośrednim ich skutkiem jest komunikacja z warstwą \textbf{backend'u}, przetwarzającą żądania i zwracającą wynik. Rezultaty są później, prezentowane
-        użytkownikowi, przykładowo, w postaci tabeli lub okna dialogowego}
-}
-\newglossaryentry{backend}{
-    name={Backend},
-    description={w najprostszym tego słowa rozumieniu, znajduje się za częścią
-        wizualną aplikacji (\textbf{frontend}) i w oczywisty sposób nie jest bezpośrednio widoczny dla
-        użytkownika. Innymi słowy, nie musi wcale wiedzieć o jego istnieniu lub znać jego poziomu złożoności.
-        Zadaniem, tej warstwy, jest odebrania żądania, przetworzenie go i zwrócenie wyniku, nie zajmując
-        się szczegółami związanymi z graficzną wizualizacją rezultatów}
-}
-\newglossaryentry{node_js}{
-    name={NodeJS},
-    description={oparty o silnik \textbf{Chrome V8}, oferuje rozwiązanie pozwalająca na uruchamiania kodu \textbf{JavaScript} poza jej tradycyjnym
-        środowiskiem, a mianowicie, jako pełnoprawny program, podobny między innymi do \textbf{Google Chrome} czy też \textbf{Notatnika}. Jego
-        dewizą jest \textbf{JavaScript on Server}. Dzięki niemu możliwe jest tworzenia kodu serwera w języku originalnie zaprojektowanym
-        do wzbogania interfejsu użytkownika na stronach internetowych, podobnie jak to jest czynione w językach takich jak \textbf{Java} lub \textbf{Python}}
-}
-\newglossaryentry{wsgi}{
-    name={WSGI},
-    description={Specyfikacja dla języka Python opisująca komunikacją między serwerem a aplikacją. 
-    Stanowi zbiór wytycznych oraz reguł realizujące podwaliny spójnej bazy dla tworzonych programów.
-    Dzięki temu większość aplikacji, napisanych dla WSGI, jest w stanie współpracować, bez żadnych lub
-    z małymi modyfikacjami, z większością implementacji WSGI
-    }
-}
-\newglossaryentry{orm}{
-    name={ORM},
-    description={
-        Mapowanie obiektowo-relacyjne jest techniką według, której możliwe jest reprezentowanie bazy danych pod postacią obiektów.
-        Inną nadrzędną cechą jest możliwość współpracy z więcej niż jednym silnikiem bazodanowym bez konieczności,
-        lub z małymi zmianami, bazy kodu.
-    }
-}
-
-\section{Wkład w część praktyczną}
-\label{chapter:application_own:own_work}
-
-Autor, poniższej pracy dyplomowej, zaangażowany był w tworzenia modyfikacji dla praktycznie wszystkich z omawianych powyżej komponentów i w przyszłości będzie kontynuował pracę związaną z ich dalszą rozbudową.
-Projekty, oryginalnie zaproponowane, przez firmę HP (takie jak na przykład: \textbf{monasca-api} lub \textbf{monasca-thresh})
-są dostosowywane aby zintegrować platformę \textbf{ELKStack} z \textbf{monasca}.
-Jeżeli chodzi o część odpowiedzialną za dodania \textbf{LaaS}, autor pracy dyplomowej zajmuje się
-tworzeniem nowych rozwiązań, które dotykają więcej niż jednego aspektu. Tematyka rozciąga się
-od zadań związanych z \glslink{frontend}{\textbf{frontend'em}} 
-do \glslink{backend}{\textbf{backend'u}}, poprzez więcej niż jeden język lub paradygmat programowania.
-
-\subsection{Kibana + Keystone}
+\section{Kibana + Keystone}
 \label{chapter:application:own_work:kibana_and_keystone}
 
 \textbf{Kibana} domyślnie nie posiada włączonego żadnego mechanizmu autentykacji użytkownika, który
@@ -66,16 +13,15 @@ Ponieważ dostęp do \textbf{Kibana}, w przypadku tworzonego projektu, dostępny
 członkowie zespołu zajęli się przygotowaniem logiki odpowiedniej dla uruchomienie jej ze wspomnianego miejsca. Autor pracy 
 dyplomowej, zaprojektował odpowiedni mechanizm autentykacji zrealizowany według następujących punktów.
 
-    \subsubsection{Na poziomie serwera}
+    \subsection{Na poziomie serwera}
     W przypadku \textbf{Kibana} należy rozróżnić dwie części składowe - klient oraz serwer. Dodanie autentykacji
     na poziomie warstwy klienta nie byłoby rozwiązaniem poprawnym. Użytkownik końcowy miałby możliwość faktycznego
     uruchomienie strony oraz pobrania danych zanim wykryte by zostało, że nie ma koniecznych do tego uprawnień.
     Wolumin logów, a tym samych danych, które \textbf{Kibana} pobiera z \textbf{ElasticSearch} jest bardzo duży.
-    \todo[inline]{wczesne wyjscie - tak napisac}
     Z tego powodu obciążania komponentów aby zwrócić dane potencjalnie niepotrzebnie zostało
     natychmiastowo wykluczone. Z tego też powodu odpowiednia implementacja znalazła się po stronie serwera.
     
-    \subsubsection{Jako filtr}
+    \subsection{Jako filtr}
     \begin{listing}
         \begin{minted}{js}
 app.use('/elasticsearch', require('./lib/keystone'));
@@ -127,7 +73,7 @@ if (config.keystone) {
         i pojawia się odpowiedni komunikat informujący użytkownika o zbyt niskich uprawnieniach.
     \end{itemize}
     
-    \subsubsection{Dla komunikacji z ElasticSearch}
+    \subsection{Dla komunikacji z ElasticSearch}
     Część serwera \textbf{Kibana} nie zajmuje się jedynie dostarczeniem dostępu do bazy danych
     \textbf{ElasticSearch}. Poza tym, przy jego pomocy, serwowane są media właściwe dla stron internetowych
     (pliki HTML, CSS, JS) lub inne media. Sprawdzania praw użytkowników dla
@@ -139,7 +85,7 @@ if (config.keystone) {
 
 Kompletny kod źródłowy aplikacji dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana}.
 
-\subsection{keystone-v3-client}
+\section{keystone-v3-client}
 Omówiona w \ref{chapter:application_own:own_work:kibana_and_keystone} funkcjonalność, zaimplementowana w \textbf{Kibana}, nie byłaby możliwa
 bez biblioteki do komunikacji z \textbf{Keystone} w aplikacji napisanej w \glslink{node_js}{\textbf{NodeJS}}.
 W momencie jej implementacji, żadna z istniejących bibliotek nie wspierała nowej wersji \textbf{Keystone} - \textbf{V3}. 
@@ -174,9 +120,9 @@ Kompletny kod źródłowy biblioteki dostępny jest pod adresem \url{https://git
 Została ona również opublikowana na \url{https://www.npmjs.com}. 
 Opis paczki znaleźć można pod adresem \url{https://www.npmjs.com/package/keystone-v3-client}
 
-\subsection{monasca-log-api}
+\section{monasca-log-api}
 
-    \subsubsection{monasca-log-api - Java}
+\subsection{monasca-log-api - Java}
     Implementacja \textbf{monasca-log-api} pojawiła się jako pierwsza. Była ona suplementem dla \textbf{monasca-api}, również napisanego w Java.
     Jednakże, podczas gdy drugi z omawianych komponentów służy do pracy z alarmami oraz metrykami, \textbf{monasca-log-api} pozwala na zapisywania
     logów do bazy danych. Autor pracy dyplomowej, mimo że nie jest oryginalnym autorem tego rozwiązania, miał duży wkład w następujące aspekty
@@ -188,6 +134,7 @@ Opis paczki znaleźć można pod adresem \url{https://www.npmjs.com/package/keys
         \item lepszą walidacją rozmiaru żądania, tym samym maksymalnego rozmiaru logu
     \end{itemize}
 
+\subsection{monasca-log-api - Python}
 Odpowiedź na trend w przenoszeniu komponentów, będących częścią chmury obliczeniowej OpenStack, na język Python. Autor, poniższej pracy dyplomowej, jest autorem tej implementacji \textbf{monasca-log-api}. Na obecną chwilę jest ona komplementarna do wersji w języku Java. Całość została oparta o szybki serwer \textbf{Gunicorn} kompatybilny z \glslink{wsgi}{\textbf{WSGI}}. Dzięki
 temu aplikacja może zostać łatwo przeniesiona na inną implementacją \textbf{WSGI}, bez większych trudności,
 jeśli zajdzie taka potrzeba. Implementacja obejmuje:
@@ -215,7 +162,7 @@ Dodatkowo, równoległe do samego API, autor pracy dyplomowej, rozszerzył rolę
 możliwość instalacji, na wskazanych hostach, napisanej przez siebie implementacji. Kod źródłowy, wspomnianego komponentu, znajduje się
 pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-api}.
 
-\subsection{ORM dla monasca-api oraz monasca-thresh}
+\section{ORM dla monasca-api oraz monasca-thresh}
 Oryginalnie oba z komponentów zostały zaprojektowane z myślą o wsparciu dla relacyjnej bazy danych \textbf{MySQL}. 
 Pierwszą z kontrybucji dla \textbf{monasca} było rozszerzenie obsługi baz danych o \textbf{PostgreSQL}. Nie zostało
 to jednak osiągnięte poprzez dodania nowego zestawu klas, napisanych z myślą o wsparciu jedynie tej bazy danych. Zamiast
@@ -224,7 +171,7 @@ Autor, poniższej pracy dyplomowej, nie jest oryginalnym autorem rozwiązania. P
 przedstawiona społeczności, jest dziełem jednego z programistów projektu. Niemniej, twórca pracy magisterskiej był, w późniejszym czasie,
 odpowiedzialny za następujące aspekty tej części całego projektu:
 
-    \subsubsection{Poprawa jakości i struktury kodu}
+    \subsection{Poprawa jakości i struktury kodu}
     W ramach tego punktu, autor, zajął się między innymi ogólnym podniesienie jakości. Zrealizowane to zostało
     na trzech płaszczyznach:
     \begin{itemize}
@@ -253,7 +200,7 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
         z \textbf{MySQL}.
     \end{itemize}
     
-    \subsubsection{Dopasowanie rozwiązania do MySQL i PostgreSQL}
+    \subsection{Dopasowanie rozwiązania do MySQL i PostgreSQL}
     Mimo, że zastosowanym rozwiązaniem był ORM, okazało się, że dopasowanie modelu danych, tak by pasował do 
     schematu bazy danych \textbf{MySQL} oraz \textbf{PostgreSQL}, jest obarczone dużym stopniem trudności. 
     W dużej mierze napotkane przeszkody wynikały z:
@@ -289,7 +236,7 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
     odzwierciedlania wszystkich założeń zaimplementowanych dla \textbf{MySQL}, tak aby możliwe było wykorzystanie mapowania obiektowo-relacyjnego
     zarówno z bazą danych \textbf{PostgreSQL}, jak i \textbf{MySQL}.
     
-    \subsubsection{Migracja bazy danych w Ansible}
+    \subsection{Migracja bazy danych w Ansible}
     Dopełnieniem wprowadzanie \textbf{ORM} dla projektów \textbf{monasca-api} oraz \textbf{monasca-thresh} było spełnienie
     wymagań społeczności odnośnie pakietu migracji danych. Żądania dodania tego typu funkcjonalności było następstwem zmian, jakie
     zostały wprowadzona na poziomie definicji schematu bazy danych dla \textbf{MySQL}. W ramach implementacji, autor poniższej pracy dyplomowej,
@@ -300,7 +247,7 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
         \item zmiana typów kolumn, które były kompatybilne jedynie z \textbf{MySQL}
     \end{itemize}
 
-\subsection{Problem wielu linii w monasca-log-agent}
+\section{Problem wielu linii w monasca-log-agent}
 \label{chapter:application_own:own_work:monasca_log_agent}
 
 \begin{listing}[h]
@@ -375,13 +322,13 @@ Wartymi omówienia cechami jest tutaj:
     filtra, ale potrafi też wpisać 100 innych. 
 \end{itemize}
 
-\subsection{Rotacja logów}
+\section{Rotacja logów}
 W trakcie tworzenie projektu okazało się, że część z wewnętrznie używanych aplikacji, nie obsługuje automatycznej rotacji logów. Jest
 to operacja, w wyniku której plik logów, po przekroczeniu pewnej wartości granicznej, ulega archiwizacji. Autor, poniższej pracy dyplomowej,
 był częścią dyskusji, w wyniku której wybrano aplikację \textbf{logrorate}. Całość implementacji, jest już autorstwa twórcy pracy magisterskiej.
 Została ona utworzone jako rola \textbf{Ansible}. Dzięki temu uzyskano rozwiązania możliwe do zastosowania na dowolnej liczbie hostów.
 
-\subsection{Ocena kodu tworzonego w społeczności}
+\section{Ocena kodu tworzonego w społeczności}
 Autor jest obecny w pracach całej społeczności jako \textbf{review}'er wszystkich zmian do dowolnego projektu, niezależnie od tego, czy 
 proponowany kod jest częścią nowej funkcjonalności, czy też jest to naprawa zauważonych błędów i uchybień. Dzięki temu statusowi, ma on
 możliwość oceny jakości kodu, wskazywania potencjalnych problemów lub zgłaszania niepoprawnej implementacji w stosunku do komponentów zależnych.
@@ -402,7 +349,7 @@ Proces oceny oparty jest o 3, niezależne, od siebie oceny:
 \end{itemize}
 Swój wkład w tym aspekcie, autor stara się okazywać w każdym z projektów spod szyldy \textbf{monasca}.
 
-\subsection{Nominacja do statusu code-reviewer}
+\section{Nominacja do statusu code-reviewer}
 Status \textbf{code-reviewer} jest, niejako, prestiżową rolą, jaką programista, będący obecny na \url{http://review.openstack.org} może mieć.
 Co ważniejsze, aby uzyskać ten status należy być nominowanym do niego. Sama nominacja pochodzi od innych członków, zrzeszonych wokół
 konkretnych projektów i jest ona jedynie warunkiem koniecznym. Finalna decyzja leży po stronie osób nadzorujących działania społeczności.

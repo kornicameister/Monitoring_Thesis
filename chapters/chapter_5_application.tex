@@ -1,5 +1,57 @@
 \chapter{Część praktyczna - wkład własny}
 \label{chapter:application_own}
 
+\newglossaryentry{keystone}{
+    name={Keystone},
+    description={Aplikacja o kluczowym znaczeniu dla chmury obliczeniowej \textbf{OpenStack}. Dzięki niej możliwe jest tworzenia nowych użytkowników, zarządzania ich uprawnieniami oraz ostatecznie autentykacja i autoryzacja}
+}
+\newglossaryentry{frontend}{
+    name={Frontend},
+    description={odnosi się, w przypadku aplikacji komputerowych, do tych ich części, która jest bezpośrednio widoczna dla użytkownika końcowego. Z nią też, użytkownik wchodzi
+        w interakcje rozumiane jako akcje. Bezpośrednim ich skutkiem jest komunikacja z warstwą \textbf{backend'u}, przetwarzającą żądania i zwracającą wynik. Rezultaty są później, prezentowane
+        użytkownikowi, przykładowo, w postaci tabeli lub okna dialogowego}
+}
+\newglossaryentry{backend}{
+    name={Backend},
+    description={w najprostszym tego słowa rozumieniu, znajduje się za częścią
+        wizualną aplikacji (\textbf{frontend}) i w oczywisty sposób nie jest bezpośrednio widoczny dla
+        użytkownika. Innymi słowy, nie musi wcale wiedzieć o jego istnieniu lub znać jego poziomu złożoności.
+        Zadaniem, tej warstwy, jest odebrania żądania, przetworzenie go i zwrócenie wyniku, nie zajmując
+        się szczegółami związanymi z graficzną wizualizacją rezultatów}
+}
+\newglossaryentry{node_js}{
+    name={NodeJS},
+    description={oparty o silnik \textbf{Chrome V8}, oferuje rozwiązanie pozwalająca na uruchamiania kodu \textbf{JavaScript} poza jej tradycyjnym
+        środowiskiem, a mianowicie, jako pełnoprawny program, podobny między innymi do \textbf{Google Chrome} czy też \textbf{Notatnika}. Jego
+        dewizą jest \textbf{JavaScript on Server}. Dzięki niemu możliwe jest tworzenia kodu serwera w języku originalnie zaprojektowanym
+        do wzbogania interfejsu użytkownika na stronach internetowych, podobnie jak to jest czynione w językach takich jak \textbf{Java} lub \textbf{Python}}
+}
+\newglossaryentry{wsgi}{
+    name={WSGI},
+    description={Specyfikacja dla języka Python opisująca komunikacją między serwerem a aplikacją. 
+        Stanowi zbiór wytycznych oraz reguł realizujące podwaliny spójnej bazy dla tworzonych programów.
+        Dzięki temu większość aplikacji, napisanych dla WSGI, jest w stanie współpracować, bez żadnych lub
+        z małymi modyfikacjami, z większością implementacji WSGI
+    }
+}
+\newglossaryentry{orm}{
+    name={ORM},
+    description={
+        Mapowanie obiektowo-relacyjne jest techniką według, której możliwe jest reprezentowanie bazy danych pod postacią obiektów.
+        Inną nadrzędną cechą jest możliwość współpracy z więcej niż jednym silnikiem bazodanowym bez konieczności,
+        lub z małymi zmianami, bazy kodu.
+    }
+}
+
+\section{Wkład w część praktyczną}
+\label{chapter:application_own:own_work}
+
+Autor, poniższej pracy dyplomowej, zaangażowany był w tworzenia modyfikacji dla praktycznie wszystkich z omawianych powyżej komponentów i w przyszłości będzie kontynuował pracę związaną z ich dalszą rozbudową.
+Projekty, oryginalnie zaproponowane, przez firmę HP (takie jak na przykład: \textbf{monasca-api} lub \textbf{monasca-thresh})
+są dostosowywane aby zintegrować platformę \textbf{ELKStack} z \textbf{monasca}.
+Jeżeli chodzi o część odpowiedzialną za dodania \textbf{LaaS}, autor pracy dyplomowej zajmuje się
+tworzeniem nowych rozwiązań, które dotykają więcej niż jednego aspektu. Tematyka rozciąga się
+od zadań związanych z \glslink{frontend}{\textbf{frontend'em}} 
+do \glslink{backend}{\textbf{backend'u}}, poprzez więcej niż jeden język lub paradygmat programowania.
+
 \input{chapters/application/what_ive_done}
-\input{chapters/application/further_plans}

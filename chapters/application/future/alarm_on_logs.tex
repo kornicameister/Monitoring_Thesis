@@ -1,4 +1,4 @@
-\subsection{Alarmy a logi}
+\section{Alarmy a logi}
 \label{chapter:application_own:plans:alarm_on_logs}
 
 Jednym z głównych założeń projektu \textbf{monasca} jest powiadamiania użytkownika o 
@@ -7,7 +7,7 @@ metryk, zbieranych z całego systemu. Przekroczenie, założonych przez administ
 krytycznych, skutkuje wygenerowaniem alarmu. Jednak idea ta, nie może zostać
 tak łatwo przełożona na logi. 
 
-    \subsubsection{Idea implementacji}
+    \subsection{Idea implementacji}
     \textbf{monasca-agent} jest programem, którego głównym zadaniem jest zbierania metryk z systemu, na którym
     został on zainstalowany. Podejście takie sprawdza się w pełni i właściwie jest jedynym możliwym rozwiązaniem,
     jeśli chodzi o monitoring stanu systemu operacyjnego, maszyny lub aplikacji na nim uruchomionych. Niekoniecznie,
@@ -23,7 +23,7 @@ tak łatwo przełożona na logi.
         Zapytanie oczywiście byłoby zoptymalizowanie na pobranie jedynie tych rekordów, gdzie poziom logu osiągnął zadaną przez operatora wartość.
     \end{itemize}
     
-    \subsubsection{Analiza dynamiczna w strumieniu}
+    \subsection{Analiza dynamiczna w strumieniu}
     \label{chapter:application_own:plans:alarm_on_logs:streaming}
     
     \begin{figure}[H]
@@ -71,7 +71,7 @@ tak łatwo przełożona na logi.
         alarmu powinna ograniczać się do tych wartości, które wykryto jedynie dla konkretnej aplikacji.
     \end{itemize}
     
-    \subsubsection{Analiza tradycyjna na zbiorze}
+    \subsection{Analiza tradycyjna na zbiorze}
     \label{chapter:application_own:plans:alarm_on_logs:bulk}
     
     \begin{figure}[H]
@@ -110,7 +110,7 @@ tak łatwo przełożona na logi.
     administratora lub operatora) wartość, aplikacja tworzyłaby odpowiednią metrykę.
     Obie z implementacji zostały zaproponowane przez autora pracy dyplomowej jako przeciwne do siebie, łącznie z ich zaletami oraz wadami.
 
-    \subsubsection{Metryki nieciągłe}
+    \subsection{Metryki nieciągłe}
     W obu przypadkach, niezależnie od przyjętej implementacji, problem jest przedstawienie zebranych danych w postaci metryk - czyli wartości
     numerycznych. W przeciwieństwie do danych dotyczących, chociażby, zużycia przestrzeni dyskowej lub, podlegającemu większej
     fluktuacji, obciążeniu procesora, logi stanowią element zbioru metryk nieciągłych \footnote{Sparse metric - metryki okresowe,

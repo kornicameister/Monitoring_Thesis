@@ -10,13 +10,13 @@
     \label{chapter:application:architecture:diagram}
 \end{figure}
 
-Część praktyczna pracy dyplomowej, przedstawiona na rysunku \ref{chapter:application:architecture:diagram}, 
-zaprojektowana została w architekturze rozproszonej - mikro serwisu. Głównym zadaniem takiego rozwiązania
+Część praktyczna pracy dyplomowej, przedstawiona na rysunku
+\ref{chapter:application:architecture:diagram}, zaprojektowana została w architekturze
+rozproszonej - mikro serwisu. Głównym zadaniem takiego podejścia
 jest rozbicie faktycznej aplikacji na mniejsze programy. Poszczególne części składowe posiadają jedno, 
-jasno określone, zadania i jedynie za nie są odpowiedzialne. Niemniej, zasada pojedynczej odpowiedzialności, znana także jako
-jeden z wyznaczników dobrej klasy w rozumieniu programowania obiektowego, jest także i tutaj rozumiana w szerszym
+jasno określone, zadanie i jedynie za nie są odpowiedzialne. Niemniej, zasada pojedynczej odpowiedzialności, znana również z programowania obiektowego, jest także i tutaj rozumiana w szerszym
 kontekście. Pojedynczy serwis współpracuje z innymi. Przykładowa aplikacja mogłaby realizować funkcjonalność 
-sklepu internetowego. Jednymi z wielu zamkniętych w środków serwisów, mogłyby by być te odpowiedzialne za zarządzania
+sklepu internetowego. Jednymi z wielu zamkniętych wewnątrz serwisów, mogłyby by być te odpowiedzialne za zarządzania
 klientami lub ogólnie użytkownikami oraz te, których zadaniem byłoby, wsparcie w kierunku zarządzania towarami oferowanymi
 przez sklep. Oba, z kolei, wymagałyby wsparcia kolejnego serwisu - bazy danych. Z przedstawionego opisu wynikają jasno pewne
 szczególne cechy tego typu architektury:
