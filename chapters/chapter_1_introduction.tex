@@ -36,25 +36,14 @@ odnajdywaniu pierwszych symptomów, które mogą oznaczać poważne problemy z p
 
 \section{Cel i zakres pracy}
 
-Głównym celem pracy magisterskiej jest zaprezentowanie rozwijającego się trendu \textbf{monitorowania jako serwisu} dla usług działających w chmurach,
-ze wskazaniem na \textbf{logowanie jako serwis}. Pomimo, że \textbf{LaaS}\footnote{Logging as a Service - logowanie jako serwis} 
-może być traktowane jako całkowicie odrębny segment, logicznie jest on częścią monitorowania, stąd też możliwości przezeń oferowane wpisują się w ten sam
-zbiór funkcjonalności. Ponadto w pracy zwrócono uwagę również na aspekt związany z otwarto źródłowym charakterem aplikacji.
-
-Poprzez przedstawienie obecnej architektury oraz serwisów, wchodzących w skład całego rozwiązania, autor przedstawił złożoność projektu
-oraz swój osobisty wkład w jego dalszy rozwój, jak i w to, co do tej pory zostało już zaimplementowane. Warto dodać, że całość
-aplikacji tworzona jest na wielu płaszczyznach. Nadrzędnym elementem jest praca zawodowa, którą autor pracy dyplomowej, wykonuje.
-Ważnym czynnikiem jest także współpraca ze społecznością całego projektu, celem akceptacji proponowanych zmian
-oraz dyskusji, jak powinny wyglądać elementy, które w całym projekcie nie były jeszcze obecne. Ostatecznie, celem autora 
-było zaproponowanie nowej funkcjonalności w ramach pracy dyplomowej.
-
-Omówienie monitorowania oraz logowania w modelu chmury obliczeniowej służyć będzie zdobyciu wiedzy
-teoretycznej, pozwalającej na lepsze zrozumienie tworzonego rozwiązania. Tym samym autor zdobył potrzebne umiejętności i informacje, 
-które pozwolą na lepsze i rzeczowe komentowanie, proponowanie nowych funkcji oraz rozwijanie już istniejących.  
-
-\section{Układ pracy}
-Praca została zorganizowana tak, aby przedstawić w sposób teoretyczny
-zagadnienia stanowiące bazę dla części praktycznej.
+Głównym celem pracy magisterskiej jest omówienie logowania w rozproszonych systemach, chmurach obliczeniowych, 
+z uwzględnieniem aspektów dotyczących zbierania, analizowania oraz możliwości wyciągania wniosków z zebranych danych.
+Omawiając ten temat ważne jest uwzględnienie rozwijającego się trendu \textbf{monitorowania jako serwisu} dla usług 
+działających w chmurach, ze wskazaniem na \textbf{logowanie jako serwis}. Pomimo, że \textbf{LaaS}\footnote{Logging as a 
+Service - logowanie jako serwis} może być traktowane jako całkowicie odrębny segment, logicznie jest on częścią 
+monitorowania, stąd też możliwości przezeń oferowane wpisują się w ten sam zbiór funkcjonalności. 
+% to zdanie leci do rozdzialu 6
+Ponadto w pracy zwrócono uwagę na aspekt związany z otwarto źródłowym charakterem aplikacji.
 
 W rozdziale \ref{chapter:monitoring} zawarty jest opis monitorowania, jako techniki
 analizowania stanu systemu. Omówione są w nim elementy, które wchodzą w skład aplikacji
@@ -64,16 +53,35 @@ wynikają. Ostatecznie przedstawione zostały ogólne korzyści oraz konkretne p
 w których monitorowanie może okazać się pomocne.
 
 Rozdział \ref{chapter:logs} poświęcony został głównemu zagadnieniu poniższej pracy dyplomowej - logom.
-Te, często niedocenianie przez administratorów dużych systemów, zostały omówione od strony teoretycznej. Szczególna uwaga została poświęcona logom jako strukturze danych, formatom ich
-przechowywania oraz klasyfikacji. Ponadto przedstawione zostały zagadnienia dotyczące
-zbierania, archiwizacji oraz przetwarzania logów wraz z problemami, które mogą wystąpić 
+Te, często niedocenianie przez administratorów dużych systemów, zostały omówione od strony teoretycznej. Szczególna uwaga 
+została poświęcona logom jako strukturze danych, formatom ich przechowywania oraz klasyfikacji. Ponadto przedstawione zostały 
+zagadnienia dotyczące zbierania, archiwizacji oraz przetwarzania logów wraz z problemami, które mogą wystąpić 
 podczas wykonania wspomnianych operacji.
 
 Rozdział \ref{chapter:monitoring_architecture} poświęcony został zagadnieniu jakim jest
-\textbf{monitorowanie} oraz \textbf{logowanie} jako serwis. Paradygmaty, \textbf{MaaS} oraz \textbf{LaaS}, stanowią ważny element nowoczesnych chmur obliczeniowych,
-których głównym celem jest dostarczenie możliwie największej ilości funkcjonalności tradycyjnych
-systemów komputerowych, jako możliwej do natychmiastowego wykorzystania usługi. Szczególna uwaga została poświęcona \textbf{logowaniu jako serwis}. Oprócz samej architektury tego
-rozwiązania, przedstawione zostały wyzwania stawiane przez \textbf{LaaS} oraz korzyści wynikające
-z adaptacji lub implementacji tej techniki.
+\textbf{monitorowanie} oraz \textbf{logowanie} jako serwis. Paradygmaty, \textbf{MaaS} oraz \textbf{LaaS}, stanowią ważny 
+element nowoczesnych chmur obliczeniowych, których głównym celem jest dostarczenie możliwie największej ilości 
+funkcjonalności tradycyjnych systemów komputerowych, jako możliwej do natychmiastowego wykorzystania usługi. Szczególna uwaga 
+została poświęcona \textbf{logowaniu jako serwis}. Oprócz samej architektury tego rozwiązania, przedstawione zostały wyzwania 
+stawiane przez \textbf{LaaS} oraz korzyści wynikające z adaptacji lub implementacji tej techniki.
 
-\todo[inline]{po poprawieniu rozdzialu 5 dopisac tutaj}
+Pobocznym celem rozdziałów \ref{chapter:monitoring}, \ref{chapter:logs}, \ref{chapter:monitoring_architecture} było zdobycie 
+wiedzy teoretycznej, pozwalającej na lepsze zrozumienie tworzonego rozwiązania od strony teoretycznej. Tym samym autor zdobył 
+potrzebne umiejętności i informacje, które pozwolą na lepsze i rzeczowe komentowanie, proponowanie nowych funkcji oraz rozwijanie już istniejących.  
+
+W rozdziale \ref{chapter:application}, poprzez przedstawienie obecnej architektury oraz serwisów, wchodzących w skład całego 
+rozwiązania, przedstawiona została złożoność projektu. Omówione komponenty, stanowią część projektu \textbf{monasca}, jednak
+posiadają zupełnie odrębny cel. Podczas gdy, w pierwszy ze wspomnianych projektów, nadrzędną rolę odgrywają metryki,
+aplikacja, a tym samym część praktyczna, skupia się na logach. W tym też rozdziale, omówiona została również
+koncepcja kompleksowej instalacji projektu \textbf{monasca} (LaaS+Maas), opartego o narzędzie Ansible, 
+służące do automatyzacji tego procesu.
+
+Rozdział \ref{chapter:application_own} stanowi faktyczne omówienie dotychczasowego wkładu w rozwój obecnie istniejących
+komponentów części praktycznej, omówionych w rozdziale \ref{chapter:application}. Warto dodać, że całość aplikacji tworzona 
+jest na wielu płaszczyznach, łącząc w sobie elementy związane z bazami danych, przetwarzaniem dużych ilości informacji
+oraz prezentowaniem ich użytkownikowi. Ważnym czynnikiem jest także współpraca ze społecznością całego 
+projektu \textbf{monasca}, celem akceptacji proponowanych zmian oraz dyskusji, jak powinny wyglądać elementy, które w całym 
+projekcie nie były jeszcze obecne.
+
+Ostateczne, rozdział \ref{chapter:application_own:plans} służył opisaniu planów rozwojowych, zaprezentowanych na
+forum całego zespołu oraz społeczności, przez autora pracy dyplomowej. 
