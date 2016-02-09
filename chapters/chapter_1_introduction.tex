@@ -5,78 +5,75 @@
 
 \textbf{Zbieranie, analiza oraz wnioskowanie - znaczenie logów w chmurach obliczeniowych}. 
 
-Chmury obliczeniowe są obecnie w fazie, która w cyklu życia żywych organizmów, określana jest mianem gwałtownej ekspansji. Wiele firm
-informatycznych takich jak HP, organizacja stojąca za systemem operacyjnym RedHat inwestują swój czas w tematykę związaną z chmurami.
+Chmury obliczeniowe są obecnie w fazie, która w cyklu życia żywych organizmów określana jest mianem gwałtownej ekspansji. Wiele firm
+informatycznych, takich jak HP - organizacja stojąca za systemem operacyjnym RedHat, inwestują swój czas w tematykę związaną z chmurami.
 Najczęściej wynikiem takich działań jest produkt końcowy - dystrybucja OpenStack według przepisu danej firmy. Ciekawostką jest tutaj,
-że, najbardziej obecnie popularne, rozwiązanie, jakim jest OpenStack, to produkt o otwartym kodzie źródłowym. Podobnie zresztą, jak
-aplikacje i biblioteki programistyczne, które powstały, i powstają dalej, jako produkt uboczny prac nad poszczególnymi komponentami
-wspomnianej implementacji chmury obliczeniowej. Ten fakt, jest nade wszystko źródłem popularności i powodem, dla którego duże spółki, 
-korporacje informatyczne delegują zespoły programistów aby pracowały nad rozszerzaniem kodu źródłowego, czy to w kontekście
+że obecnie najbardziej popularne rozwiązanie, jakim jest OpenStack, to produkt o otwartym kodzie źródłowym. Podobnie zresztą jak
+aplikacje i biblioteki programistyczne, które powstały i powstają dalej, jako produkt uboczny prac nad poszczególnymi komponentami
+wspomnianej implementacji chmury obliczeniowej. Ten fakt, jest nade wszystko źródłem popularności i powodem dla którego duże spółki, 
+korporacje informatyczne delegują zespoły programistów, aby pracowały nad rozszerzaniem kodu źródłowego, czy to w kontekście
 dodawania nowych funkcji, czy też naprawy zauważonych błędów. Na obecną chwilę (styczeń 2016), na stronie \href{https://wiki.openstack.org/wiki/Contributors/Corporate}{\textbf{OpenStack Contributors}}\footnote{https://wiki.openstack.org/wiki/Contributors/Corporate}
-znaleźć można informację o ponad 310 firmach, które oficjalnie podpisały umowę o współpracy z fundacją OpenStack. Liczba, faktycznych kontrybutorów,
+znaleźć można informację o ponad 310 firmach, które oficjalnie podpisały umowę o współpracy z fundacją OpenStack. Liczba faktycznych kontrybutorów
 jest jednak jeszcze większa, ponieważ wspomniana strona nie specyfikuje osób indywidualnie zaangażowanych w rozwój \textbf{OpenStack}.
-Przedstawiony powyżej rozmiar całej społeczności, przekłada się w sposób bezpośredni na szybki rozwój i szybkie adoptowania chmury przez firmy, chcące wykorzystywać ją do realizowania własnych celów biznesowych. Szybki rozwój, stanowił także bodziec lub spopularyzował usługi takie jak
+Przedstawiony powyżej rozmiar całej społeczności przekłada się w sposób bezpośredni na szybki rozwój i szybkie adaptowanie chmury przez firmy chcące wykorzystywać ją do realizowania własnych celów biznesowych. Szybki rozwój stanowił także bodziec ku spopularyzowaniu usług takich jak
 \textbf{PaaS}\footnote{Platform As a Service},
 \textbf{IaaS}\footnote{Infrastructure As a Service},
 \textbf{SaaS}\footnote{Software As a Service}.
-Ich wspólnym mianownikiem jest natychmiastowa dostępność, odpowiednio, platformy, infrastruktury lub oprogramowania, zaraz po zakupie. Ponadto wszystko
-odbywa się na wirtualnej płaszczyźnie z minimalnym wkładem własnym, ze strony kupującego. I jednocześnie stale wzrasta liczba usług, które
-potencjalny kupujący może nabyć. Popyt na nie, jednocześnie stymuluje podaż. Pojawiają się coraz to nowsze rozwiązania, stare są aktualizowane lub
+Ich wspólnym mianownikiem jest natychmiastowa dostępność odpowiednio platformy, infrastruktury oraz oprogramowania, zaraz po zakupie. Ponadto wszystko
+odbywa się na wirtualnej płaszczyźnie z minimalnym wkładem własnym ze strony kupującego. Jednocześnie stale wzrasta liczba usług, które
+potencjalny kupujący może nabyć. Popyt na nie jednocześnie stymuluje podaż. Pojawiają się coraz to nowsze rozwiązania, stare są aktualizowane lub
 zastępowane innymi aplikacjami, a sam koncept \textbf{as a service} staje się obecny w kolejnych aspektach życia. 
 
 Temat pracy dyplomowej, który można by przedstawić, po angielsku, jako \textbf{Logging As A Service}, sam w sobie nie jest zagadnieniem
 nowym. Niemniej, został on zaproponowany jako uzupełnienie dla projektu \textbf{monasca}\footnote{Nadrzędnym i pierwszym kontrybutorem była firma HP} przez
 firmę Fujitsu, której autor pracy dyplomowej jest pracownikiem. 
-Podczas, gdy \textbf{monasca} skupia się na zagadnieniu monitorowania aplikacji oraz maszyn, na których te aplikacje działają, dając wgląd w, niejako,
+\textbf{monasca} skupia się na zagadnieniu monitorowania aplikacji oraz maszyn, na których te aplikacje działają, dając wgląd w niejako
 chwilowy stan, w jakim system aktualnie się znajduje, jak działa, czy też jak wiele zużywa zasobów przetwarzając dane. Nie informuje to jednak o 
-przebiegu procesów, które wspomniane zasoby konsumują. Takie informacje można uzyskać z logów. Nawiązując do tematu, okazuje się, że operacje takie jak 
-ich zbieranie w dużym systemie informatycznym, przechowywanie czy tez w dalszej kolejności przetwarzanie na potrzeby analizy, jest dużo bardziej 
-skomplikowane, niż mogłoby się wydawać. Ponadto, źródło informacji, jakimi są kolejne rekordy zapisywane w plikach logów, często okazuje się nieocenione w 
-odnajdywaniu pierwszych symptomów, które mogą oznaczać poważne problemy w poprawnym działaniu monitorowanych aplikacji.
+przebiegu procesów, konsumujących dane zasoby. Takie informacje można uzyskać z logów. Nawiązując do tematu, okazuje się, że operacje na logach, takie jak 
+zbieranie w dużym systemie informatycznym, przechowywanie, czy też w dalszej kolejności przetwarzanie na potrzeby analizy, jest dużo bardziej 
+skomplikowane niż mogłoby się wydawać. Ponadto, źródło informacji, jakimi są kolejne rekordy zapisywane w plikach logów, często okazuje się nieocenione w 
+odnajdywaniu pierwszych symptomów, które mogą oznaczać poważne problemy z poprawnym działaniem monitorowanych aplikacji.
 
 \section{Cel i zakres pracy}
 
 Głównym celem pracy magisterskiej jest zaprezentowanie rozwijającego się trendu \textbf{monitorowania jako serwisu} dla usług działających w chmurach,
 ze wskazaniem na \textbf{logowanie jako serwis}. Pomimo, że \textbf{LaaS}\footnote{Logging as a Service - logowanie jako serwis} 
-może być traktowane jako całkowicie odrębny segment, logicznie jest on częścią monitorowania i możliwości przezeń oferowane wpisują się w ten sam
-zbiór funkcjonalności. Ponadto, uwaga zostanie zwrócona również na aspekt pracy dyplomowej związany z otwarto źródłowym charakterem aplikacji oraz
-współpracy autora z zespołem programistów, zatrudnionych w firmie Fujitsu oraz tymi, którzy należą do, ciągle rosnącej, społeczności zrzeszonej wokół
-projektu \textbf{monasca}. 
+może być traktowane jako całkowicie odrębny segment, logicznie jest on częścią monitorowania, stąd też możliwości przezeń oferowane wpisują się w ten sam
+zbiór funkcjonalności. Ponadto w pracy zwrócono uwagę również na aspekt związany z otwarto źródłowym charakterem aplikacji.
 
-Poprzez przedstawienie obecnej architektury oraz serwisów, wchodzących w skład całego rozwiązania, autor przedstawi złożoność projektu
+Poprzez przedstawienie obecnej architektury oraz serwisów, wchodzących w skład całego rozwiązania, autor przedstawił złożoność projektu
 oraz swój osobisty wkład w jego dalszy rozwój, jak i w to, co do tej pory zostało już zaimplementowane. Warto dodać, że całość
-aplikacji tworzona jest na wielu płaszczyznach. Nadrzędnym aspektem jest praca zawodowa, którą autor pracy dyplomowej, wykonuje.
-Ważnym elementem jest także współpraca ze społecznością całego projektu, celem akceptacji proponowanych zmian
-oraz dyskusji, jak powinny wyglądać elementy, które w całym projekcie nie były jeszcze obecnie. Ostatecznie, celem autora 
-jest zaproponowanie nowej funkcjonalności w ramach pracy dyplomowej.
+aplikacji tworzona jest na wielu płaszczyznach. Nadrzędnym elementem jest praca zawodowa, którą autor pracy dyplomowej, wykonuje.
+Ważnym czynnikiem jest także współpraca ze społecznością całego projektu, celem akceptacji proponowanych zmian
+oraz dyskusji, jak powinny wyglądać elementy, które w całym projekcie nie były jeszcze obecne. Ostatecznie, celem autora 
+było zaproponowanie nowej funkcjonalności w ramach pracy dyplomowej.
 
-Omówienia monitorowania oraz logowania w modelu chmury obliczeniowej służyć będzie zdobyciu wiedzy
-teoretycznej, pozwalającej na lepsze zrozumienia tworzonego rozwiązania. Tym samym, autor zdobędzie potrzebne umiejętności i informacje, 
-które pozwolą na lepsze i rzeczowe komentowanie, proponowanie nowych funkcji oraz rozwijani już istniejących.  
+Omówienie monitorowania oraz logowania w modelu chmury obliczeniowej służyć będzie zdobyciu wiedzy
+teoretycznej, pozwalającej na lepsze zrozumienie tworzonego rozwiązania. Tym samym autor zdobył potrzebne umiejętności i informacje, 
+które pozwolą na lepsze i rzeczowe komentowanie, proponowanie nowych funkcji oraz rozwijanie już istniejących.  
 
 \section{Układ pracy}
-Praca została zorganizowana tak, aby przedstawić, w sposób teoretyczne,
+Praca została zorganizowana tak, aby przedstawić w sposób teoretyczny
 zagadnienia stanowiące bazę dla części praktycznej.
 
 W rozdziale \ref{chapter:monitoring} zawarty jest opis monitorowania, jako techniki
 analizowania stanu systemu. Omówione są w nim elementy, które wchodzą w skład aplikacji
-monitorujących, oraz zadania jakie są przed nimi stawiane. Duży nacisk został położony
+monitorujących oraz zadania jakie są przed nimi stawiane. Duży nacisk został położony
 na zobrazowanie alarmu jako funkcji logicznej oraz opisanie zalet, jakie z tego faktu
 wynikają. Ostatecznie przedstawione zostały ogólne korzyści oraz konkretne przypadki użycia,
-w których monitorowania może okazać się pomocne.
+w których monitorowanie może okazać się pomocne.
 
-Rozdział \ref{chapter:logs} poświęcony został głównemu mianowniki, poniższej pracy dyplomowej.
-Logi, często niedocenianie przez administratorów dużych, zostały omówione od strony teoretycznej. Szczególna uwaga została poświęcona logom jako strukturze danych, formatom 
+Rozdział \ref{chapter:logs} poświęcony został głównemu zagadnieniu poniższej pracy dyplomowej - logom.
+Te, często niedocenianie przez administratorów dużych systemów, zostały omówione od strony teoretycznej. Szczególna uwaga została poświęcona logom jako strukturze danych, formatom ich
 przechowywania oraz klasyfikacji. Ponadto przedstawione zostały zagadnienia dotyczące
 zbierania, archiwizacji oraz przetwarzania logów wraz z problemami, które mogą wystąpić 
 podczas wykonania wspomnianych operacji.
 
 Rozdział \ref{chapter:monitoring_architecture} poświęcony został zagadnieniu jakim jest
-\textbf{monitorowanie} oraz \textbf{logowanie} jako serwis. Paradygmaty, odpowiednio,
-\textbf{MaaS} oraz \textbf{LaaS} stanowią ważny element nowoczesnych chmur obliczeniowych,
-gdzie głównym celem jest dostarczenie możliwie największej ilości funkcjonalności tradycyjnych
+\textbf{monitorowanie} oraz \textbf{logowanie} jako serwis. Paradygmaty, \textbf{MaaS} oraz \textbf{LaaS}, stanowią ważny element nowoczesnych chmur obliczeniowych,
+których głównym celem jest dostarczenie możliwie największej ilości funkcjonalności tradycyjnych
 systemów komputerowych, jako możliwej do natychmiastowego wykorzystania usługi. Szczególna uwaga została poświęcona \textbf{logowaniu jako serwis}. Oprócz samej architektury tego
-rozwiązania, przedstawione zostały wyzwania jakie \textbf{LaaS} stawia oraz korzyści wynikające
-z adopcji lub implementacji tej techniki.
+rozwiązania, przedstawione zostały wyzwania stawiane przez \textbf{LaaS} oraz korzyści wynikające
+z adaptacji lub implementacji tej techniki.
 
 \todo[inline]{po poprawieniu rozdzialu 5 dopisac tutaj}

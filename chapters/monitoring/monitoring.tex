@@ -1,14 +1,11 @@
 \section{Monitorowanie}
-    Monitorowanie, w informatyce, nie różni się szczególnie od monitorowania w innych dziedzinach nauki lub przemysłu. 
-    W najszerszym tego słowa znaczeniu, odnosi się ono uzyskania wiedzy na temat tego, co się aktualnie dzieje w systemie.
-    Jest to proces, w wyniku którego możliwe jest uzyskania wiedzy na temat obciążanie systemu, rozmiarów oraz przepływu przez niego
-    danych. Monitorowanie jest zestawem aplikacji z zakresu przetwarzania danych w czasie rzeczywistym oraz analizy. 
+    Monitorowanie w informatyce nie różni się szczególnie od monitorowania w innych dziedzinach nauki lub przemysłu. 
+    W najszerszym tego słowa znaczeniu odnosi się ono do uzyskania wiedzy na temat tego, co się aktualnie dzieje w systemie.
+    Jest to proces, w wyniku którego możliwe jest uzyskanie wiedzy na temat obciążenia systemu, rozmiarów danych oraz ich przepływu. Monitorowanie jest zestawem aplikacji z zakresu przetwarzania oraz analizy danych w czasie rzeczywistym. 
     Głównym zadaniem, jakie przyświeca omawianej gałęzi informatyki, jest alarmowanie administratorów systemu o wszelkich
-    odchyleniach od normy, które jeśli się utrzymają, mogą skutkować nawet wyłączeniem monitorowanego
-    komponentu przez co niemożliwa będzie normalne praca całego systemu. Najlepszym tutaj przykładem, takiej sytuacji, 
-    byłby wzrost ilości niedostarczonych wiadomości w kolejce (przykładowo Kafka lub RabbitMQ). Jeśli, wspomniana kolejka,
-    stanowiłaby integralną część systemu, jej zadanie polegałoby na przesyłaniu danych istotnych z punktu
-    widzenia użytkownika końcowego, awaria tego typu zatrzymałaby cały system \cite{monitoring_and_alerting}.
+    odchyleniach od normy. Utrzymujące się odchylenia, mogą wówczas skutkować wyłączeniem monitorowanego
+    komponentu, przez co niemożliwa będzie poprawna praca całego systemu. Najlepszym przykładem takiej sytuacji, 
+    jest wzrost ilości niedostarczonych wiadomości w kolejce (przykładowo Kafka lub RabbitMQ). Przykładowa kolejka, jeśli jest ona integralną częścią systemu, ma za zadanie przesyłanie danych. Stąd też awaria tego typu zatrzymałaby cały system \cite{monitoring_and_alerting}.
     
 \subsection{Techniki monitorowania}
     Wyróżnić można dwie podstawowe gałęzie. Podejście \textbf{pasywne} oraz \textbf{aktywne}. Oba z nich wzajemnie się uzupełniają.
