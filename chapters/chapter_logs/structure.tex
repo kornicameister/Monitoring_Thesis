@@ -2,7 +2,7 @@
 \label{chapter:logs:structure}
     Log jest prostą strukturą danych, a właściwie bazą danych rządząca się kilkoma regułami.
     Możliwe jest ich dopisywanie jedynie do końca pliku, a kolejne wiersze posortowane są rosnąco
-    według znacznika czasowego lub. Innymi słowy wpisy utworzone później znajdą się bliżej końca pliku,
+    według znacznika czasowego. Innymi słowy wpisy utworzone później znajdą się bliżej końca pliku,
     w stosunku do wpisów wcześniejszych. Warto zaznaczyć, że moment, w którym log został wygenerowany nie ma
     nic wspólnego z fizycznym czasem obowiązującym na serwerze. Ważne jest kiedy dane wydarzenia
     miało miejsce, a nie kiedy wpis pojawił się w pliku docelowym.
@@ -21,8 +21,7 @@
     Wpis jako struktura danych przypomina formatem CSV lub FixedLength\footnote{Formaty danych oparte odpowiednio o przecinek, długość kolumny 
         jako separator oddzielający kolejne fragmenty logicznie spójnej informacji \cite{csv_definition}}. 
     Logiczne ułożenie elementów w pojedynczym wierszu jest silnie uzależnione od źródła z którego pochodzi log, 
-    a dokładniej z formatu dlań przyjętego. Różnić się będą logi pochodzącego z aplikacji napisanych w języku Python
-    lub języka Java. Wynika to jedynie z różnych konwencji przyjętych przez środowisko 
+    a dokładniej z formatu dlań przyjętego. Dlatego też różnić się będą logi pochodzące z aplikacji napisanych w języku Python od aplikacji napisanych w językach Java. Wynika to jednak jedynie z różnych konwencji przyjętych przez środowisko 
     programistyczne zrzeszone wokół danego języka programowania. Niemniej podstawowe informacje, takie jak:
     \begin{itemize}
         \item znacznik czasowy,
@@ -49,7 +48,7 @@
         \item Rezultat z pamięci podręcznej, czy wynik żądania pochodzi z cache'u,
         \item Długość odpowiedzi serwera (ilość danych wysłanych do klienta),
         \item Typ żądania (metoda HTTP) jakie wysłał klient,
-        \item URL pod jakiego wystosowano żądania,
+        \item URL pod jaki wystosowano żądanie,
         \item Nazwa użytkownika (zalogowanego w kliencie),
         \item Adres proxy, wewnętrzny w strukturze serwera,
         \item Typ odpowiedzi (content-type)
@@ -59,26 +58,25 @@
 
     \subsection{Pliki tekstowe}
     Pliki tekstowe stanowią najpopularniejszy format przechowywania logów. Najczęściej jest to 
-    pierwszy etap, w jakim informacje zawarte w logach mogą być reprezentowane. Jego głównymi zaletami są:
+    pierwszy etap w jakim informacje zawarte w logach mogą być reprezentowane. Jego głównymi zaletami są:
     \begin{itemize}
-        \item niski zużycie czasu procesora oraz dysku,
-        \item format jest czytelny dla człowieka,
-        \item różnorodności formatów przeznaczonych dla wielu języków programowania,
-        lub ogólnych, np. \textbf{syslog},
+        \item niskie zużycie czasu procesora oraz dysku,
+        \item czytelny dla człowieka format,
+        \item różnorodności formatów przeznaczonych dla wielu języków programowania, np. \textbf{syslog},
         \item wysoki współczynnik kompresji \cite{logging_log_management}
     \end{itemize}
     
     \subsection{Płaska struktura logów}
     Logi zazwyczaj opisywane są strukturą płaską. Innymi słowy kolejne wpisy nie są ze sobą w żaden sposób
     związane, nie istnieje między nimi żadna relacja. Pliki tekstowe, w których zazwyczaj aplikacja lub
-    urządzania zapisuje logi, posiadają więc płaską strukturę \cite{logging_log_management}. Powyższe stwierdzenie
-    pozostaje prawdziwe także wpisów umieszczonych w więcej niż jednej linii. Jest to spowodowane tym, że
-    jest to wciąż jeden rekord, logicznie odnoszący się do jednego wydarzenia, takie jak zrzut błędu
+    urządzanie zapisuje logi, posiadają więc płaską strukturę \cite{logging_log_management}. Powyższe stwierdzenie
+    pozostaje prawdziwe także dla wpisów umieszczonych w więcej niż jednej linii. Dzieje się tak dlatego, że
+    jest to wciąż jeden rekord, logicznie odnoszący się do jednego wydarzenia, takiego jak zrzut błędu
     \footnote{Stacktrace - ciąg wywołań funkcji, które doprowadziły do błędu}
     
     \subsection{Binarne pliki logów}
-    Jak nazwa wskazuje, logi przechowywane są w formacie binarnym. Główną wadą takiego
-    rozwiązania jest brak możliwości odczytania zapisanych danych bez wsparcia odpowiedniego
+    Opisywane w tym rozdziale logi, jak można się spodziewać, przechowywane są w formacie binarnym. Główną wadą takiego
+    rozwiązania jest brak możliwości odczytywania zapisanych danych bez wsparcia odpowiedniego
     oprogramowania oraz wewnętrznego formatu kolejnych wpisów. Innym problem jest mały współczynnik
     skompresowania. Najczęściej udaje się zmniejszyć rozmiar pliku do 10 procent, co w
     porównaniu z plikami tekstowymi stanowi ogromną różnicę.
@@ -91,22 +89,22 @@
     oprogramowanie ma za zadanie utworzenie skompresowanego pliku logu po osiągnięciu przez niego
     odpowiedniego rozmiaru lub upłynięciu określanego czasu. Jedną z takich aplikacji jest 
     \textbf{logrotate}\footnote{Logrotate - \url{http://www.linuxcommand.org/man_pages/logrotate8.html}}.
-    Główną zaletą tego formatu jest zwiększenie wolnej przestrzeni dyskowej, a w przypadku, gdyby koniecznie
-    okazało się przesłania tych danych na zewnętrzny serwer - mniejsze obciążenie sieci \cite{logging_log_management}.
+    Główną zaletą tego formatu jest zwiększenie wolnej przestrzeni dyskowej, a w przypadku gdyby konieczne
+    okazało się przesłanie tych danych na zewnętrzny serwer - mniejsze obciążenie sieci \cite{logging_log_management}.
  
     \subsection{Przechowywania logów w bazie danych}
     \label{chapter:logs:history:db_format}
-    Baza danych, jako miejsce docelowe, do którego zapisywane są logi, jest szczególnie użyteczna z uwagi na:
+    Baza danych, jako miejsce docelowe do którego zapisywane są logi, jest szczególnie użyteczna z uwagi na:
     \begin{itemize}
         \item automatyczną archiwizację danych dostępną w większości systemów bazodanowych,
         \item możliwość opisania logów strukturą relacyjną,
-        \item dostępność języka SQL zapytać dla celów analitycznych, bez konieczności tworzenia aplikacji
+        \item dostępność języka SQL dla celów analitycznych, bez konieczności tworzenia aplikacji
         wspomagających ten proces \cite{logging_log_management}.
     \end{itemize}
-    Powyższe korzyści mają jednak swój koszt. Zapisywania kolejnych rekordów do bazy danych jest 
-    dużo wolniejsze niż zapisywania do lokalnego pliku. Jest to głównie związane z narzutem związanym
-    z przesłaniem danych przez internet, parsowaniem SQL i jego walidacją czy też ostateczności
+    Powyższe korzyści ciągną jednak za sobą pewne koszty. Zapisywanie kolejnych rekordów do bazy danych jest 
+    dużo wolniejsze niż zapisywanie do lokalnego pliku. Jest to głównie związane z narzutem związanym
+    z przesłaniem danych przez internet, parsowaniem SQL i jego walidacją czy też w ostateczności
     zweryfikowaniem spójności danych pod kątem relacji, jeśli takowe zostały zdefiniowanie.
-    Problem może okazać się również usuwanie. Błędna konfiguracja (indeksy nałożone na zbyt obszerne pola) mogą 
-    znacząco wydłużyć potrzebny czas na zakończenie tej operacji oraz wymusić na silniki bazodanowym ponowną
+    Problemem może okazać się również usuwanie. Błędna konfiguracja (indeksy nałożone na zbyt obszerne pola) mogą 
+    znacząco wydłużyć potrzebny czas na zakończenie tej operacji oraz wymusić na silniku bazodanowym ponowną
     indeksację \cite{logging_log_management}.

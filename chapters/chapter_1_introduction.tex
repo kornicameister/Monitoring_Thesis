@@ -36,16 +36,20 @@ odnajdywaniu pierwszych symptomów, które mogą oznaczać poważne problemy z p
 
 \section{Cel i zakres pracy}
 
-Głównym celem pracy magisterskiej jest omówienie logowania w rozproszonych systemach, chmurach obliczeniowych, 
+Głównym celem prezentowanej pracy jest omówienie logowania w rozproszonych systemach, chmurach obliczeniowych, 
 z uwzględnieniem aspektów dotyczących zbierania, analizowania oraz możliwości wyciągania wniosków z zebranych danych.
 Omawiając ten temat ważne jest uwzględnienie rozwijającego się trendu \textbf{monitorowania jako serwisu} dla usług 
 działających w chmurach, ze wskazaniem na \textbf{logowanie jako serwis}. Pomimo, że \textbf{LaaS}\footnote{Logging as a 
-Service - logowanie jako serwis} może być traktowane jako całkowicie odrębny segment, logicznie jest on częścią 
+Service - logowanie jako serwis} może być traktowane jako całkowicie odrębny segment, logicznie, jest on częścią 
 monitorowania, stąd też możliwości przezeń oferowane wpisują się w ten sam zbiór funkcjonalności. 
 % to zdanie leci do rozdzialu 6
 Ponadto w pracy zwrócono uwagę na aspekt związany z otwarto źródłowym charakterem aplikacji.
 
-W rozdziale \ref{chapter:monitoring} zawarty jest opis monitorowania, jako techniki
+Dodatkowym celem pracy było pogłębienie wiedzy na tematy opisywane, pozwalającej na lepsze zrozumienie tworzonego rozwiązania od strony teoretycznej. Tym samym zdobyto
+potrzebne umiejętności i informacje, które pozwolą na bardziej efektywne i rzeczowe komentowanie oraz proponowanie nowych funkcji, jak również rozwijanie już istniejących.  
+
+
+Przechodząc do opisu zakresu poniższej pracy, w kolejnych rozdziałach opisano tematy związane zarówno z teoretyczną częścią rozwiązania, jak i praktyczną. Stąd też w rozdziale \ref{chapter:monitoring} zawarty jest opis monitorowania, jako techniki
 analizowania stanu systemu. Omówione są w nim elementy, które wchodzą w skład aplikacji
 monitorujących oraz zadania jakie są przed nimi stawiane. Duży nacisk został położony
 na zobrazowanie alarmu jako funkcji logicznej oraz opisanie zalet, jakie z tego faktu
@@ -65,23 +69,20 @@ funkcjonalności tradycyjnych systemów komputerowych, jako możliwej do natychm
 została poświęcona \textbf{logowaniu jako serwis}. Oprócz samej architektury tego rozwiązania, przedstawione zostały wyzwania 
 stawiane przez \textbf{LaaS} oraz korzyści wynikające z adaptacji lub implementacji tej techniki.
 
-Pobocznym celem rozdziałów \ref{chapter:monitoring}, \ref{chapter:logs}, \ref{chapter:monitoring_architecture} było zdobycie 
-wiedzy teoretycznej, pozwalającej na lepsze zrozumienie tworzonego rozwiązania od strony teoretycznej. Tym samym autor zdobył 
-potrzebne umiejętności i informacje, które pozwolą na lepsze i rzeczowe komentowanie, proponowanie nowych funkcji oraz rozwijanie już istniejących.  
 
 W rozdziale \ref{chapter:application}, poprzez przedstawienie obecnej architektury oraz serwisów, wchodzących w skład całego 
-rozwiązania, przedstawiona została złożoność projektu. Omówione komponenty, stanowią część projektu \textbf{monasca}, jednak
-posiadają zupełnie odrębny cel. Podczas gdy, w pierwszy ze wspomnianych projektów, nadrzędną rolę odgrywają metryki,
-aplikacja, a tym samym część praktyczna, skupia się na logach. W tym też rozdziale, omówiona została również
+rozwiązania, przedstawiona została złożoność projektu. Omówione komponenty stanowią część projektu \textbf{monasca}, jednak
+posiadają zupełnie odrębny cel. W pierwszym ze wspomnianych projektów nadrzędną rolę odgrywają metryki, natomiast
+aplikacja, a tym samym część praktyczna, skupia się na logach. W tym też rozdziale, omówiona została także
 koncepcja kompleksowej instalacji projektu \textbf{monasca} (LaaS+Maas), opartego o narzędzie Ansible, 
 służące do automatyzacji tego procesu.
 
-Rozdział \ref{chapter:application_own} stanowi faktyczne omówienie dotychczasowego wkładu w rozwój obecnie istniejących
+Rozdział \ref{chapter:application_own} stanowi rzeczowe omówienie dotychczasowego wkładu własnego w rozwój obecnie istniejących
 komponentów części praktycznej, omówionych w rozdziale \ref{chapter:application}. Warto dodać, że całość aplikacji tworzona 
 jest na wielu płaszczyznach, łącząc w sobie elementy związane z bazami danych, przetwarzaniem dużych ilości informacji
 oraz prezentowaniem ich użytkownikowi. Ważnym czynnikiem jest także współpraca ze społecznością całego 
 projektu \textbf{monasca}, celem akceptacji proponowanych zmian oraz dyskusji, jak powinny wyglądać elementy, które w całym 
 projekcie nie były jeszcze obecne.
 
-Ostateczne, rozdział \ref{chapter:application_own:plans} służył opisaniu planów rozwojowych, zaprezentowanych na
+Ostateczne rozdział \ref{chapter:application_own:plans} służył opisaniu planów rozwojowych, zaprezentowanych na
 forum całego zespołu oraz społeczności, przez autora pracy dyplomowej. 

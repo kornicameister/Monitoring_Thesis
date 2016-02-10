@@ -3,58 +3,58 @@
 
     Nawet małej wielkości system informatyczny jest w stanie wygenerować kilka tysięcy logów w ciągu
     zaledwie kilku godzin swojego działania. Logi systemowe, audyty bezpieczeństwa, logi aplikacji oraz
-    logi pochodzące z urządzeń fizycznych - każdy z powyższego rodzaju może zawierać informacje potrzebne
-    dla administratorów systemu. 
+    logi pochodzące z urządzeń fizycznych - każdy z nich może zawierać informacje potrzebne
+    administratorom systemu. 
     
     \subsection{Źródła logów}
     \label{chapter:logs:collecting:source}
-    Źródła, z których pochodzą logi, można podzielić na dwie główne kategorie:
+    Źródła, z których pochodzą logi można podzielić na dwie główne kategorie:
     \begin{itemize}
         \item[\textbf{push-based}]
-            Aplikacja lub urządzenie zapisuje kolejne rekordy do pliku zlokalizowanego
+            - aplikacja lub urządzenie zapisuje kolejne rekordy do pliku zlokalizowanego
             na tej samej maszynie. Konieczne jest więc zalogowanie się do niej, aby 
-            mieć wgląd do tego, co działo się z danym programem. Z tego powodu, istnieje
+            mieć wgląd do tego, co działo się z danym programem. Z tego powodu istnieje
             alternatywna droga, która może być wymienna z pierwszą lub być komplementarna do niej.
             Program może jednocześnie zapisać dane do pliku oraz wysyłać je przez sieć. W tym
-            wypadku, konieczne jest posiadania serwera skonfigurowanego do odbierania logów 
+            wypadku, konieczne jest posiadanie serwera skonfigurowanego do odbierania logów 
             \cite{logging_log_management}.
         \item[\textbf{pull-based}]
-            Podejście odwrotne do omówionego w powyżej. W tym wypadku,
+            - podejście odwrotne do omówionego w powyżej. W tym wypadku,
             klientem jest aplikacja, która pobiera logi z monitorowanego programu. Jest ona najczęściej
             implementowana w architekturze \textbf{klient-serwer}\footnote{Klient-Serwer - Model architektury
                 systemów. Serwer udostępnia usługi, które wykorzystuje klient, aby zrealizować zadania
                 pochodzące od użytkownika systemu}. Inną cechą szczególną jest własnościowy format logu.
-            Logi są pobierane z programu aktywnie, w podobny sposób w jaki, na żądania, realizowana
+            Logi są pobierane z programu aktywnie, w podobny sposób w jaki, na żądanie, realizowana
             jest pewna usługa klienta \cite{logging_log_management}.
     \end{itemize}
     
         \subsubsection{Syslog}
         \label{chapter:logs:collecting:source:syslog}
-        Obecnie wiodące rozwiązanie na platformie Unix, umożliwiające efektywne zbierania logów. 
+        Obecnie wiodące rozwiązanie na platformie Unix, umożliwiające efektywne zbieranie logów. 
         W podstawowej wersji składa się on z demona \textbf{syslogd} - usługi
         uruchamianej wraz ze startem systemu operacyjnego i zatrzymywanej przy jego wyłączaniu. 
         Aplikacja, która chce zapisywać logi z jego wykorzystaniem, wykorzystuje bibliotekę \textbf{syslog}.
-        Udostępnione przez nią funkcję pozwalają na wygenerowanie odpowiedniego zdarzanie, które jest
-        w dalszej kolejności wysyłane poprzez socket, do działającej usługi \textbf{syslogd}. Możliwe jest
+        Udostępnione przez nią funkcję pozwalają na wygenerowanie odpowiedniego zdarzania, które jest
+        w dalszej kolejności wysyłane poprzez socket do działającej usługi \textbf{syslogd}. Możliwe jest
         również wykorzystanie protokołu \textit{UDP} do tego samego celu.
         Nowsze implementacje \textbf{syslog}, takie jak \textbf{rsylog} czy też \textbf{syslog-ng}, 
-        wykorzystują protokół \textit{TCP}. Podstawą różnicą między nimi jest bezpieczeństwo. TCP
-        gwarantuje dostarczenie wiadomości, w znacznie większym stopniu niż UDP \cite{logging_log_management}.
+        wykorzystują protokół \textit{TCP}. Podstawą różnicą między nimi jest bezpieczeństwo. TCP, w stosunku do UDP \cite{logging_log_management}
+        gwarantuje w znacznie większym stopniu dostarczenie wiadomości.
         Jego głównymi zaletami jest centralna konfiguracja oraz popularność.
         
         \subsubsection{Windows Event Log}
         \label{chapter:logs:collecting:source:windows_event_log}
         Własnościowe rozwiązanie firmy \textbf{Microsoft}. Dla systemów rodziny \textbf{Windows}
         ma on podobne znaczenie do \textbf{syslog}(\ref{chapter:logs:collecting:source:syslog}),
-        dostępnego w systemach Unix'owych. Zastosowanie tego systemu jest:
+        dostępnego w systemach Unix'owych. Zastosowaniem tego systemu jest:
         \begin{itemize}
             \item zbieranie logów systemowych,
-            \item zbieranie logów aplikacji
+            \item zbieranie logów aplikacji.
         \end{itemize}
         Jako logi systemowe rozumie się wszelkie wydarzenia pochodzące od samego systemu. W ich skład
         wliczane są między innymi: wydarzenia związane z bezpieczeństwem, np. 
         logowanie użytkownika oraz zdarzenia systemowe, pochodzące z jądra systemu. Aplikacje
-        również mogą wykorzystać \textbf{Windows Event Log}.
+        również mogą korzystać \textbf{Windows Event Log}.
         
         \subsubsection{Problem wielu źródeł}
         \label{chapter:logs:collecting:multiple_sources}
