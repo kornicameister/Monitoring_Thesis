@@ -8,38 +8,37 @@
     jest wzrost ilości niedostarczonych wiadomości w kolejce (przykładowo Kafka lub RabbitMQ). Przykładowa kolejka, jeśli jest ona integralną częścią systemu, ma za zadanie przesyłanie danych. Stąd też awaria tego typu zatrzymałaby cały system \cite{monitoring_and_alerting}.
     
 \subsection{Techniki monitorowania}
-    Wyróżnić można dwie podstawowe gałęzie. Podejście \textbf{pasywne} oraz \textbf{aktywne}. Oba z nich wzajemnie się uzupełniają.
-    W pierwszym z nich, administrator systemu wyłączony jest z procesu monitorowania stanu dopóki pewien
+    Wśród technik monitorowania wyróżnić można dwie podstawowe gałęzie. Podejście \textbf{pasywne} oraz \textbf{aktywne}. Oba wzajemnie uzupełniające się.
+    W pierwszym podejściu administrator systemu wyłączony jest z procesu monitorowania stanu dopóki pewien
     punkty krytyczny nie zostanie przekroczony. W tym momencie wystosowywane jest powiadomienie informujące o zaistniałej
-    sytuacji. Z drugiej strony, w podejściu aktywnym, administrator może na bieżąco analizować dane spływające z systemu.
-    Rozwiązania monitoringu najczęściej dostarczane są razem z programami, pozwalającymi na
-    wizualizację zebranych próbek w formie diagramów oraz wykresów. W połączeniu z faktem, że monitorowania odbywa się
+    sytuacji. W podejściu aktywnym natomiast, administrator może na bieżąco analizować dane spływające z systemu.
+    Rozwiązania monitoringu najczęściej dostarczane są razem z programami pozwalającymi na
+    wizualizację zebranych próbek w formie diagramów oraz wykresów. W połączeniu z faktem, że monitorowanie odbywa się
     w czasie rzeczywistym, administrator może szybciej zauważyć niepokojące symptomy wskazujące
-    na nieprawidłowe działania pewnych komponentów lub systemu jako całości.
+    na nieprawidłowe działanie pewnych komponentów lub systemu jako całości.
     Rozwiązanie pasywne utożsamia się z alarmowaniem, podczas gdy aktywne z monitorowaniem \cite{monitoring_and_alerting}.
     
     \subsection{Monitorowanie - części składowe}
-    Niezależnie od przyjętego modelu monitoringu, niezmiennie składa się on zawsze z metryk, danych, gdzie nadrzędną 
-    ich własnością jest czas, alarmów, notyfikacji oraz agentów \cite{monitoring_and_alerting}.
+    Niezależnie od przyjętego modelu monitoringu, niezmiennie, składa się on zawsze z metryk oraz danych, gdzie nadrzędną 
+    ich własnością jest czas alarmów, notyfikacji, a także agentów \cite{monitoring_and_alerting}.
     
         \subsubsection{Agenci}
-        Proces monitorowania rozpoczyna się od agentów. Agent, jest to specjalny program, działający nieprzerwanie w systemie, którego
-        zadaniem jest zbieranie informacji na temat jego działania. Warto w tym miejscu nadmienić, że agent może zbierać zarówno
-        dane odnoszące się do pojedynczej aplikacji. Jego zadaniem jest, poza pobraniem danych, przetłumaczenia ich na dane 
+        Proces monitorowania rozpoczyna się od agentów. Agent jest to specjalny program działający nieprzerwanie w systemie, którego
+        zadaniem jest zbieranie informacji na temat działania tego systemu. Warto w tym miejscu nadmienić, że agent może zbierać dane odnoszące się do pojedynczej aplikacji. Jego zadaniem jest, poza pobraniem danych, przetłumaczenie ich na dane 
         numeryczne. Wynika stąd pewna własność metryk - kolejne pomiary muszą być reprezentowane za pomocą wartości numerycznych.
-        Nie jest to problem dla statystyk takich jak aktualnego zużycie procesora lub pamięci. Z drugiej strony, zadaniem agenta
+        Nie jest to problem dla statystyk takich jak aktualne zużycie procesora lub pamięci. Z drugiej strony zadaniem agenta
         może być również weryfikacja czy na danej maszynie działa serwer WWW. Poniekąd zachodzi wtedy normalizacja danych. Fakt, że
-        serwer działa i jest w stanie obsługiwać żądania, może być reprezentowany za pomocą liczby 1, odwrotnie 0, mogłoby sygnalizować
+        serwer działa i jest w stanie obsługiwać żądania, może być reprezentowany za pomocą liczby 1, podczas gdy 0, mogłoby sygnalizować
         przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany \cite{monitoring_and_alerting}.
         \newglossaryentry{monitoring_agent}{
             name=Agent,
-            description={Aplikacja działająca na monitorowaniej maszynie, odpowiedzialna ze zbieranie metryk}
+            description={Aplikacja działająca na monitorowanej maszynie, odpowiedzialna ze zbieranie metryk}
             } 
         
         \subsubsection{Metryki}
-        Dane zebrane od agentów, przechowywane są w formie metryk. Jest to struktura danych optymalizowana pod kątem
-        efektywnego przechowywania liczb. Nie miałyby one jednak większego znaczenia bez kontekstu w którym zostały
-        zabrane. Dlatego też każda pojedyncza metryka opisana jest zestawem innych wartości dającymi wgląd w takie
+        Dane zebrane od agentów przechowywane są w formie metryk. Jest to struktura danych optymalizowana pod kątem
+        efektywnego przechowywania liczb. Nie miałyby one jednak większego znaczenia bez kontekstu, w którym zostały
+        zabrane. Dlatego też każda pojedyncza metryka opisana jest zestawem innych wartości dającym wgląd w takie
         informacje jak na przykład:
         \begin{itemize}
             \item miejsce pochodzenia,
@@ -47,49 +46,47 @@
             \item data zebrania.
         \end{itemize}
         Faktyczna liczba \textit{wymiarów}\footnote{\textbf{Dimensions} - meta dane opisujące zabraną metrykę} może
-        zostać dowolnie ustalana. Dzięki nim możliwe jest, w późniejszym czasie, przeglądania zebranych pomiarów
+        zostać dowolnie ustalana. Dzięki nim możliwe jest, w późniejszym czasie, przeglądanie zebranych pomiarów
         na dowolnym poziomie agregacji. W dalszym procesie przetwarzania metryki grupowane są w serie czasowe. Ich ilość
         zależy przede wszystkim od rodzaju informacji jaką chce się uzyskać \cite{monitoring_and_alerting}.
         
         \subsubsection{Alarmy}
-        Generowane są na podstawie metryk przez oprogramowanie zwane monitorem. Alarm, jeśli zostanie wygenerowany, 
+        Alarmy generowane są na podstawie metryk przez oprogramowanie zwane monitorem. Alarm, jeśli zostanie wygenerowany, 
         odnosi się do sytuacji szczególnej, która zaistniała w systemie. Wspomniane aplikacje analizują wygenerowane metryki, 
-        porównując otrzymana wartości z dostarczoną im konfiguracją. Bazując na niej, są w stanie stwierdzić, że jeśli
+        porównując otrzymaną wartość z dostarczoną im konfiguracją. Bazując na niej są w stanie stwierdzić, że jeśli
         własność A przekroczyła maksymalną lub minimalną wartość określoną ilość razy, konieczne jest poinformowania o tym
-        administratora systemu. Jednocześnie alarm, najczęściej, zapisywany jest do bazy danych. Pozwala to na późniejszą analizę 
+        administratora systemu. Jednocześnie alarm najczęściej zapisywany jest do bazy danych. Pozwala to na późniejszą analizę 
         w kontekście historycznym \cite{monitoring_and_alerting}. 
         
         \subsubsection{Powiadomienia}
         Notyfikacje są generowane przez system monitoringu jeśli dany alarm przejdzie w stan aktywny. Mogą przyjąć praktycznie
         dowolną formę, wszystko zależy od pomysłowości programistów stojących za przygotowaniem takiego rozwiązania.
-        Najczęściej spotykane jest wysłania wiadomości mailowej na wskazane adres, informując o 
+        Najczęściej spotykane jest wysłania wiadomości mailowej na wskazany adres, informującej o 
         przekroczeniu pewnych wartości granicznych w określonym komponencie całego systemu. Spotyka się również inne formy:
         \begin{itemize}
             \item[SMS] - na wskazany numer telefonu wysłana jest wiadomość SMS, zawierająca skrócony opis zaistniałego problemu,
-            \item[ITS] - z angielskiego - \textbf{Issue Tracking System}. Notyfikacja może przyjąć także bardziej wyrafinowaną formę.
-            \textbf{ITS} są specjalnymi rodzajami stron internetowych, w których zgłaszane są wszelkie problemy, jakie napotkano
+            \item[ITS] - z angielskiego - \textbf{Issue Tracking System} - notyfikacja w bardzej wyrafinowanej formie specjalnych rodzai stron internetowych, w których zgłaszane są wszelkie problemy, jakie napotkano
             podczas użytkowania systemu. Ich nadrzędnym celem jest dostarczenie właściwych rozwiązań administracyjnych, mających
             na celu naprawę zaistniałej sytuacji oraz późniejsze jej przeciwdziałania.
         \end{itemize}
-        Mogą się one zarówno wzajemnie wykluczać, jak i uzupełniać. Alarmy mogą również same definiować jaki rodzaj notyfikacji
+        Przedstawione powiadomienia mogą się zarówno wzajemnie wykluczać, jak i uzupełniać. Alarmy mogą również same definiować jaki rodzaj notyfikacji
         powinien zostać w ich przypadku wykorzystany \cite{monitoring_and_alerting}.
         
         \subsubsection{Wizualizacje}
         W formie graficznej, wykresów oraz diagramów, reprezentuje się serie czasowe tworzone na podstawie metryk. 
         Reprezentacja graficzna metryk nie jest bezpośrednio wykorzystywana w przypadku alarmu,
         niemniej nie umniejsza to jej znaczenia. Tego typu funkcjonalność, często dostarczana z oprogramowaniem
-        monitorującym, daje wgląd w stan systemu w czasie rzeczywistym. Poszczególne metryki, mogą być
-        przeglądane na dowolnym poziomie szczegółowości, te same dane mogą być przedstawione w formie
-        wykresu słupkowego lub kołowego, zależnie od potrzeby. Dla operatora jest
+        monitorującym, daje wgląd w stan systemu w czasie rzeczywistym. Poszczególne metryki mogą być
+        przeglądane na dowolnym poziomie szczegółowości. Te same dane mogą być przedstawione w formie
+        wykresu słupkowego lub kołowego, zależnie od potrzeby. Operatorowi daje
         to możliwość dokładnego prześledzenia stanu systemu w zadanym zakresie czasu, przed lub po
         nastąpieniu awarii. Doświadczony administrator, znający charakterystykę systemu, jest w stanie
-        wykryć awarię zanim jeszcze zostanie ona wykryta przez system monitorujący. Przykładowo, ciągle
-        rosnący zużycie pamięci, może wskazywać, że pewna aplikacja niepoprawnie zarządza przydziałem
+        wykryć awarię zanim jeszcze zostanie ona zauważona przez system monitorujący. Przykładowo, ciągle
+        rosnące zużycie pamięci może wskazywać, że pewna aplikacja niepoprawnie zarządza przydziałem
         pamięci operacyjnej - nie zwalnia zajętych zasobów. W tym samym momencie, alarm powinien przejść
-        w stan aktywny po przekroczeniu co najmniej 80 procent. Administrator jednak, widząc, że zużycia pamięci
+        w stan aktywny po przekroczeniu co najmniej 80 procent. Administrator jednak widząc, że zużycie pamięci
         stale wzrastało w przeciągu ostatnich 8 godzin, ma szansę zgłosić ten fakt, a zespół programistów
-        może wprowadzić poprawki do oprogramowania usuwające usterkę. Podobne zastosowanie, wizualizację,
-        mogą znaleźć dla zużycia przestrzeni dyskowej. Wspomniana sytuacje można przypisać do komponentów
-        systemowych - niskiego poziomu w stosunku do aplikacji. Programy jednak również można monitorować,
-        i tak więc, niepokojącą oznaką aplikacji internetowej może być ciągle wydłużający się czas 
+        może wprowadzić poprawki do oprogramowania, które usuną usterkę. Podobne zastosowanie wizualizacji może mieć miejsce dla zużycia przestrzeni dyskowej. Wspomnianą sytuację można przypisać do komponentów
+        systemowych niskiego poziomu w stosunku do aplikacji. Programy jednak również można monitorować.
+        Dlatego też niepokojącą oznaką aplikacji internetowej może być ciągle wydłużający się czas 
         ładowania strony, wskazujący na problemy z serwerem lub na niezbyt wydajną architekturę samej aplikacji. 

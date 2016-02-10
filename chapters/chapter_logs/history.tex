@@ -12,30 +12,30 @@
     \label{chapter:logs:history:what_is_log}
     W informatyce log jest nieodłącznym elementem każdej, dobrze napisanej, aplikacji. 
     W logach znaleźć można informacje świadczące o kondycji programu, przebiegu jego działania, w tym również
-    wszelkich błędów lub wpisów wskazujących na, przykładowo, błędną konfigurację. Z tego też powodu log nie jest faktycznym wynikiem,
-    wyjściem pewnego algorytmu. Nie umniejsza to jego znaczenia, ponieważ wspomniane powyżej informacje, stanowią
+    wszelkich błędach lub wpisach wskazujących na, przykładowo, błędną konfigurację. Z tego też powodu log nie jest faktycznym wynikiem,
+    wyjściem pewnego algorytmu. Nie umniejsza to jednak jego znaczenia, ponieważ wspomniane powyżej informacje, stanowią
     istotny punkt podczas analizowania przyczyn napotkanych awarii. Warto także zwrócić uwagę na inny aspekt,
     w którym logi okazują się być przydatne. W przypadku serwera aplikacji \textbf{Tomcat}, warto wspomnieć
-    plik \textit{access.log}. Znaleźć w nim możne wpisy informujące o wszystkich żądaniach HTTP, jakie
-    serwer odebrał \cite{tomcat_logs}.
+    plik \textit{access.log}. Znaleźć w nim można wpisy informujące o wszystkich żądaniach HTTP, jakie odebrał
+    serwer \cite{tomcat_logs}.
     
     \subsection{Znaczenie logów w procesach biznesowych oraz administracyjnych}
     Zgodnie z paragrafem \ref{chapter:logs:history:what_is_log}, log często jest elementem systemu informatycznego, 
-    który pozwala na nie tyle lepsze jego zrozumienie, ale także reagowanie na pewne wydarzenia wyjątkowe.
+    który pozwala na nie tyle lepsze jego zrozumienie, ale bardziej wydajne reagowanie na pewne wydarzenia wyjątkowe.
     Z punktu widzenia administratorów systemu dane zawarte w logach serwera WWW pozwalają na określenie 
     sekwencji żądań wysłanych do serwera i mogą na przykład przysłużyć się wykryciu ataku sieciowego.
     Atak sieciowy, z definicji, jest atakiem przeprowadzonym z użyciem sieci komputerowej.
     Jednym z jego przykładów jest atak typu \textbf{DDOS} - \textit{Distributed Denial Of Service}. 
-    Główną jego cechą jest wysłania tak wielu żądań HTTP do serwera, z możliwe jak największej liczby klientów,
-    celem zajęcia wszystkich zasobów. Jedną z metod wykrywania takiego ataku, jest zbierania i analiza logów
+    Główną jego cechą jest wysłanie możliwie jak największej liczby żądań HTTP do serwera, z możliwe jak największej liczby klientów,
+    celem zajęcia wszystkich zasobów. Jedną z metod wykrywania takiego ataku jest zbieranie i analiza logów
     w czasie rzeczywistym. Wiedza na temat zwiększanego ruchu sieciowego oraz dane zebrane z zasobów systemowych (takie jak zużycie pamięci lub czasu procesora)
     dają możliwość wczesnego wykrycia takiego ataku \cite{web_based_attacks}.
     
     Analiza zachowań użytkowników jest kolejnym z elementów do którego zastosować można logi.
-    Kontynuując wątek logów \textit{access.log}. Na podstawie analizy żądań HTTP można wywnioskować, które z zasobów 
-    serwera są najczęściej pobierane, otwierane przez użytkowników konkretnej aplikacji. Szczególnie
-    przydatna taka wiedza może okazać się w przypadku stron internetowych o profilu użytkowym.
+    Kontynuując wątek logów \textit{access.log}, na podstawie analizy żądań HTTP można wywnioskować, które z zasobów 
+    serwera są najczęściej pobierane oraz otwierane przez użytkowników konkretnej aplikacji. Taka wiedza okazuje się szczególnie
+    przydatna w przypadku stron internetowych o profilu użytkowym.
     Większość klientów serwisu zainteresowanych jest materiałami odnoszącymi się do wiadomości z ostatnich 24h,
-    użytkownicy przede wszystkim wykorzystują ten serwis do czytania materiałowych prasowych lub ściągania plików.
-    Wiedza na taki temat pozwala na lepsze dostosowania zawartości strony do potrzeb odbiorcy.
+    użytkownicy przede wszystkim wykorzystują ten serwis do czytania materiałów prasowych lub ściągania plików.
+    Wiedza na taki temat pozwala na lepsze dostosowanie zawartości strony do potrzeb odbiorcy.
     

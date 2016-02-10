@@ -1,9 +1,9 @@
 \section{Log jako struktura danych}
 \label{chapter:logs:structure}
     Log jest prostą strukturą danych, a właściwie bazą danych rządząca się kilkoma regułami.
-    Możliwe jest dopisywanie jedynie do końca pliku, a kolejne wiersze posortowane są rosnąco
+    Możliwe jest ich dopisywanie jedynie do końca pliku, a kolejne wiersze posortowane są rosnąco
     według znacznika czasowego lub. Innymi słowy wpisy utworzone później znajdą się bliżej końca pliku,
-    niż wpisy wcześniejsze. Warto zaznaczyć, że moment, w którym log został wygenerowany nie ma
+    w stosunku do wpisów wcześniejszych. Warto zaznaczyć, że moment, w którym log został wygenerowany nie ma
     nic wspólnego z fizycznym czasem obowiązującym na serwerze. Ważne jest kiedy dane wydarzenia
     miało miejsce, a nie kiedy wpis pojawił się w pliku docelowym.
     

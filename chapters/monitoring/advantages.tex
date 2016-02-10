@@ -3,45 +3,45 @@
 
     \subsection{Wczesne wykrycie problemu}
     \label{chapter:monitoring:advantages:early_detection}
-    Jednocześnie podstawowa cecha oraz korzyść wynikająca z posiadania systemu monitorowania. 
-    Jest to także najbardziej krytyczna funkcja w której stykają się problemy odnoszące się
+    Wczesne wykrycie problemu to jednocześnie podstawowa cecha oraz korzyść wynikająca z posiadania systemu monitorowania. 
+    Jest to także najbardziej krytyczna funkcja, w której stykają się problemy odnoszące się
     do szybkości, dokładności oraz wydajności. Im szybciej administrator zostanie
     powiadomiony o potencjalnym problemie, tym większa szansa, że uda uniknąć się potencjalnej
     awarii systemu lub jej skutki będą zminimalizowane. Niestety, w tym samym czasie, 
     aby system monitorowania mógł dokładnie określić, że obserwowana sytuacja odbiega od normy,
-    musi on zebrać więcej niż kilka próbek. Uzyskania zadanej dokładności wymaga czasu, 
-    przez co szybkość detekcji spada. Ponadto, podobnie jak każdy program, również procesu
-    monitoringu zajmują czas procesora oraz pamięć. Im bardziej skomplikowany jest algorytm
-    detekcji tym większych zasobów systemu może on wymagać. Oczywistym jest, że wymaganiem
+    musi on zebrać więcej niż kilka próbek. Uzyskanie żądanej dokładności wymaga czasu, 
+    przez co szybkość detekcji spada. Ponadto, podobnie jak każdy program, również proces
+    monitoringu zajmuje czas procesora oraz pamięć. Im bardziej skomplikowany jest algorytm
+    detekcji, tym większych zasobów systemu może on wymagać. Oczywistym jest, że wymaganiem
     stawianym twórcom tego typu oprogramowania jest dostarczenie wymaganej funkcjonalności
-    bez zbyt dużego wpływu na wydajności docelowego systemu \cite{monitoring_and_alerting}. 
+    bez zbyt dużego wpływu na wydajność docelowego systemu \cite{monitoring_and_alerting}. 
     
     \subsection{Wysoka dostępność}
     \label{chapter:monitoring:advantages:high_availability}
     Zapewnienie ciągłości w świadczeniu usługi jest możliwe dzięki wczesnej detekcji
     wszelkich sytuacji anormalnych (\ref{chapter:monitoring:advantages:early_detection}) w kontekście danego systemu. 
     Termin, mimo ogólności, jest szczególnie istotny w przypadku usług działających w chmurach, dostępnych
-    dla szerokiego grona użytkowników. Awaria systemu, w takim przypadku, jest sytuacją niedopuszczalną. Dlatego
-    też podejmowane są wszelkie kroki, pozwalające świadczyć usługi bez przerwy. Dzięki możliwości
-    monitorowania systemu i wynikającej z tego korzyści jaką niesie wiedza o jego stania, pozwala
-    administratorom na aktywne przeciwdziałania tego typu sytuacjom \cite{monitoring_and_alerting}. 
+    dla szerokiego grona użytkowników. Awaria systemu w takim przypadku jest sytuacją niedopuszczalną. Dlatego
+    też podejmowane są wszelkie kroki pozwalające świadczyć usługi bez przerwy. Dzięki możliwości
+    monitorowania systemu i wynikającej z tego korzyści, jaką niesie wiedza o jego stanie, pozwala to
+    administratorom na aktywne przeciwdziałanie tego typu sytuacjom \cite{monitoring_and_alerting}. 
     
     \subsection{Automatyzacja}
-    Uzyskania wysokiej dostępności w sposób ręczny, z udziałem czynnika ludzkiego, jest praktycznie niemożliwe.
-    Mimo, że to właśnie człowiek jest w stanie zrozumieć przyczyny problemu aby zapobiec ich ponownemu wystąpieniu, 
-    nie jest on zdolny do zapewnienia, że system będzie świadczył usługę nieprzerwania. Wysoka dostępność (\ref{chapter:monitoring:advantages:high_availability}) tożsama jest z automatycznym procesem, w wyniku którego
-    komponent zgłaszający problem, może zostać wyłączony lub odłączony od reszty systemu i zastąpiony inną instancją.
+    Uzyskanie wysokiej dostępności w sposób ręczny, z udziałem czynnika ludzkiego, jest praktycznie niemożliwe.
+    Mimo, że to właśnie człowiek jest w stanie zrozumieć przyczyny problemu, aby zapobiec ich ponownemu wystąpieniu, 
+    nie jest on zdolny do zapewnienia, że system będzie świadczył usługę nieprzerwanie. Wysoka dostępność (\ref{chapter:monitoring:advantages:high_availability}) tożsama jest z automatycznym procesem, w wyniku którego
+    komponent zgłaszający problem może zostać wyłączony lub odłączony od reszty systemu i zastąpiony inną instancją.
     Rozwiązania tego typu są najczęściej oparte o technologie takie jak \textbf{Docker}, gdzie gotowy system
     operacyjny wraz z przygotowaną aplikacją zapisane są w kontenerze (podobnym do maszyny wirtualnej), który po 
-    uruchomieniu jest natychmiast gotowy do pracy. Nie tylko zastępowania komponentów jest możliwe. Dzięki
-    danym napływającym z monitorowania, wskazującym na wyższe obciążania systemu, możliwe jest uruchomienie
+    uruchomieniu jest natychmiast gotowy do pracy. Nie tylko zastępowanie komponentów jest możliwe. Dzięki
+    danym napływającym z monitorowania, wskazującym na wyższe obciążanie systemu, możliwe jest uruchomienie
     kolejnych instancji, które wspomogą już działające, a zwiększony ruch zostanie rozłożony na więcej elementów,
     przez co sumarycznie poszczególnie instancje zaczną działać pod mniejszym obciążaniem. Odwracając sytuację, jeśli
-    dodatkowe instancje nie będą już potrzebne mogą zostać one automatycznie wyłączone. Taki rodzaj pracy, jest również
+    dodatkowe instancje nie będą już potrzebne mogą zostać automatycznie wyłączone. Taki rodzaj pracy, jest również
     znany pod nazwą oprogramowania autonomicznego, zdolnego do samodzielnego skalowania oraz przywracania do stanu równowagi \cite{monitoring_and_alerting}.
     
     \subsection{Dostosowywanie parametrów systemu}
     Informacje pochodzące z alarmu można wykorzystać do zmiany parametrów systemu lub komponentów,
     które powinny działać bardziej wydajnie. Czasami modyfikacje tego typu mogą wynikać z zauważonych
-    problemów (\ref{chapter:monitoring:advantages:early_detection}), skutkujących w przepełnianiu
-    kolejek lub zajęciu całej pamięci operacyjnej. 
+    problemów (\ref{chapter:monitoring:advantages:early_detection}), skutkujących przepełnieniem
+    kolejek lub zajęciem całej pamięci operacyjnej. 
