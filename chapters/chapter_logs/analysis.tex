@@ -1,18 +1,19 @@
 \section{Analizowanie logów}
 \label{chapter:logs:analysis}
 
-Analizowania informacji zawartych w logach jest operacją skomplikowaną z uwagi na wysokie zróżnicowanie danych, jakie
+Analizowanie informacji zawartych w logach jest operacją skomplikowaną z uwagi na wysokie zróżnicowanie danych, jakie
 potencjalnie może być reprezentowane. Opisane w rozdziałach problemy, jakie spotyka się
 przy zbieraniu logów z pojedynczego lub rozproszonego systemu informatycznego oraz ich 
 późniejszej normalizacji do postaci wspólnej (\ref{chapter:logs:normalize}, \ref{chapter:logs:collecting}), 
-przekładają się na jeden wniosek. Ciężko jest przyjąć uniwersalny algorytm, będący w stanie sprostać temu wymaganiu.
-Z tego też powodu, to właśnie normalizacja, innymi słowy rozumieniu więcej niż jednego możliwego formatu, jest
+przekładają się na jeden wniosek. Ciężko jest przyjąć uniwersalny algorytm będący w stanie sprostać temu wymaganiu.
+%ale o co tu w sumie chodzi??
+Z tego też powodu to właśnie normalizacja innymi słowy rozumieniu więcej niż jednego możliwego formatu, jest
 szczególnie istotne, jeśli dalsze zrozumieniu, i to w rozumienie zautomatyzowane, jest celem, który chce się 
 osiągnąć.
 
-    \subsection{Cele analizowanie logów}
+    \subsection{Cele analizowania logów}
     
-    To dlaczego logi są analizowane, zależy silnie od kontekstu w jakim, ta operacja będzie się odbywać. 
+    To dlaczego logi są analizowane zależy silnie od kontekstu w jakim ta operacja będzie się odbywać. 
     Inne dane będą uzyskiwane z logów systemowych, inne z logów urządzeń sieciowych, a w zupełnie innej
     kategorii znajdą się te informacje, które pochodzić będą od aplikacji działających na systemie. Warto
     nadmienić, że podział, podobny do przedstawionego powyżej, obecny będzie również na poziomie
@@ -21,30 +22,30 @@ osiągnąć.
     a dla których, analiza logów jest istotna.
     
         \subsubsection{Zrozumienie znanych błędów}
-        W przypadku dowolnego programu, można wyróżnić zbiór problemów,
+        W przypadku dowolnego programu można wyróżnić zbiór problemów,
         z którymi aplikacja styka się już na poziomie implementacji,
         testów integracyjnych oraz wczesnego etapu działania. Pomimo, że większość tych błędów jest najczęściej
-        naprawiana w trybie natychmiastowym. Niestety nie wszystkie, mają szanse być zaadresowane w ten sposób.
+        naprawiana w trybie natychmiastowym, nie wszystkie mają szanse być zaadresowane w ten sposób.
         Wyróżnić można taki ich podzbiór, gdzie błędy znajdują się niejako poza aplikacją i wynikają z użytych
         mediów komunikacyjnych (kolejki, protokół) i ujawniają się jedynie w pewnych okolicznościach.
-        Przez taką, a nie inną, charakterystykę są ona ciężkie do wykrycia, tym samym zreprodukowania i naprawy.
-        Niemniej, z uwagi na wspomniane specjalne uwarunkowania, które mogą zostać wykryte, właśnie poprzez analizę logów,
+        Przez taką, a nie inną, charakterystykę są one ciężkie do wykrycia, a tym samym zreprodukowania i naprawy.
+        Niemniej, z uwagi na wspomniane specjalne uwarunkowania, które mogą zostać wykryte, właśnie poprzez analizę logów
         możliwa jest wczesna reakcja. Tym też manifestuje się zrozumienie błędów, które zapisane zostały
         w postaci kolejnych rekordów w pliku z logami. 
-        Z drugiej strony, należy wspomnieć, że zrozumienie znanych błędów, może też odnosić się to incydentów
+        Z drugiej strony należy wspomnieć, że zrozumienie znanych błędów może też odnosić się to incydentów
         bezpieczeństwa . Fakt niepoprawnego logowania, który powtarza się wielokrotnie, może wskazywać na próby
         uzyskania nieautoryzowanego dostępu do jakiegoś serwisu. Jeśli są to ciągłe próby, gdzie dwoma, ciągle
-        zmieniającymi się zmiennymi, są użytkownik oraz hasła, będzie to najprawdopodobniej próba złamania hasła
+        zmieniającymi się zmiennymi, są użytkownik oraz hasło, będzie to najprawdopodobniej próba złamania hasła
         metodą ataku siłowego-słownikowego \cite{logging_log_management}. 
         
         \subsubsection{Rozpoznanie nowych zagrożeń}
         Umiejętność zrozumienia istniejących problemów, które mogą zostać wykryte poprzez manualną lub
-        automatyczną analizę logów, jest jedną stroną medalu. Po drugiej strony, znajduje się reagowania
-        na wydarzenia, które są nowe i nieznane. Są one najniebezpieczniejsze z uwagi na swoją 
-        , jeszcze niezrozumianą, naturę oraz implikacje. Cel, jakim jest analiza dążąca ku wykryciu tego
+        automatyczną analizę logów, jest jedną stroną medalu. Po drugiej stronie, znajduje się reagowanie
+        na wydarzenia, które są nowe i nieznane. Są one najniebezpieczniejsze z uwagi na swoją, 
+        jeszcze niezrozumianą naturę oraz implikacje. Cel jakim jest analiza dążąca ku wykryciu tego
         typu anomalii, jest jednak trudniejszy do osiągnięcia. Wymaga on dużo bardziej wyrafinowanych narzędzi
-        operujących na dużych zbiorach danych. Warto dodać, że analizowane rzędy wielkości mogą oscylować, i 
-        nierzadko przekraczać, terabajty \cite{logging_log_management}. 
+        operujących na dużych zbiorach danych. Warto dodać, że analizowane rzędy wielkości mogą oscylować i 
+        nierzadko przekraczać terabajty \cite{logging_log_management}. 
         
     \subsection{Metody analizy}
     
@@ -54,87 +55,87 @@ osiągnąć.
         i tutaj okazuje się ona użyteczna. W ogólnym rozumieniu można ją sformułować w postaci następujących punktów:
         \begin{itemize}
             \item w danym momencie wystąpiło wydarzanie \textbf{A},
-            \item po wydarzeniu A, można było zaobserwować wydarzenie \textbf{B}, kilka razy w krótkim odstępie czasu.
+            \item po wydarzeniu A można było zaobserwować wydarzenie \textbf{B}, występujące kilka razy w krótkim odstępie czasu.
         \end{itemize}
-        Bazując na tym, możliwe jest, że potencjalnie kolejnym zdarzenie będzie wydarzenie \textbf{C}, o krytycznych
+        Bazując na tym możliwe jest, że potencjalnie kolejnym zdarzenie będzie wydarzenie \textbf{C}, o krytycznych
         implikacjach dla działającego systemu. Takimi konsekwencjami mogłoby być na przykład wyłączanie pewnej 
         aplikacji, a tym samym przerwa w działaniu usługi. Niemniej, z tak przedstawionego schematu, wynika kilka cech
         tego podejścia. 
         
-        Korelacja danych, jak sama nazwa wskazuje, umożliwia podjęcia odpowiednich kroków, jeśli dwa lub więcej wydarzeń
-        nastąpi po sobie. Co ważne, wydarzenie te mogą być potencjalnie wcale ze sobą niezwiązane i pochodzić z różnych
-        elementów systemu. Inną cechą, i jednocześnie wadą, jest to, że należy wcześniej wiedzieć, że pewna
-        sekwencja operacji, wydarzeń następujących po sobie (od razu lub w pewnym odstępie) czasu, doprowadzić może
-        do sytuacji krytycznej. Przykładowo, podmiotem korelacji danych mogłaby być kolejka buforująca 
+        Korelacja danych, jak sama nazwa wskazuje, umożliwia podjęcie odpowiednich kroków, jeśli dwa lub więcej wydarzeń
+        nastąpi po sobie. Co ważne wydarzenia te mogą nie być potencjalnie wcale ze sobą związane i pochodzić z różnych
+        elementów systemu. Inną cechą i jednocześnie wadą jest to, że należy wcześniej wiedzieć, że pewna
+        sekwencja operacji, wydarzeń następujących po sobie, od razu lub w pewnym odstępie czasu, doprowadzić może
+        do sytuacji krytycznej. Przykładowo podmiotem korelacji danych mogłaby być kolejka buforująca 
         komunikację między kilkoma komponentami. Kilka z nich zaczyna zgłaszać, poprzez kolejne rekordy w swoich logach,
-        że nie udało się wpisać nowej wiadomości do kolejki. W tym samym momencie, logi wspólnego medium, pokazują, że
-        kolejka zaczyna się przepełniać. Dla potencjalnego operatora jest to sygnał, że w najbliższym czasie, może dojść
-        do faktycznego przekroczenia limitu maksymalnego liczby nieodczytanych wpisów w buforze. Dodatkowo, wie on, że
-        kolejka spróbuje skorygować ten błąd poprzez usunięcie najstarszych elementów w swoim buforze oraz zresetowaniu
+        że nie udało się wpisać nowej wiadomości do kolejki. W tym samym momencie logi wspólnego medium pokazują, że
+        kolejka zaczyna się przepełniać. Dla potencjalnego operatora jest to sygnał, że w najbliższym czasie może dojść
+        do faktycznego przekroczenia limitu maksymalnego liczby nieodczytanych wpisów w buforze. Dodatkowo wie on, że
+        kolejka spróbuje skorygować ten błąd poprzez usunięcie najstarszych elementów w swoim buforze oraz zresetowanie
         wskaźników dla wszystkich producentów oraz konsumentów. Podczas gdy, dla nadawcy wiadomości nie jest to problem,
-        wszyscy lub niektórzy odbiorcy stracili by możliwość odczytania pewnych informacji. Jeśli miałyby one
-        krytyczne znaczenie, zaraportowany problem, powstały poprzez skorelowania opisanych wyżej wydarzeń, miałby jeszcze
+        wszyscy lub niektórzy odbiorcy straciliby możliwość odczytania pewnych informacji. Jeśli miałyby one
+        krytyczne znaczenie zaraportowany problem, powstały poprzez skorelowanie opisanych wyżej wydarzeń, miałby jeszcze
         dalej idące w skutkach konsekwencje.
         
-        Analiza tego typu, czyli dochodzenie, które sekwencje i powiązane ze sobą wydarzenie, niosą
+        Analiza tego typu, czyli dochodzenie, które sekwencje i powiązane ze sobą wydarzenia niosą
         potencjalnie niebezpieczne skutki, może odnosić się do:
         \begin{itemize}
-            \item[skali mikro] - oparte jest na wiązaniu ze sobą wartości pól, które opisują dane wydarzenia lub
-            ich zbiory. Całe zdarzenie pozostaje tak samo istotne, ale to konkretne informacje w nich zawarte,
+            \item[skali mikro] - oparta jest na wiązaniu ze sobą wartości pól, które opisują dane wydarzenia lub
+            ich zbiory. Całe zdarzenie pozostaje tak samo istotne, ale to konkretne informacje w nich zawarte
             stają się składnikami równania opisującego korelację między poszczególnymi faktami. 
-            \item[skali makro] - jest rozszerzenie \textbf{skali mikro} o pobierania dodatkowych informacji z zewnętrznych 
-            źródeł dla wspomożenia procesu wnioskowania \cite{logging_log_management}. 
+            \item[skali makro] - jest rozszerzeniem \textbf{skali mikro} o pobieranie dodatkowych informacji z zewnętrznych 
+            źródeł dla wspomagania procesu wnioskowania \cite{logging_log_management}. 
         \end{itemize}
         
         \subsubsection{Analiza statystyczna}
-        Metoda korelacji, jak zostało wspomniane w \ref{chapter:logs:analysis}, jest odpowiednim wyborem, jeśli
-        znane są warunki, potrzebne do wystąpienia zdarzenia utożsamianego jako niebezpieczne. Z tego też powodu,
+        Metoda korelacji, jak zostało wspomniane w \ref{chapter:logs:analysis}, jest odpowiednim wyborem jeśli
+        znane są warunki potrzebne do wystąpienia zdarzenia utożsamianego jako niebezpieczne. Z tego też powodu
         jeśli niemożliwe jest sprecyzowanie takich wymagań, konieczne jest wykorzystanie narzędzi statystycznych.
         
-        Na potrzeby wykrywania zdarzeń niepożądanych, można wyróżnić:
+        Można wyróżnić następujące techniki wykrywania zdarzeń niepożądanych:
         \begin{itemize}
-            \item[częstotliwość] - jest to najprostsza, możliwa do zastosowania technika, której opiera się,
-            zgodnie z nazwą, na częstotliwość. Istotne jet więc to, jak często wykrywana jest pewna wartość.
-            Zlokalizowanie jej może odnosić się zarówno do powtarzającej się identycznej wartości lub ciągłym
-            przekraczaniu zadanego progu. Przykładowo, można to odnieść, w pierwszym przypadku,
+            \item[częstotliwość] - jest to najprostsza, możliwa do zastosowania technika, która opiera się,
+            zgodnie z nazwą, na częstotliwości. Istotne pokazuje więc ona jak często wykrywana jest pewna wartość.
+            Zlokalizowanie jej może odnosić się zarówno do powtarzającej się identycznej wartości lub ciągłego
+            przekraczania zadanego progu. Przykładowo można to odnieść w pierwszym przypadku
             do analizy logów serwera WWW i ciągłych wystąpień tego samego adresu IP jako źródła żądania.
             Dla administratora może być to sygnał właśnie podejmowanej próby ataku DDOS, jeśli dodatkowo
-            podobne raporty napływają dla innych adresów IP. Z drugiej strony, ciągłe przekraczania wartości
+            podobne raporty napływają dla innych adresów IP. Z drugiej strony ciągłe przekraczanie wartości
             maksymalnej lub minimalnej, oznaczać może wysokie i stałe obciążanie procesora lub bardzo
             niski czas odpowiedzi serwera. 
             \item[linia bazowa] - idea tej techniki opiera się na ustaleniu progu lub bazy. Pozwala to
-            na określenie poziomu poniżej którego napływające informacje, wskazują na normalne działania
-            monitorowanego systemu. Z drugie strony, przekroczenie progu, będzie wskazywać na jego
+            na określenie poziomu, poniżej którego napływające informacje wskazują na normalne działanie
+            monitorowanego systemu. Z drugie strony przekroczenie progu będzie wskazywać na jego
             anormalnego zachowanie. Niestety, podanie poprawnego modelu progu, oddającego
-            specyfikę systemu, jest zadaniem skomplikowanym. Aby ustalić bazę, konieczne jest przede wszystkim
-            zebranie dużych ilości danych oraz wsparcie osób, posiadających wiedzę ekspercką z danej dziedziny.
+            specyfikę systemu, jest zadaniem skomplikowanym. Aby ustalić bazę konieczne jest przede wszystkim
+            zebranie dużych ilości danych oraz wsparcie osób posiadających wiedzę ekspercką z danej dziedziny.
             Ich doświadczenie jest konieczne, aby określić jak, w danym przypadku, objawiają się zachowania
-            niepożądane, a co uchodzi za zachowanie normalne. Ważne jest, że po pewnym czasie, to jest
+            niepożądane, a co uchodzi za zachowanie normalne. Ważne jest, aby po pewnym czasie, to jest
             po pojawieniu się nowych danych, ponownie wyznaczyć linię bazową. Bez tej operacji mogłoby się okazać,
             że nie oddaje ona ciągłej dynamiki systemu i analiza jest niemiarodajna \cite{logging_log_management}.
         \end{itemize}
         
         \subsubsection{Data Mining}
         Warto zacząć od wyjaśnienia pojęcia \textbf{data mining}. Jest to jedna ze znanych technik analizowania
-        danych, pozwalająca na odkrywania, niewidocznych na pierwszy rzut oka, powiązań. Według definicji
-        \href{http://www.britannica.com/technology/data-mining}{Britanica}, podmiotem procesu odkrywczego są
-        duże zbiory danych. Mogą to być zarówno logi, jak i bazy danych. Niezależnie od źródła danych, 
-        \textbf{data mining} najczęściej wykorzystuje zarówno narzędzie statystyczne oraz, jednocześnie, aplikacje
+        danych, pozwalająca na odkrywanie niewidocznych, na pierwszy rzut oka, powiązań. Według definicji
+        \href{http://www.britannica.com/technology/data-mining}{Britanica} podmiotem procesu odkrywczego są
+        duże zbiory danych. Mogą to być zarówno logi, jak i bazy danych. Niezależnie od ich źródła, 
+        \textbf{data mining} najczęściej wykorzystuje zarówno narzędzia statystyczne oraz jednocześnie aplikacje
         z pogranicza lub z rejonu sztucznej inteligencji, jak chociażby sieci neuronowe.
         
-        Konieczność zastosowania tej techniki dla logów wynika przede wszystkim dużego rozmiaru danych. 
+        Konieczność zastosowania tej techniki dla logów wynika przede wszystkim z dużego rozmiaru danych. 
         Systemy informatyczne, z uwagi na skalę, generują ogromne ilości
         logów. Analizowanie danych, jeśli miałoby być przeprowadzone przez człowieka, jest zadaniem
-        o wysokim stopniu trudności, narażonym na błędy. Oczywiście, prawdopodobieństwo wyciągnięcia
-        prawidłowych wniosków, wzrasta wraz z doświadczeniem analityka. Niestety, z uwagi na wolumin,
-        informacji wejściowych będzie zawsze więcej, niż analityk jest w stanie przetworzyć. Ponadto, 
-        oprócz rozmiaru, należy wspomnieć o wzajemnych powiązań między logami, a dokładniej
-        aplikacji, z którymi są one związane. Tym samym operator musi znać topologię oraz
-        architekturę systemu, aby wiedzę o tych relacjach nałożyć na już znane fakty. Im więcej powiązań,
+        o wysokim stopniu trudności, narażonym na błędy. Oczywiście prawdopodobieństwo wyciągnięcia
+        prawidłowych wniosków, wzrasta wraz z doświadczeniem analityka. Niestety z uwagi na wolumin,
+        informacji wejściowych będzie zawsze więcej niż analityk jest w stanie przetworzyć. Ponadto
+        oprócz rozmiaru, należy wspomnieć o wzajemnych powiązaniach między logami, a dokładniej
+        aplikacjach, z którymi są one związane. Tym samym operator musi znać topologię oraz
+        architekturę systemu, aby wiedzę o tych relacjach nałożyć na już znane fakty. Im więcej powiązań
         ukrytych i oczywistych, tym zadanie staje się trudniejsze. Im wyższy stopień trudności,
-        tym więcej krytycznych informacji, może zostać niezauważone. Dla zastosowań, mających związek i zastosowania
+        tym więcej krytycznych informacji może zostać niezauważone. Dla zastosowań, mających związek i zastosowanie
         w problemach bezpieczeństwa oraz kondycji systemu, jest to sytuacja niemożliwa do zaakceptowania.
         
-        \textbf{Data mining}, ogólnie oraz w przypadku logów, pozwala więc przekierować dużą część zadania, jakim
-        jest analiza, na automatyczne algorytmy. Człowiek, mimo że jego rola jest silnia ograniczone, jest
-        dalej potrzebny, aby ostatecznie wyciągnąć wniosek z wyników, jakie zostały mu dostarczone.
+        \textbf{Data mining} ogólnie oraz w przypadku logów pozwala więc przekierować dużą część zadania, jakim
+        jest analiza, na automatyczne algorytmy. Człowiek, mimo że jego rola jest silnie ograniczone, jest
+        dalej potrzebny, aby ostatecznie wyciągnąć wnioski z wyników, jakie zostały mu dostarczone.

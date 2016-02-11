@@ -17,8 +17,8 @@ brama wejściowa do odbierania logów od agentów (instancje \textbf{monasca-log
     Przesył danych inicjowany jest po stronie agenta. To, co zostanie przesłane
     do \textbf{monasca-log-api}, zależy w dużej mierze od konfiguracji agenta 
     \ref{chapter:monasca:monasca_log_agent:configuration}. Oprócz faktycznego
-    logu, agent dodaje najczęściej informacje pozwalające na ustalenie pochodzenia logu (ścieżka, aplikacji),
-    datę pobrania rekordu. Po skompletowaniu wszystkich informacji, wiadomość podlega
+    logu, agent dodaje najczęściej informacje pozwalające na ustalenie jego pochodzenia (ścieżki, aplikacji) oraz
+    datę pobrania rekordu. Po skompletowaniu wszystkich informacji wiadomość podlega
     transformacji do żądania HTTP i zostaje wysłana do serwera.
     
     \subsubsection{Struktura żądania}

@@ -3,36 +3,36 @@
 
     \subsection{Znaczenie komponentu}
     \textbf{monasca-log-agent} jest praktyczną implementacją koncepcji monitorowania aplikacji opartej o agentów.
-    Agent zlokalizowany jest więc najbliżej danych, które ma zbierać, a które ma za zadanie przetworzyć i wyniki
+    Agent zlokalizowany jest zatem jak najbliżej danych, które ma zbierać, a następnie przetworzyć i wyniki
     przesłać dalej. Jest to efektywne podejście z uwagi na wolumin danych. Tempo oraz ilość generowanych logów
-    może być znacząca, dlatego też pobieranie danych poprzez sieć, znacząco wydłużałoby całkowity czas 
+    może być znaczące, dlatego też pobieranie danych poprzez sieć istotnie wydłużałoby całkowity czas 
     wszystkich operacji, jakie agent musi wykonać.
     
     Agent został oparty o jeden z elementów stosu technologicznego \textbf{ELKStack} - \textbf{Logstash}.
     Do zadań agenta należy:
     \begin{itemize}
         \item obserwacja wskazanego pliku z logami,
-        \item wykrywania i łączenie wpisów składających się z wielu linii,
-        \item dodawania informacji o tenancie chmury obliczeniowej,
-        \item wskazywania na typ aplikacji, z której logi są zbierane,
-        \item wysyłania danych do \textbf{monasca-log-api} (\ref{chapter:monasca:monasca_log_api})
+        \item wykrywanie i łączenie wpisów składających się z wielu linii,
+        \item dodawanie informacji o tenancie chmury obliczeniowej,
+        \item wskazywanie na typ aplikacji, z której logi są zbierane,
+        \item wysyłanie danych do \textbf{monasca-log-api}. (\ref{chapter:monasca:monasca_log_api})
     \end{itemize}
     
     Konfiguracja agenta odbywa się w sposób deklaratywny, poprzez plik konfiguracyjny. Poprawne
     skonfigurowanie sprowadza się do:
     \begin{itemize}
         \item wskazania źródła danych,
-        \item określenia miejsca docelowego, do którego dane mają zostać wysłane
+        \item określenia miejsca docelowego, do którego dane mają zostać wysłane.
     \end{itemize}
-    W przypadku monitorowania logów, konfiguracja jest bardziej rozbudowane.
+    W przypadku monitorowania logów, konfiguracja jest bardziej rozbudowana.
     Agent musi zwrócić szczególną uwagę na problem wpisów, które znajdują się w więcej niż jednej linii.
-    Najczęściej ten problem objawia się, gdy aplikacja zgłasza błędy, a logach pojawią się rekordy, które
+    Najczęściej ten problem objawia się, gdy aplikacja zgłasza błędy, a w logach pojawią się rekordy, które
     te problemy opisują. Do opisu błędu (w kontekście logowania) dodawany jest tak zwany \textbf{stacktrace}.
-    Zawiera on szczegółowy zrzut wywołań kolejnych funkcji, w różnych modułach, w wyniku których aplikacja
+    Zawiera on szczegółowy zrzut wywołań kolejnych funkcji w różnych modułach, w wyniku których aplikacja
     nie wykonała poprawnie danego zadania. \textbf{Stacktrace}, dla łatwości odczytu przez człowieka,
     jest najczęściej reprezentowany w postaci wpisu zajmującego wiele linii. Z punktu widzenia domyślnej
-    konfiguracji \textbf{logstash} kolejne linii to zupełnie odrębne wydarzenia. Dla administratora systemu jest
-    to jednak logicznie spójna całość, którą on sam analizował by w takim kontekście. Agent musi więc wiedzieć,
+    konfiguracji \textbf{logstash} kolejne linie to zupełnie odrębne wydarzenia. Dla administratora systemu jest
+    to jednak logicznie spójna całość, którą on sam analizowałby w takim kontekście. Agent musi więc wiedzieć
     w jaki sposób połączyć oddzielnie linie w jedno i w takiej formie przesłać je do wyjścia.
     
     \subsection{Konfiguracja agenta}
@@ -49,17 +49,17 @@
         \end{listing}
         
         \subsubsection{Obserwacja wskazanego pliku z logami}
-            Do konfiguracji logstash'a przekazywana jest ścieżka lub wyrażenia regularnego wskazującego
-            na, odpowiednio, plik lub listę plików, z których odczytywana mają być rekordy. \textbf{Logstash}
+            Do konfiguracji logstash'a przekazywana jest ścieżka lub wyrażenie regularne wskazujące
+            na plik lub listę plików, z których odczytywane mają być rekordy. \textbf{Logstash}
             wykonuje to zadanie podobnie do Linuksowego narzędzia \textbf{tail}. Kolejne zdarzenia w danej 
-            instancji agenta, to kolejne linii w obserwowanych plikach, pojawiające się na ich końcu. 
+            instancji agenta to kolejne linie w obserwowanych plikach, pojawiające się na ich końcu. 
         
-        \subsubsection{Wykrywania i łączenie wpisów składających się z wielu linii}
-            Problem ten rozwiązany jest z użyciem następującego algorytmu:
+        \subsubsection{Wykrywanie i łączenie wpisów składających się z wielu linii}
+            Problem wykrywania i łączenia wpisów składających się z wielu linii jest rozwiązany z użyciem następującego algorytmu:
             \begin{enumerate}
                 \item określenie jaki typ aplikacji jest monitorowany,
-                \item utworzenia adekwatnego wyrażenia regularnego opisującego początek lub koniec wydarzenia,
-                \item określenie kierunku łączenia kolejnych rekordów
+                \item utworzenie adekwatnego wyrażenia regularnego opisującego początek lub koniec wydarzenia,
+                \item określenie kierunku łączenia kolejnych rekordów.
             \end{enumerate}
             
             \begin{listing}
@@ -74,26 +74,26 @@
                     \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/vars/main.yml}}
             \end{listing}
             
-        \subsubsection{Dodawania informacji o tenancie chmury obliczeniowej}
+        \subsubsection{Dodawanie informacji o tenancie chmury obliczeniowej}
             Agent, jak zostało to wcześniej wspomniane, działa na konkretnej maszynie. Jedną z jej własności jest
             informacja o użytkowniku - tenancie - unikatowy numer UUID. W przypadku logowania jako serwisu,
-            szczególnie istotna jest wiedza właśnie o użytkowniku chmury, na rzecz którego, dane logi zostały
+            szczególnie istotna jest wiedza właśnie o użytkowniku chmury, na rzecz którego dane logi zostały
             zebrane. \textbf{monasca-log-agent} rozwiązuje ten problem z wykorzystaniem biblioteki \textbf{keystone}
-            \footnote{Keystone - aplikacja mająca za zadania rozwiązać problem autentykacji oraz autoryzacji w
+            \footnote{Keystone - aplikacja mająca za zadanie rozwiązać problem autentykacji oraz autoryzacji w
                 chmurach obliczeniowych Openstack}. 
-            Agent, tuż przed przesłanie logu do \textbf{monasca-log-api} wykonuje procedurę logowania do chmury
+            Agent tuż przed przesłaniem logu do \textbf{monasca-log-api} wykonuje procedurę logowania do chmury
             używając, dostarczonych w konfiguracji, nazwy użytkownika oraz hasła. Jako wynik, jeśli logowanie 
             zakończyło się sukcesem, otrzymuje token oraz numer tenanta. Dołączony jest on do logu.
             
         \subsubsection{Wskazania na aplikację}
             Informacja o logu zostaje wzbogacona o dane, które pozwalają określić typ oraz samą aplikacją.
-            Jest to informacja przydatna, ponieważ jeden program, może zapisać logi do więcej niż jednego pliku.
+            Jest to informacja przydatna, ponieważ jeden program może zapisać logi do więcej niż jednego pliku.
             Przykładowo taka sytuacja występuje w przypadku serwera Tomcat. Oprócz rekordów pochodzących
-            z uruchomionej aplikacji, możliwe jest także zebrania danych na temat wszystkich możliwych
-            żądań, jakie zostały odebrane przez serwer, a także logi związane z autoryzacją użytkowników, jeśli
+            z uruchomionej aplikacji możliwe jest także zbieranie danych na temat wszystkich możliwych
+            żądań, jakie zostały odebrane przez serwer, a także zebranie logów związanych z autoryzacją użytkowników, jeśli
             takowa odbywa się ze wsparciem Tomcat'a.
             
          \subsubsection{Wysyłanie danych do monasca-log-api}
-             Wysyłania danych do monasca-log-api jest poprzedzone logowanie do chmury obliczeniowej, jeśli nie
+             Wysyłanie danych do monasca-log-api jest poprzedzone logowaniem do chmury obliczeniowej, jeśli nie
              zostało ono wcześniej wykonane lub jeśli token wygasł. Po udanej autentykacji, kolejne rekordy
              z logu przesyłane są pojedynczo do serwera, gdzie działa \textbf{monasca-log-api}.

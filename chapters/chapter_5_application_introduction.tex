@@ -5,10 +5,10 @@
 
 Cześć praktyczna pracy dyplomowej dotyczy implementacji oprogramowania typu \textbf{LaaS} (\ref{chapter:monitoring_architecture:laas}).
 W założeniu ma ono stanowić część całego stosu oferowanego przez firmę Fujitsu dla kompleksowego monitorowania chmur obliczeniowych.
-Niemniej, możliwe jest również wykorzystanie części lub całości, do monitoringu standardowych systemów informatycznych. 
+Niemniej możliwe jest również wykorzystanie części lub całości do monitoringu standardowych systemów informatycznych. 
 Specyficzną oraz wyjątkową cechą części praktycznej, oprócz realizowania jej również na płaszczyźnie zawodowej, jest jej otwartość.
-Całość implementacji dostępna jest jako oprogramowania otwarte na licencji \textbf{Apache License V2.0}. 
-Dzięki temu też, autor poniższej pracy dyplomowej, ma możliwość tworzenia aplikacji we współpracy z takimi firmami:
+Całość implementacji dostępna jest jako oprogramowanie otwarte na licencji \textbf{Apache License V2.0}. 
+Dzięki temu też istnieje możliwość tworzenia opisywanej aplikacji we współpracy z takimi firmami:
 \begin{itemize}
     \item Hewlett Packard,
     \item Cisco,
@@ -29,15 +29,15 @@ Projekt\textbf{monasca} stanowi praktyczną implementację paradygmatu \textbf{M
 (rysunek \ref{chapter:application:monasca_and_maas:diagram}), składającą się z następujących
 programów:
 \begin{itemize}
-    \item[\textbf{monasca-api}] - REST'owe API, z którym komunikują się pozostałe komponenty, celem zapisywania metryk, alarmów (oraz ich definicji).
+    \item[\textbf{monasca-api}] - REST'owe API, z którym komunikują się pozostałe komponenty, celem zapisywania metryk, alarmów oraz ich definicji.
     Pozwala także na dostęp do wspomnianych danych.
-    \item[\textbf{monasca-agent}] - rozbudowane narzędzie do monitorowania systemu lub aplikacji na maszynie na której został zainstalowany.
-    \item[\textbf{monasca-persister}] - prowadzi aktywny nasłuch na kolejce. Wszelkie zmiany stanu na alarmach oraz przekazane metryki, zapisuje,
+    \item[\textbf{monasca-agent}] - rozbudowane narzędzie do monitorowania systemu lub aplikacji na maszynie, na której został zainstalowany.
+    \item[\textbf{monasca-persister}] - prowadzi aktywny nasłuch na kolejce. Wszelkie zmiany stanu na alarmach oraz przekazane metryki zapisuje
     poprzez \textbf{monasca-api} do bazy danych.
     \item[\textbf{monasca-thresh}] - jest w stanie, na podstawie zebranych metryk, określić stan w jakim powinien znaleźć się alarm.
-    \item[\textbf{monasca-notification}] - na podstawie alarmów, generuje powiadomienie na skonfigurowanego punkty docelowe,
-    \item[\textbf{monasca-ui}] - komponent zrealizowany jako wtyczka do \glslink{horizon}{Horizon}, dające wgląd w alarmy, pozwalająca tworzyć ich definicje (monitory).
-    Jej główną zaletą jest również wbudowana obsługa do Grafana, która pozwala na przeglądania metryk w czasie rzeczywistym w postaci wykresów.
+    \item[\textbf{monasca-notification}] - na podstawie alarmów generuje powiadomienie na skonfigurowane punkty docelowe,
+    \item[\textbf{monasca-ui}] - komponent zrealizowany jako wtyczka do \glslink{horizon}{Horizon}, dający wgląd w alarmy, pozwalający tworzyć ich definicje (monitory).
+    Jej główną zaletą jest również wbudowana obsługa do Grafana, która pozwala na przeglądanie metryk w czasie rzeczywistym w postaci wykresów.
 \end{itemize}
 
 \begin{figure}[H]
@@ -49,9 +49,9 @@ programów:
     \label{chapter:application:monasca_with_laas:diagram}
 \end{figure}
 
-Zgodnie z rysunkiem \ref{chapter:application:monasca_with_laas:diagram}, opisany stos stanowi punkt wyjściowy dla integracji 
+Zgodnie z rysunkiem \ref{chapter:application:monasca_with_laas:diagram} opisany stos stanowi punkt wyjściowy dla integracji 
 rozwiązania \textbf{LaaS} (\ref{chapter:monitoring_architecture:laas}), głównego podmiotu poniższej pracy dyplomowej. 
-Ponadto, oprócz wspomnianej rozszerzenia projektu \textbf{monasca}, jest on miejscem kontrybucji programistów Fujitsu, 
+Ponadto, oprócz wspomnianego rozszerzenia projektu \textbf{monasca}, jest on miejscem kontrybucji programistów Fujitsu, 
 wliczając w to autora pracy dyplomowej.
 
 \input{chapters/application/arch}

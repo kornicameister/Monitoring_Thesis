@@ -3,11 +3,11 @@
 
     \subsection{Problem różnorodności w logach}
     \label{chapter:logs:normalize:differences}
-    Implikacją różnorodności omówionej w \ref{chapter:logs:collecting:source} jest różnorodność, jakie przejawiają logi.
-    Różnice między logami mogą być zarówno subtelne, lub bezpośrednio dotyczyć pojedynczego rekordu jako całości.
-    Subtelnymi różnica będzie chociażby inny format zapisu daty, kiedy utworzono log. Zapis z jednego źródła, może
-    go reprezentować w postaci \textbf{YYYY-MM-DD}, z kolejnego \textbf{YYYYMMDD}, a jeszcze następny może
-    do tego celu wykorzystać znacznik czasowy (timestamp). Innym, problematycznym, przykładem jest to,
+    Implikacją różnorodności omówionej w \ref{chapter:logs:collecting:source} jest różnorodność, jaką przejawiają logi.
+    Różnice między logami mogą być subtelne, bezpośrednio dotyczyć pojedynczego rekordu jak również i całości.
+    Subtelną różnicą będzie chociażby inny format zapisu daty kiedy utworzono log. Zapis z jednego źródła można
+    reprezentować w postaci \textbf{YYYY-MM-DD}, z kolejnego \textbf{YYYYMMDD}, a jeszcze następny może
+    do tego celu wykorzystać znacznik czasowy (timestamp). Innym problematycznym przykładem jest to
     jak reprezentowane są poziomy ważności. \textbf{Syslog} wykorzystuje następujące:
     \begin{itemize}
         \item INFO,
@@ -17,65 +17,65 @@
         \item ERR,
         \item CRIT,
         \item ALERT,
-        \item EMERG \cite{logging_log_management}
+        \item EMERG. \cite{logging_log_management}
     \end{itemize} 
-    Inaczej sytuacja wygląda, jeśli aplikacja korzysta ze specyficznego, dla języka w którym została napisana, formatu.
+    Inaczej sytuacja wygląda jeśli aplikacja korzysta ze specyficznego, dla języka w którym została napisana, formatu.
     Przykładowo Java nie definiuje poziomów takich jak: \textbf{NOTICE}, \textbf{ALERT}, \textbf{EMERG}, \textbf{CRIT}.
     Idąc dalej, pojawią się różnice w zapisie niektórych z nich. \textbf{ERR}, w Java, zapisywany jest jako \textbf{ERROR}.
-    Nie istnieje także \textbf{NOTICE}, ale Java definiuje \textbf{TRACE}.
+    Nie istnieje tu także \textbf{NOTICE}, ale Java definiuje \textbf{TRACE}.
     
-    Ostatecznie różnice mogą pojawić się, jeśli chodzi o strukturę całego rekordu.
+    Ostatecznie różnice mogą pojawić się jeśli chodzi o strukturę całego rekordu.
     Podobnie jak w CSV (\ref{chapter:logs:structure:record_structure}),
-    kolejność ma znaczenie. Jeśli w języku Python, znacznik czasu, umieszczony jest na 3 pozycji 
-    (licząc od lewej strony), dla języka GoLang, może być to
+    kolejność ma znaczenie. Jeśli w języku Python znacznik czasu umieszczony jest na 3 pozycji 
+    (licząc od lewej strony), dla języka GoLang może być to
     1 pozycja, a dla języka Ruby - 2. Ponadto warto wspomnieć tutaj o NodeJS oraz jednej z
-    popularniejszej bibliotek przeznaczonych do logowanie. \textbf{Bunyan} zapisuje do pliku kolejne 
+    popularniejszych bibliotek przeznaczonych do logowania. \textbf{Bunyan} zapisuje do pliku kolejne 
     rekordy w postaci \textbf{JSON}'a. Inne biblioteki mogą do tego samego celu używać również XML'a \cite{log_management_explained}.
     
     \subsection{Różnorodność w logach, a przetwarzanie ich}
-    Omówione w \ref{chapter:logs:normalize:differences} różnice, to jedynie ułamek potencjalnych problemów, 
-    które skutecznie utrudniają przetwarzanie logów zgromadzonych z różnych źródeł. Aby temu przeciwdziałać, wymagana jest
+    Omówione w \ref{chapter:logs:normalize:differences} różnice to jedynie ułamek potencjalnych problemów, 
+    które skutecznie utrudniają przetwarzanie logów zgromadzonych z różnych źródeł. Aby temu przeciwdziałać wymagana jest
     aplikacja, zadaniem której byłaby ich normalizacja. Sprowadzanie do postaci spójnej, w przypadku logów, dzieli się
     na operacje, które rozwiązać można w sposób wspólny dla wszystkich formatów, jak i takie, dla których konieczne jest
-    oddelegowania specjalnie zaprojektowanego do tego celu procesora (aplikacji transformującej). 
+    oddelegowanie specjalnie zaprojektowanego do tego celu procesora (aplikacji transformującej). 
     Za operacje wspólne uznać można:
     \begin{itemize}
-        \item[\textbf{wykrywanie poziomu ważności}] - Jest to operacja, którą najłatwiej rozwiązać przy pomocy wyrażeń regularnych.
+        \item[\textbf{wykrywanie poziomu ważności}] - jest to operacja, którą najłatwiej rozwiązać przy pomocy wyrażeń regularnych.
         Przygotowane wyrażenie musi uwzględnić wszelkie możliwe wariacje pojedynczego poziomu. Niestety jest to
         rozwiązanie bardzo kosztowne pod względem zużycia mocy obliczeniowej procesora. Wynika to ze sposobu w jaki działają 
-        wyrażenia regularnego. Instynktownie każda możliwa wartość poziomu ważności, oraz jej warianty, zapisane zostałby 
-        jako alternatywy. RegExp podczas przeszukiwania podanego ciągu znaku musi przejrzeć cały łańcuch znakowy dla każdej z nich.
+        wyrażenia regularne. Instynktownie każda możliwa wartość poziomu ważności oraz jej warianty zapisane zostałyby 
+        jako alternatywy. RegExp podczas przeszukiwania podanego ciągu znaków musi przejrzeć cały łańcuch znakowy dla każdej z nich.
         Im więcej alternatyw oraz im dłuższe jest zdanie, które musi zostać przeanalizowane, tym więcej czasu jest wymagane.
         W przypadku dużych wiadomości, takich jak te generowane z niektórych komponentów OpenStack, może się okazać, że 
         pewne wiadomości będą tracone. Rozwiązaniem tego problemu jest założenie, że poziom ważności znajduje się w k-początkowych
         znakach łańcucha tekstowego. W większości przypadków będzie to podejście prawidłowe i czas wykrycia może się znacząco zmniejszyć.
-        Powołując się jednak na problem różnorodności, może dojść do sytuacji, w której omawiana wartość zostanie, umieszczona
-        poza przeszukiwanym ciągiem lub część będzie się w nim znajdować, a część nie. W tym wypadku, jedynym wyjście, jest uznania, że
+        Powołując się jednak na problem różnorodności może dojść do sytuacji, w której omawiana wartość zostanie umieszczona
+        poza przeszukiwanym ciągiem lub część będzie się w nim znajdować, a część nie. W tym wypadku jedynym wyjściem jest uznanie, że
         wartość jest nieznana. Aplikacja może także nie zapisywać poziomu ważności.
         
-        Dużo bardziej kategoryczne rozwiązania, to wymuszenie odpowiedniego formatu logu. Z punktu
-        widzenia późniejszej normalizacji, jest to rozwiązania najbardziej efektywne, ponieważ wiedza
-        na temat lokalizacji konkretnych wartości jest wcześniej znana.
+        Dużo bardziej stanowcze rozwiązanie to wymuszenie odpowiedniego formatu logu. Z punktu
+        widzenia późniejszej normalizacji, jest to rozwiązanie najbardziej efektywne, ponieważ wiedza
+        na temat lokalizacji konkretnych wartości jest znana wcześniej.
         
-        \item[\textbf{czas wygenerowania logu}] - Jest to wartość mniej istotna, jeśli chodzi o normalizację, szczególną rolę odgrywając
-        w trakcie analizowania logów. Jest jednak z tego właśnie powodu wyjątkowa i proces normalizacji powinien zapewnić, że
-        w postaci spójnej będzie ona spójnie reprezentowana. Nie zawsze jednak jest to możliwe. Problemem tutaj, oprócz
+        \item[\textbf{czas wygenerowania logu}] - jest to wartość mniej istotna, jeśli chodzi o normalizację, szczególną rolę odgrywa natomiast
+        w trakcie analizowania logów. Jest jednak z tego właśnie powodu wyjątkowa i proces normalizacji powinien zapewnić, że będzie ona reprezentowana w spójnej postaci.
+        Nie zawsze jednak jest to możliwe. Problemem tutaj, oprócz
         różnych formatów, w jakich znacznik czasowy może być zapisany, jest rozbieżność zegarów systemowych na maszynach,
-        z których log pochodzi. Potencjalnie w 9 na 10 komputerów, zegar systemowy może podawać czas zegara ze wskazaniem
-        na strefą czasową UTC. Kolejna maszyna nie musi jednak podążą tym torem, a strefa czasowa może być ustawiona
-        na k-godzin w przód lub w tył od strefy UTC. Nie jest to problem, jeśli biblioteka użyta do logowania aktywności
-        danej aplikacji, zapisuje kolejne rekordy w uniwersalnej strefie czasowej. 
+        z których log pochodzi. Potencjalnie, w 9 na 10 komputerów, zegar systemowy może podawać czas ze wskazaniem
+        na strefą czasową UTC. Kolejna maszyna nie musi jednak podążać tym torem, a strefa czasowa może być ustawiona
+        na k-godzin w przód lub w tył od strefy UTC. Nie jest to problem jeśli biblioteka użyta do logowania aktywności
+        danej aplikacji zapisuje kolejne rekordy w uniwersalnej strefie czasowej. 
         Ponadto zegary systemowe, mimo używania tej samej strefy czasowej, mogą wykazać nawet kilkuminutowe różnice. 
-        Program, odpowiedzialny, za normalizację kolejnych rekordów, napływających z całego systemu, może jedynie
-        obejść tę przypadłość dodając kolejny znacznik czasowy, wskazują na moment odebrania logu. 
-        Nie jest to rozwiązanie idealne. Najczęściej dane wysyłane są przez sieć, która w jednym punkcie może wykazać chwilowo
-        zwiększony ruch, a w innym zmniejszony. Skutkiem takie zbiegu wydarzeń może być fakt, że wydarzenia A miało miejsce
+        Program odpowiedzialny za normalizację kolejnych rekordów napływających z całego systemu może jedynie
+        obejść tę przypadłość, dodając kolejny znacznik czasowy, wskazując na moment odebrania logu. 
+        Nie jest to jednak rozwiązanie idealne. Najczęściej dane wysyłane są przez sieć, która w jednym punkcie może wykazać chwilowo
+        zwiększony ruch, a w innym zmniejszony. Skutkiem takiego zbiegu wydarzeń może być fakt, że wydarzenie A miało miejsce
         chwilę przed wydarzaniem B, podczas gdy, tak naprawdę, wydarzenia B nastąpiło kilka minut po zdarzeniu A. 
         
-        \item[\textbf{rekordy w wielu liniach}] - Najczęściej pojedynczy wiersz odpowiada pojedynczego rekordowi, jako logicznie
-        spójnej całości. Często jednak sytuacja wygląda odwrotnie. Pojedyncze wydarzenia zostaje zapisane w pliku w kilku
-        lub kilkunastu liniach. Dla administratora przeglądającego taki log manualnie nie jest to problem. Identycznie, powinien on
-        móc, zobaczyć ten sam log w tej samej postaci. Problem wielu linii jest inny dla każdego spotkanego formatu logu.
+        \item[\textbf{rekordy w wielu liniach}] - najczęściej pojedynczy wiersz odpowiada pojedynczemu rekordowi, jako logicznie
+        spójnej całości. Często jednak sytuacja wygląda odwrotnie. Pojedyncze wydarzenie zostaje zapisane w pliku w kilku
+        lub kilkunastu liniach. Dla administratora przeglądającego taki log manualnie nie jest to problem. Identycznie powinien on
+        móc zobaczyć ten sam log w tej samej postaci. Problem wielu linii jest jednak inny dla każdego spotkanego formatu logu.
         W tym wypadku konieczne jest ustalenie co rozpoczyna lub kończy wpis znajdujący się w więcej niż jednej linii. 
         
     \end{itemize}
