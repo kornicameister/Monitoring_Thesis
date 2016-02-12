@@ -24,12 +24,14 @@
     
         \subsubsection{Agenci}
         Proces monitorowania rozpoczyna się od agentów. Agent jest to specjalny program działający nieprzerwanie w systemie, którego
-        zadaniem jest zbieranie informacji na temat działania tego systemu. Warto w tym miejscu nadmienić, że agent może zbierać dane odnoszące się do pojedynczej aplikacji. Jego zadaniem jest, poza pobraniem danych, przetłumaczenie ich na dane 
-        numeryczne. Wynika stąd pewna własność metryk - kolejne pomiary muszą być reprezentowane za pomocą wartości numerycznych.
+        zadaniem jest zbieranie informacji na temat działania tego systemu. Warto w tym miejscu nadmienić, że agent może 
+        zbierać dane odnoszące się także do pojedynczej aplikacji. Jego zadaniem jest, poza pobraniem danych jest, 
+        przetłumaczenie ich na dane numeryczne. Wynika stąd pewna własność metryk - kolejne pomiary muszą być reprezentowane 
+        za pomocą wartości liczbowych.
         Nie jest to problem dla statystyk takich jak aktualne zużycie procesora lub pamięci. Z drugiej strony zadaniem agenta
-        może być również weryfikacja czy na danej maszynie działa serwer WWW. Poniekąd zachodzi wtedy normalizacja danych. Fakt, że
-        serwer działa i jest w stanie obsługiwać żądania, może być reprezentowany za pomocą liczby 1, podczas gdy 0, mogłoby sygnalizować
-        przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany \cite{monitoring_and_alerting}.
+        może być również weryfikacja czy na danej maszynie działa serwer WWW. Poniekąd zachodzi wtedy normalizacja danych. 
+        Fakt, że serwer działa i jest w stanie obsługiwać żądania, może być reprezentowany za pomocą liczby 1, podczas gdy 0, 
+        mogłoby sygnalizować przeciwny fakt. Opisany proces może zachodzić w sposób ciągły lub być okresowo wznawiany \cite{monitoring_and_alerting}.
         \newglossaryentry{monitoring_agent}{
             name=Agent,
             description={Aplikacja działająca na monitorowanej maszynie, odpowiedzialna ze zbieranie metryk}
@@ -55,8 +57,8 @@
         odnosi się do sytuacji szczególnej, która zaistniała w systemie. Wspomniane aplikacje analizują wygenerowane metryki, 
         porównując otrzymaną wartość z dostarczoną im konfiguracją. Bazując na niej są w stanie stwierdzić, że jeśli
         własność A przekroczyła maksymalną lub minimalną wartość określoną ilość razy, konieczne jest poinformowania o tym
-        administratora systemu. Jednocześnie alarm najczęściej zapisywany jest do bazy danych. Pozwala to na późniejszą analizę 
-        w kontekście historycznym \cite{monitoring_and_alerting}. 
+        administratora systemu. Jednocześnie alarm najczęściej zapisywany jest do bazy danych. Pozwala to na późniejszą 
+        analizę w kontekście historycznym \cite{monitoring_and_alerting}. 
         
         \subsubsection{Powiadomienia}
         Notyfikacje są generowane przez system monitoringu jeśli dany alarm przejdzie w stan aktywny. Mogą przyjąć praktycznie
@@ -64,13 +66,15 @@
         Najczęściej spotykane jest wysłania wiadomości mailowej na wskazany adres, informującej o 
         przekroczeniu pewnych wartości granicznych w określonym komponencie całego systemu. Spotyka się również inne formy:
         \begin{itemize}
-            \item[SMS] - na wskazany numer telefonu wysłana jest wiadomość SMS, zawierająca skrócony opis zaistniałego problemu,
-            \item[ITS] - z angielskiego - \textbf{Issue Tracking System} - notyfikacja w bardzej wyrafinowanej formie specjalnych rodzai stron internetowych, w których zgłaszane są wszelkie problemy, jakie napotkano
-            podczas użytkowania systemu. Ich nadrzędnym celem jest dostarczenie właściwych rozwiązań administracyjnych, mających
-            na celu naprawę zaistniałej sytuacji oraz późniejsze jej przeciwdziałania.
+            \item[SMS] - na wskazany numer telefonu wysłana jest wiadomość SMS, zawierająca skrócony opis zaistniałego 
+            problemu,
+            \item[ITS] - z angielskiego - \textbf{Issue Tracking System} - notyfikacja w bardziej wyrafinowanej formie 
+            specjalnych rodzaj stron internetowych, w których zgłaszane są wszelkie problemy, jakie napotkano
+            podczas użytkowania systemu. Ich nadrzędnym celem jest dostarczenie właściwych rozwiązań administracyjnych, 
+            mających na celu naprawę zaistniałej sytuacji oraz późniejsze jej przeciwdziałanie.
         \end{itemize}
-        Przedstawione powiadomienia mogą się zarówno wzajemnie wykluczać, jak i uzupełniać. Alarmy mogą również same definiować jaki rodzaj notyfikacji
-        powinien zostać w ich przypadku wykorzystany \cite{monitoring_and_alerting}.
+        Przedstawione powiadomienia mogą się zarówno wzajemnie wykluczać, jak i uzupełniać. Alarmy mogą również same 
+        definiować jaki rodzaj notyfikacji powinien zostać w ich przypadku wykorzystany \cite{monitoring_and_alerting}.
         
         \subsubsection{Wizualizacje}
         W formie graficznej, wykresów oraz diagramów, reprezentuje się serie czasowe tworzone na podstawie metryk. 
@@ -79,12 +83,12 @@
         monitorującym, daje wgląd w stan systemu w czasie rzeczywistym. Poszczególne metryki mogą być
         przeglądane na dowolnym poziomie szczegółowości. Te same dane mogą być przedstawione w formie
         wykresu słupkowego lub kołowego, zależnie od potrzeby. Operatorowi daje
-        to możliwość dokładnego prześledzenia stanu systemu w zadanym zakresie czasu, przed lub po
+        to możliwość dokładnego prześledzenia stanu systemu w zadanym okresie czasu, przed lub po
         nastąpieniu awarii. Doświadczony administrator, znający charakterystykę systemu, jest w stanie
         wykryć awarię zanim jeszcze zostanie ona zauważona przez system monitorujący. Przykładowo, ciągle
-        rosnące zużycie pamięci może wskazywać, że pewna aplikacja niepoprawnie zarządza przydziałem
-        pamięci operacyjnej - nie zwalnia zajętych zasobów. W tym samym momencie, alarm powinien przejść
-        w stan aktywny po przekroczeniu co najmniej 80 procent. Administrator jednak widząc, że zużycie pamięci
+        rosnące zużycie pamięci może wskazywać, że pewna aplikacja niepoprawnie nią zarządza -
+        nie zwalnia zajętych zasobów. W tym samym momencie, alarm powinien przejść
+        w stan aktywny po przekroczeniu, przykładowo, co najmniej 80\%. Administrator jednak widząc, że zużycie pamięci
         stale wzrastało w przeciągu ostatnich 8 godzin, ma szansę zgłosić ten fakt, a zespół programistów
         może wprowadzić poprawki do oprogramowania, które usuną usterkę. Podobne zastosowanie wizualizacji może mieć miejsce dla zużycia przestrzeni dyskowej. Wspomnianą sytuację można przypisać do komponentów
         systemowych niskiego poziomu w stosunku do aplikacji. Programy jednak również można monitorować.

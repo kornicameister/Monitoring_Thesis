@@ -12,9 +12,8 @@
     jest podobny do neuronu w komputerowych sieciach neuronowych, a w rzeczywistości zachowuje się podobnie tak jak on.
     Jedną z czynności zalecanych przy monitorowaniu jest okresowe dostosowanie jej konfiguracji, uczenie całego
     systemu w taki sposób, aby wszelkie zgłaszane incydenty były nimi naprawdę. Fałszywy alarm, może
-    przynieść więcej problemów niż korzyści. Także otrzymywanie, kilkunastu razy na dobę, powiadomień odnośnie przekroczenia np. zużycia
-    procesora może oznaczać sytuację niepoprawnej konfiguracji
-    lub całkowicie normalne działanie systemu.
+    przynieść więcej problemów niż korzyści. Także otrzymywanie, kilkunastu razy na dobę, powiadomień odnośnie przekroczenia 
+    np. zużycia procesora może oznaczać niepoprawną konfigurację i całkowicie normalne działanie systemu.
     
     \begin{figure}[H]
         \centering
@@ -30,7 +29,7 @@
     przekroczenie. Warto w tym miejscu nadmienić, że alarmy najczęściej dodatkowo definiują również 
     konkretną liczbę przekroczeń przed aktywacją. Bez tego rozwiązania mogłoby dojść do sytuacji, w których
     alarmy przechodziłyby bardzo często ze stanu aktywnego do spoczynku, powodując generowanie dużej ilości notyfikacji. Dodatkowo alarm określa także jak wiele punktów nie aktywujących go, powinno
-    nastąpić, aby alarm opuścił stan wysoki.
+    nastąpić, aby przeszedł w stan nieaktywny.
     
     \subsection{Ograniczenia}
     Ograniczenia alarmu mogą być zarówno górne (<, <=) jak i dolne (>, >=). Pierwsze z nich stosowane są
@@ -46,7 +45,7 @@
     alarmu może zostać wykorzystany w sposób ogólny do śledzenia wszelkich odchyleń od normy \cite{monitoring_and_alerting}.
     
     \subsection{Wiązania alarmów ze sobą}
-    Alarmy mogą być ze sobą  także wiązane. Ponieważ są one, z jednego punktu widzenia, funkcją
+    Alarmy mogą być ze sobą łączone. Ponieważ są one, z jednego punktu widzenia, funkcją
     zwracają prawdę lub fałsz, możliwe jest aby jeden alarm był jednym ze składników wejścia innego.
     W ten sposób budowane są całe hierarchie odzwierciedlające kompleksowość systemu. 
     

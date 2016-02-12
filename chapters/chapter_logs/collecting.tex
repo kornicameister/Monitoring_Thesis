@@ -110,9 +110,9 @@
         Rozwiązaniem rosnącego rozmiaru pliku logów jest \textbf{rotacja}. W nowoczesnych systemach logowania
         jest to najczęściej domyślnie zaimplementowanie. \textbf{Rotacja} polega na przekopiowaniu 
         zawartości logów do nowego pliku oraz wyczyszczeniu aktualnego. Kopiowanie jest najczęściej połączone
-        z kompresją\ref{chapter:logs:history:compressed_log_format}, która może zostać wykonana od razu lub po upływie pewnego czasu, kiedy to najstarsze
-        pliki stają się najmniej ważne. Archiwizacja jest tutaj szczególnie istotna, ponieważ
-        skompresowane pliki tekstowe zajmują aż do 90 procent oryginalnego rozmiaru.
+        z kompresją (\ref{chapter:logs:history:compressed_log_format}), która może zostać wykonana od razu lub po upływie 
+        pewnego czasu, kiedy to najstarsze pliki stają się najmniej ważne. Archiwizacja jest tutaj szczególnie istotna, 
+        ponieważ skompresowane pliki tekstowe zajmują aż do 90 procent oryginalnego rozmiaru.
         
         Rotacja również nie jest rozwiązaniem idealnym. Staje się ona bezużyteczna jeśli nie jest połączona
         z odpowiednią polityką, polegającą na usuwaniu starych archiwów. Tworzenie kolejnych archiwów,
