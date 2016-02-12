@@ -1,19 +1,19 @@
 \section{ansible-monasca-kibana}
 \label{chapter:application:own_work:ansible_kibana}
 
-    Rola Ansible (\ref{chapter:application:architecture:installation:ansible}) służąca do 
+    Rola Ansible (\ref{chapter:application:architecture:installation:ansible}) służy do 
     instalacji klienta stosu \textbf{ELKStack} (\ref{chapter:application:elkstack}), czyli programu Kibana.
     Oprócz wspomnianej instalacji, rola umożliwia również:
     \begin{itemize}
         \item zmianę konfiguracji programu bez konieczności jego ponownej instalacji,
-        \item weryfikacją stanu poprzez sprawdzenia zajętości portu TCP,
-        \item startowanie oraz zatrzymywanie działania aplikacji
+        \item weryfikację stanu poprzez sprawdzenie zajętości portu TCP,
+        \item startowanie oraz zatrzymywanie działania aplikacji.
     \end{itemize}
     Dodatkowo rola wspiera mechanizmy izolacji procesów dla platformy Unix. W ramach przygotowania
     do właściwiej instalacji tworzony jest użytkownik oraz grupa. Proces aplikacji uruchamiany będzie później
     pod ich kontrolą, a sam program \textbf{Kibana} posiadał będzie dostęp jedynie do tych zasobów
-    systemowych, których właścicielem jest, wspomniany powyżej, użytkownik będący członkiem konkretnej grupy.
-    Jest to szczególnie istotne zabezpieczenie, ponieważ zapobiega ona nieautoryzowany dostępowi aplikacji,
+    systemowych, których właścicielem jest wspomniany powyżej użytkownik będący członkiem konkretnej grupy.
+    Jest to szczególnie istotne zabezpieczenie, ponieważ zapobiega ono nieautoryzowanemu dostępowi aplikacji
     do plików lub innych zasobów systemowych, których nie powinna ona modyfikować.
     
     Całość implementacji przypada autorowi pracy dyplomowej. Kod źródłowy powyższego komponentu jest
@@ -22,9 +22,9 @@
 \section{ansible-monasca-elasticsearch}
 \label{chapter:application:own_work:ansible_elasticsearch}
 
-    Podobnie jak \textbf{ansible-monasca-kibana} (\ref{chapter:application:own_work:ansible_kibana}), opisywana
+    Podobnie jak \textbf{ansible-monasca-kibana} (\ref{chapter:application:own_work:ansible_kibana}) opisywana
     rola służy instalacji jednej z części składowych stosu \textbf{ELKStack} (\ref{chapter:application:elkstack}) - 
-    serwera bazodanowego \textbf{ElasticSearch}. Możliwości roli są identyczne do tych opisanych dla roli 
+    serwera bazodanowego \textbf{ElasticSearch}. Możliwości roli są identyczne w stosunku do tych opisanych dla roli 
     \textbf{ansible-monasca-kibana}.
     
     Implementacja całej roli jest dziełem autora pracy dyplomowej, a jej kod źródłowy dostępny
@@ -33,21 +33,21 @@
 \section{ansible-monasca-log-transformer}
 \label{chapter:application:own_work:ansible_log_transformer}
 
-    W odróżnieniu od \textbf{ansible-monasca-kibana} oraz \textbf{ansible-monasca-elasticsearch}, zadaniem roli
-    \textbf{ansible-monasca-log-transformer} jest instalacja na wybranym serwerze, lub serwerach, programu
+    W odróżnieniu od \textbf{ansible-monasca-kibana} oraz \textbf{ansible-monasca-elasticsearch} zadaniem roli
+    \textbf{ansible-monasca-log-transformer} jest instalacja na wybranym serwerze lub serwerach programu
     \textbf{Logstash} wraz ze specjalną konfiguracją opisaną w rozdziale \ref{chapter:monasca:monasca_log_transformer}.
     
     Dzięki roli możliwe jest:
     \begin{itemize}
         \item zainstalowanie komponentu,
         \item startowanie oraz zatrzymywanie jego działania,
-        \item zmiana konfiguracji
+        \item zmiana konfiguracji.
     \end{itemize}
     
-    Niestety, z uwagi na specyfikę instalowanego programu, którym jest Logstash, nie jest możliwa weryfikacja stanu
+    Niestety z uwagi na specyfikę instalowanego programu, którym jest Logstash, nie jest możliwa weryfikacja stanu
     działania aplikacji.
     
-    Wstępna implementacja roli jest autorstwa poniższej pracy dyplomowej i może zostać oszacowana na 90\% całego
+    Wstępna implementacja roli jest dziełem autora poniższej pracy dyplomowej i może zostać oszacowana na 90\% całego
     kodu źródłowego, który dostępny jest pod adresem
     \burl{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-transformer}.
 
@@ -55,64 +55,64 @@
 \label{chapter:application:own_work:ansible_log_persister}
 
     Zadaniem omawianej roli jest instalacja programu \textbf{Logstash} wraz z konfiguracją opisaną
-    w rozdziale \ref{chapter:monasca:monasca_log_persister}. Funkcjonalność oferowane przez rolę jest
-    zbliżone do tej opisanej dla \textbf{ansible-monaca-log-transformer} z jedną szczególną różnicą.
-    Możliwe jest zweryfikowanie, czy na wybranym serwerze aplikacja jest działa. Całość weryfikacja oparta jest
+    w rozdziale \ref{chapter:monasca:monasca_log_persister}. Funkcjonalność oferowana przez rolę jest
+    zbliżona do tej opisanej dla \textbf{ansible-monaca-log-transformer} z jedną szczególną różnicą.
+    Możliwe jest zweryfikowanie czy na wybranym serwerze aplikacja działa. Całość weryfikacji oparta jest
     na specyfice komponentu \textbf{monasca-log-persister}. Dane odczytane z kolejki \textbf{Kafka}, po oczyszczeniu
-    wysyłane są do serwera \textbf{ElasticSearch}. Aby ta operacja była możliwa, \textbf{Logstash} otwiera konkretny
+    wysyłane są do serwera \textbf{ElasticSearch}. Aby ta operacja była możliwa \textbf{Logstash} otwiera konkretny
     port TCP. Zajętość tego portu jest sygnałem, że \textbf{monasca-log-persister} został poprawnie uruchomiony i wysyła
     dane do \textbf{ElasticSearch}.
 
-Całość implementacji przypada autorowi pracy dyplomowej i jest dostępna pod adresem
+Całość implementacji przypada autorowi pracy dyplomowej i jest dostępna pod adresem:
 \burl{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-persister}.
 
 \section{ansible-monasca-log-api}
 \label{chapter:application:own_work:ansible_monasca_log_api}
 
-    Autor, poniższej pracy dyplomowej, odpowiedzialny był w przypadku omawianej roli głównie za implementację
-    logiki, która pozwala by na zainstalowanie \textbf{monasca-log-api} (\ref{chapter:monasca:monasca_log_api}),
-    a konkretnie implementacji napisanej w języku Python (\ref{chapter:application:own_work:monasca_log_api:python}).
+    Autor poniższej pracy dyplomowej odpowiedzialny był, w przypadku omawianej roli, głównie za implementację
+    logiki, która pozwalałaby na zainstalowanie \textbf{monasca-log-api} (\ref{chapter:monasca:monasca_log_api}),
+    a konkretnie implementację napisanej w języku Python (\ref{chapter:application:own_work:monasca_log_api:python}).
     
     Rozszerzenie istniejącej roli sprowadziło się do:
     \begin{itemize}
         \item ogólnej poprawy struktury roli poprzez wyodrębnienie odrębnych bloków funkcjonalnych, tworząc
-        oddzielne pliki zawierającej ich kod, pozwalających na:
+        oddzielne pliki zawierające ich kod, pozwalający na:
         \begin{itemize}
             \item przygotowanie środowiska do instalacji aplikacji,
-            \item właściwego zainstalowania programu na wybranych serwerach lub serwerze,
+            \item właściwe zainstalowanie programu na wybranych serwerach lub serwerze,
             \item konfiguracji,
-            \item startowania oraz zatrzymywania procesu aplikacji,
-            \item weryfikowania stanu
+            \item startowanie oraz zatrzymywanie procesu aplikacji,
+            \item weryfikowanie stanu,
         \end{itemize}
-        \item zachowaniu funkcjonalności starej roli, pozwalając w dalszym ciągu na instalację implementacji
+        \item zachowania funkcjonalności starej roli, pozwalając w dalszym ciągu na instalację implementacji
         napisanej w języku Java,
-        \item dodaniu możliwości instalacji oraz konfiguracji dla implementacji w języku Python
+        \item dodanie możliwości instalacji oraz konfiguracji dla implementacji w języku Python.
     \end{itemize}
     
-    Wkład, twórcy poniższej pracy dyplomowej, ocenić można na około 60\%, a całość kodu źródłowego
+    Wkład twórcy poniższej pracy dyplomowej ocenić można na około 60\%, a całość kodu źródłowego
     dostępna jest pod adresem \\ \burl{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-api}.
 
 \section{Kibana + Keystone}
 \label{chapter:application:own_work:kibana_and_keystone}
 
 \textbf{Kibana} domyślnie nie posiada włączonego żadnego mechanizmu autentykacji użytkownika, który
-chciałby przeglądać dane, przechowywane w \textbf{ElasticSearch}(\ref{chapter:application:elkstack:elasticsearch}), 
+chciałby przeglądać dane przechowywane w \textbf{ElasticSearch}(\ref{chapter:application:elkstack:elasticsearch})
 przy jej użyciu. Istnieje prosty mechanizm, który opiera się na standardowym logowaniu przy użyciu
 hasła i nazwy użytkownika. Jednakże, z uwagi na późniejsze plany związane z omawianą aplikacją, a które 
-omówione zostaną w kolejnym rozdziale, było to rozwiązanie niewystarczające. Fakt ten wynika z natury
+przedstawione zostaną w kolejnym rozdziale, było to rozwiązanie niewystarczające. Fakt ten wynika z natury
 integracji, która odbywa się w chmurze obliczeniowej. Konieczne było rozszerzenie Kibany o możliwość
 komunikacji z \glslink{keystone}{\textbf{Keystone}}.
 
-Ponieważ dostęp do \textbf{Kibana}, w przypadku tworzonego projektu, dostępny jest z poziomu \glslink{horizon}{\textbf{Horizon}}, inni
-członkowie zespołu zajęli się przygotowaniem logiki odpowiedniej dla uruchomienie jej ze wspomnianego miejsca. Autor pracy 
-dyplomowej, zaprojektował odpowiedni mechanizm autentykacji zrealizowany według następujących punktów.
+Ponieważ dostęp do \textbf{Kibana}, w przypadku tworzonego projektu możliwy jest z poziomu \glslink{horizon}{\textbf{Horizon}}, inni
+członkowie zespołu zajęli się przygotowaniem logiki odpowiedniej dla uruchomienia jej ze wspomnianego miejsca. Autor pracy 
+dyplomowej zaprojektował odpowiedni mechanizm autentykacji zrealizowany według opisanych poniżej kroków.
 
     \subsection{Na poziomie serwera}
     W przypadku \textbf{Kibana} należy rozróżnić dwie części składowe - klient oraz serwer. Dodanie autentykacji
     na poziomie warstwy klienta nie byłoby rozwiązaniem poprawnym. Użytkownik końcowy miałby możliwość faktycznego
-    uruchomienie strony oraz pobrania danych zanim wykryte by zostało, że nie ma koniecznych do tego uprawnień.
-    Wolumin logów, a tym samych danych, które \textbf{Kibana} pobiera z \textbf{ElasticSearch} jest bardzo duży.
-    Z tego powodu obciążania komponentów aby zwrócić dane potencjalnie niepotrzebnie zostało
+    uruchomienia strony oraz pobrania danych zanim wykryte by zostało, że nie ma koniecznych do tego uprawnień.
+    Wolumin logów, a tym samym danych, które \textbf{Kibana} pobiera z \textbf{ElasticSearch} jest bardzo duży.
+    Z tego powodu obciążanie komponentów, wynikające ze zwracania danych potencjalnie niepotrzebnych, zostało
     natychmiastowo wykluczone. Z tego też powodu odpowiednia implementacja znalazła się po stronie serwera.
     
     \subsection{Jako filtr}
@@ -161,37 +161,36 @@ if (config.keystone) {
     
     Filtr posiada jedno wejście i co najmniej dwa, istotne z punktu widzenia omawianego zagadnienia, wyjścia:
     \begin{itemize}
-        \item[sukces] - jeśli autoryzacja użytkownika się powiedzie, filtr zwraca logiczną wartość - prawda,
+        \item[sukces] - jeśli autoryzacja użytkownika się powiedzie filtr zwraca logiczną wartość - prawda,
         która jest sygnałem dla dalszego przetwarzania żądania,
-        \item[blokada] - sytuacja odwrotna do sukcesu. W tym momencie, żądania zostaje odrzucone
+        \item[blokada] - sytuacja odwrotna do sukcesu. W tym momencie żądanie zostaje odrzucone
         i pojawia się odpowiedni komunikat informujący użytkownika o zbyt niskich uprawnieniach.
     \end{itemize}
     
     \subsection{Dla komunikacji z ElasticSearch}
     Część serwera \textbf{Kibana} nie zajmuje się jedynie dostarczeniem dostępu do bazy danych
-    \textbf{ElasticSearch}. Poza tym, przy jego pomocy, serwowane są media właściwe dla stron internetowych
-    (pliki HTML, CSS, JS) lub inne media. Sprawdzania praw użytkowników dla
+    \textbf{ElasticSearch}. Poza tym przy jego pomocy serwowane są media właściwe dla stron internetowych
+    (pliki HTML, CSS, JS) lub inne media. Sprawdzanie praw użytkowników dla
     każdego z takiego typu żądań okazuje się być wysoce nieefektywne, ponieważ nie ma faktycznego
-    przełożenia na aspekt bezpieczeństwa. Z tego tez powodu, jedynie żądania o dane, są wcześniej 
-    weryfikowane, aby zezwolić lub zabronić \textbf{Kibana}, i w dalszej kolejności użytkowniki,
-    dostępu do nich. Omówione powody, wynikają z natury filtrów, które uruchamiania są dla 
+    przełożenia na aspekt bezpieczeństwa. Z tego tez powodu jedynie żądania o dane są wcześniej 
+    weryfikowane, aby zezwolić lub zabronić \textbf{Kibana} i w dalszej kolejności użytkownikowi dostępu do nich. Omówione powody wynikają z natury filtrów, które uruchamianie są dla 
     wszystkich żądań trafiających pod konkretny adres.
 
 Kompletny kod źródłowy aplikacji dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/kibana}.
 
 \section{keystone-v3-client}
-Omówiona w \ref{chapter:application:own_work:kibana_and_keystone} funkcjonalność, zaimplementowana w \textbf{Kibana}, nie 
+Omówiona w \ref{chapter:application:own_work:kibana_and_keystone} funkcjonalność, zaimplementowana w \textbf{Kibana} nie 
 byłaby możliwa bez biblioteki do komunikacji z \textbf{Keystone} w aplikacji napisanej w \glslink{node_js}{\textbf{NodeJS}}.
-W momencie jej implementacji, żadna z istniejących bibliotek nie wspierała nowej wersji \textbf{Keystone} - \textbf{V3}. 
-Było to bodźcem dla napisania własnej, której autor poniższej pracy dyplomowej, jest, na obecną chwilę, jedynym autorem. Zwrot \textit{obecna chwila}
+W momencie jej implementacji żadna z istniejących bibliotek nie wspierała nowej wersji \textbf{Keystone} - \textbf{V3}. 
+Było to bodźcem dla napisania własnej, której autor poniższej pracy dyplomowej, jest na obecną chwilę, jedynym twórcom. Zwrot \textit{obecna chwila}
 jest tutaj istotny, ponieważ \textbf{biblioteka} została udostępniona publicznie na licencji \textbf{Apache V2}. Skutkiem tego jest to, że
-każdy programista z dowolnego miejsca na świecie, może stać się jej współtwórcą. 
+każdy programista z dowolnego miejsca na świecie może stać się jej współtwórcą. 
 
 Jak zostało wspomniane powyżej, nadrzędnym celem \textbf{keystone-v3-client} jest dostarczenie programistom \textbf{NodeJS} możliwości
-komunikacji z nową wersją \textbf{Keystone}. Sam \textbf{Keystone} jest tak naprawdę uruchamiany jako serwer, z którym komunikować się można,
+komunikacji z nową wersją \textbf{Keystone}. Sam \textbf{Keystone} jest tak naprawdę uruchamiany jako serwer, z którym komunikować się można
 wysyłając żądania HTTP. Lista możliwych żądań jest zbyt długa, aby w pełni ją tutaj przedstawić 
 \footnote{Pełna specyfikacja \textbf{Keystone} dostępna jest pod adresem \url{http://developer.openstack.org/api-ref-identity-v3.html}}. Jednak,
-dla każdego z możliwych adresów \textbf{keystone-v3-client} udostępnia odpowiednie funkcje, która pozwalają te żądania wykonać.
+dla każdego z możliwych adresów \textbf{keystone-v3-client} udostępnia odpowiednie funkcje, które pozwalają te żądania wykonać.
     \begin{listing}
         \begin{minted}{js}
 module.exports.tokens = require('./tokens');
@@ -210,56 +209,56 @@ module.exports.policies = require('./policies');
         \label{chapter:application_own:own_work:keystone_v3_client:endpoints}
     \end{listing}
 
-Kompletny kod źródłowy biblioteki dostępny jest pod adresem \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client}.
+Kompletny kod źródłowy biblioteki dostępny jest pod adresem: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/keystone-v3-client}.
 Została ona również opublikowana na \url{https://www.npmjs.com}. 
-Opis paczki znaleźć można pod adresem \url{https://www.npmjs.com/package/keystone-v3-client}
+Opis paczki znaleźć można pod adresem \url{https://www.npmjs.com/package/keystone-v3-client}.
 
 \section{monasca-log-api}
 
 \subsection{monasca-log-api - Java}
 \label{chapter:application:own_work:monasca_log_api:java}
-    Implementacja \textbf{monasca-log-api} pojawiła się jako pierwsza. Była ona suplementem dla \textbf{monasca-api}, również 
-    napisanego w Java. Jednakże, podczas gdy drugi z omawianych komponentów służy do pracy z alarmami oraz metrykami, 
-    \textbf{monasca-log-api} pozwala na zapisywania logów do bazy danych. Autor pracy dyplomowej, mimo że nie jest 
+    Implementacja \textbf{monasca-log-api} pojawiła się jako pierwsza. Była ona suplementem dla \textbf{monasca-api} również 
+    napisanego w Java. Jednakże podczas gdy drugi z omawianych komponentów służy do pracy z alarmami oraz metrykami, 
+    \textbf{monasca-log-api} pozwala na zapisywanie logów do bazy danych. Autor pracy dyplomowej, mimo że nie jest 
     oryginalnym autorem tego rozwiązania, miał duży wkład w następujące aspekty implementacji:
     \begin{itemize}
         \item poprawa logiki aplikacji odnośnie dodawania meta danych do odbieranych logów,
         \item naprawa zauważonych błędów,
         \item podniesienie jakości kodu,
-        \item lepszą walidacją rozmiaru żądania, tym samym maksymalnego rozmiaru logu
+        \item lepszą walidacją rozmiaru żądania, tym samym maksymalnego rozmiaru logu.
     \end{itemize}
     
-    Wkład, autora pracy dyplomowej, dla \textbf{monasca-log-api} w języku Java, można oszacować na 20\%.
+    Wkład autora pracy dyplomowej dla \textbf{monasca-log-api}, w języku Java można oszacować na 20\%.
 
 \subsection{monasca-log-api - Python}
 \label{chapter:application:own_work:monasca_log_api:python}
 
-Odpowiedź na trend w przenoszeniu komponentów, będących częścią chmury obliczeniowej OpenStack, na język Python. Autor, poniższej pracy dyplomowej, jest autorem tej implementacji \textbf{monasca-log-api}. Na obecną chwilę jest ona komplementarna do wersji w języku Java. Całość została oparta o szybki serwer \textbf{Gunicorn} kompatybilny z \glslink{wsgi}{\textbf{WSGI}}. Dzięki
-temu aplikacja może zostać łatwo przeniesiona na inną implementacją \textbf{WSGI}, bez większych trudności,
+Odpowiedź na trend w przenoszeniu komponentów, będących częścią chmury obliczeniowej OpenStack, na język Python. Autor poniższej pracy dyplomowej jest twórcom tej implementacji \textbf{monasca-log-api}. Na obecną chwilę jest ona komplementarna do wersji w języku Java. Całość została oparta o szybki serwer \textbf{Gunicorn} kompatybilny z \glslink{wsgi}{\textbf{WSGI}}. Dzięki
+temu aplikacja może zostać łatwo przeniesiona na inną implementację \textbf{WSGI}, bez większych trudności,
 jeśli zajdzie taka potrzeba. Implementacja obejmuje:
 \begin{itemize}
     \item przygotowanie całej architektury aplikacji, włącznie z:
     \begin{itemize}
         \item ładowaniem ustawień,
-        \item rozłożeniem kodu na logiczne, współpracuje ze sobą, elementy,
-        \item klasy odpowiedzialne za obsługę żądań HTTP
+        \item rozłożeniem kodu na logiczne, współpracuje ze sobą elementy,
+        \item klasy odpowiedzialne za obsługę żądań HTTP,
     \end{itemize}
-    \item utworzeniem logiki odnośnie walidacji nadchodzących wiadomości:
+    \item utworzenie logiki odnośnie walidacji nadchodzących wiadomości:
     \begin{itemize}
         \item poprawna struktura nagłówków żądania,
         \item dwu etapowa walidacja rozmiaru wiadomości,
     \end{itemize}
-    \item autoryzacja dostępu,
+    \item autoryzacje dostępu,
     \item mechanizm weryfikacji stanu (z angielskiego \textbf{healtcheck}),
-    \item tworzenia struktury gotowej do przekazania dla \textbf{monasca-log-transformer}
+    \item tworzenie struktury gotowej do przekazania dla \textbf{monasca-log-transformer}.
 \end{itemize}
 
-Warto w tym miejscu dodać, że \textbf{monasca-log-api}, w języku Python, spotkała się z dużo
-większym odzewem ze strony społeczności. Na obecną chwilę, kod aplikacji, ma więcej niż 1 kontrybutora.
-Kod, wersji Java oraz Python, znajduje się pod adresem \url{https://github.com/openstack/monasca-log-api/}.
-Równolegle do przygotowania implementacji w języku Python, autor pracy dyplomowej, rozszerzył rolę
+Warto w tym miejscu dodać, że \textbf{monasca-log-api}, w języku Python spotkała się z dużo
+większym odzewem ze strony społeczności. Na obecną chwilę kod aplikacji ma więcej niż 1-go kontrybutora.
+Kod wersji Java oraz Python znajduje się pod adresem: \url{https://github.com/openstack/monasca-log-api/}.
+Równolegle do przygotowania implementacji w języku Python autor pracy dyplomowej rozszerzył rolę
 \textbf{ansible-monasca-log-api} opisaną w rozdziale \ref{chapter:application:own_work:ansible_monasca_log_api}.
-Wkład, twórcy pracy magisterskiej, można oszacować na poziomie 95\% dla \textbf{monasca-log-api} w wersji
+Wkład twórcy pracy magisterskiej można oszacować na poziomie 95\% dla \textbf{monasca-log-api} w wersji
 Python.
 
 \section{ORM dla monasca-api oraz monasca-thresh}
@@ -267,100 +266,100 @@ Python.
 
 Oryginalnie oba z komponentów zostały zaprojektowane z myślą o wsparciu dla relacyjnej bazy danych \textbf{MySQL}. 
 Pierwszą z kontrybucji dla \textbf{monasca} było rozszerzenie obsługi baz danych o \textbf{PostgreSQL}. Nie zostało
-to jednak osiągnięte poprzez dodania nowego zestawu klas, napisanych z myślą o wsparciu jedynie tej bazy danych. Zamiast
-tego, wprowadzono rozwiązanie znane pod nazwą \glslink{frontend}{textbf{ORM}}.
-Autor, poniższej pracy dyplomowej, nie jest oryginalnym autorem rozwiązania. Propozycja, która zostało,
-przedstawiona społeczności, jest dziełem jednego z programistów projektu. Niemniej, twórca pracy magisterskiej był, w późniejszym czasie,
-odpowiedzialny za następujące aspekty tej części całego projektu:
+to jednak osiągnięte za pomocą dodania nowego zestawu klas, napisanych z myślą o wsparciu jedynie tej bazy danych. Zamiast
+tego wprowadzono rozwiązanie znane pod nazwą \glslink{frontend}{textbf{ORM}}.
+Autor poniższej pracy dyplomowej nie jest oryginalnym autorem rozwiązania. Propozycja, która została
+przedstawiona społeczności, jest dziełem jednego z programistów projektu. Niemniej twórca pracy magisterskiej był, w późniejszym czasie,
+odpowiedzialny za przedstawione poniżej aspekty omawianej części całego projektu.
 
     \subsection{Poprawa jakości i struktury kodu}
-    W ramach tego punktu, autor, zajął się między innymi ogólnym podniesienie jakości. Zrealizowane to zostało
+    W ramach tego punktu autor zajął się między innymi ogólnym podniesieniem jakości. Zrealizowane to zostało
     na trzech płaszczyznach:
     \begin{itemize}
-        \item[monasca-common]
-        Przepisania od nowa modelu mapowania obiektowo-relacyjnego. Warto dodać, że projekt \textbf{monasca-common} stanowi
-        wspólną bazę dla wszystkich projektów \textbf{monasca}. Z tego też powodu, model danych zaimplementowany jest
+        \item[monasca-common] - 
+        przepisanie od nowa modelu mapowania obiektowo-relacyjnego. Warto dodać, że projekt \textbf{monasca-common} stanowi
+        wspólną bazę dla wszystkich projektów \textbf{monasca}. Z tego też powodu model danych zaimplementowany jest
         właśnie w tym projekcie. Nowa wersja warstwy modelu danych cechuje się:
         \begin{itemize}
             \item wspólną bazą dla kluczy głównych, które zdefiniowane są jedynie na poziomie klasy abstrakcyjnej,
-            \item jednolitym podejściem do zarządzania obiektami opisujących dane czasowe,
+            \item jednolitym podejściem do zarządzania obiektami opisującymi dane czasowe,
             \item zgodnym z zalecaniami sposobem obliczenia wartości \textit{hashCode} oraz \textit{equals}
             \footnote{\textit{hashCode} oraz \textit{equals} - dwie podstawowe metody implementowane przez każdą klasę w języku Java. Stanowią one
-                kluczowy element, między innymi, w pracy z kolekcjami}
+                kluczowy element między innymi w pracy z kolekcjami}
         \end{itemize}
-        \item[monasca-api, monasca-thresh]
-        Dopasowania repozytoriów danych do nowego modelu obiektowego. Największym sukcesem było
+        \item[monasca-api, monasca-thresh] - 
+        dopasowania repozytoriów danych do nowego modelu obiektowego. Największym sukcesem było
         wykorzystanie wstępnie przygotowanych zapytań HQL\footnote{HQL - Hibernate Query Language, jest to
             pseudo obiektowy język zapytań, podobny do SQL}, zamiast tych, które wykorzystywały łączenie
-        łańcuchów znakowych. Takie podejście, jest mało eleganckie i trudne w utrzymaniu. Zaletą HQL są
+        łańcuchów znakowych. Takie podejście jest mało eleganckie i trudne w utrzymaniu. Zaletą HQL są
         parametry posiadające własną nazwę. Dodatkowo, tam gdzie było to konieczne i możliwe, autor
         zastosował dynamicznie budowane zapytania, oparte o 
         \href{https://docs.jboss.org/hibernate/orm/5.0/devguide/en-US/html_single/#d5e3489}{Criteria API}.
-        Dla potencjalnie dużych zbiorów danych, autor zastosował mechanizm podobny do kursora, aby
+        Dla potencjalnie dużych zbiorów danych autor zastosował mechanizm podobny do kursora, aby
         dostarczyć wymaganej funkcjonalności. Ostatecznie był on także autorem poprawek do testów jednostkowych,
         bazujących na tych, które oryginalnie stworzone zostały na potrzeby repozytoriów, komunikujących się
         z \textbf{MySQL}.
     \end{itemize}
     
     \subsection{Dopasowanie rozwiązania do MySQL i PostgreSQL}
-    Mimo, że zastosowanym rozwiązaniem był ORM, okazało się, że dopasowanie modelu danych, tak by pasował do 
-    schematu bazy danych \textbf{MySQL} oraz \textbf{PostgreSQL}, jest obarczone dużym stopniem trudności. 
+    Mimo, że zastosowanym rozwiązaniem był ORM, okazało się, że dopasowanie modelu danych tak by pasował do 
+    schematu bazy danych \textbf{MySQL} oraz \textbf{PostgreSQL} jest obarczone wysokim stopniem trudności. 
     W dużej mierze napotkane przeszkody wynikały z:
     \begin{itemize}
-        \item zastosowaniu dla \textbf{MySQL} typów danych SQL właściwych jedynie dla tej bazy danych,
-        \item trudną w zamodelowaniu specyficznej struktury oraz zależności między tabelami,
-        \item oparciem relacji dla niektórych encji o typ danych UUID
+        \item zastosowania dla \textbf{MySQL} typów danych SQL właściwych jedynie dla tej bazy danych,
+        \item trudną w zamodelowaniu specyficzną strukturą oraz zależnością między tabelami,
+        \item oparciem relacji dla niektórych encji o typ danych UUID.
     \end{itemize}
     
-    Warto nadmienić, że część ze wspomnianych problemów została zaadresowane również
+    Warto nadmienić, że część ze wspomnianych problemów została zaadresowana również
     w projekcie \href{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-schema}{ansible-monasca-schema}.
-    Autor poniższej pracy dyplomowej, był odpowiedzialny za:
+    Autor poniższej pracy dyplomowej był odpowiedzialny za:
     \begin{itemize}
-        \item zamianę typu danych \textit{ENUM} na model reprezentacji tego typu wartości, oparty
+        \item zamianę typu danych \textit{ENUM} na model reprezentacji tego typu wartości opartych
         o pojedyncza tabelę. Głównymi zaletami tego rozwiązania są:
         \begin{itemize}
             \item zachowanie wymuszania spójności danych,
-            \item możliwość modyfikacji stałych poprzez operacji \textbf{INSERT}, \textbf{DELETE} oraz \textbf{UPDATE}. Warto
+            \item możliwość modyfikacji stałych poprzez operacje \textbf{INSERT}, \textbf{DELETE} oraz \textbf{UPDATE}. Warto
             dodać, że dla tabeli tego typu zmiany są operacją trywialną. Nie jest to jednak prawda dla wartości ENUM, ponieważ
-            wymaga to zmian bezpośredniości na deklaracji DDL danej tabeli
+            wymaga to zmian bezpośredniości na deklaracji DDL danej tabeli.
         \end{itemize}
         Warto dodać, że konieczne było zaprojektowanie nowych tabel, aby posiadały jedną tylko kolumnę, będącą jednocześnie
-        wartością oraz kluczem głównym. Celowe złamania zasady normalizacji baz danych podyktowane było, koniecznością
-        dopasowania modelu danych, aby pasował zarówno do \textbf{MySQL} oraz \textbf{PostgreSQL} oraz, co ważniejsze,
+        wartością oraz kluczem głównym. Celowe złamania zasady normalizacji baz danych podyktowane było koniecznością
+        dopasowania modelu danych, aby pasował zarówno do \textbf{MySQL} jak również \textbf{PostgreSQL} oraz, co ważniejsze
         zminimalizowaniem ilości koniecznych do wprowadzania zmian w \textbf{monasca-api}, na poziomie warstwy dostępu do danych.
         \item zamianą typu danych \textbf{MEDIUMTEXT} na \textbf{LONGTEXT}. Podczas gdy drugi ze wspomnianych typów jest równoważnie
-        wspierany dla obu baz danych, \textbf{MEDIUMTEXT} działa prawidłowo jedynie dla \textbf{MySQL}
+        wspierany dla obu baz danych, \textbf{MEDIUMTEXT} działa prawidłowo jedynie dla \textbf{MySQL}.
     \end{itemize}
     
     Ostatecznie, oprócz zmian na poziomie modelu danych oraz schematu bazy danych, autor miał wkład w poprawę oraz udoskonalenie
-    kodu warstwy dostępu do danych. Najważniejszymi aspektami tej części było utworzenia odpowiednich klas, implementujących logikę
+    kodu warstwy dostępu do danych. Najważniejszymi aspektami tej części było utworzenie odpowiednich klas, implementujących logikę
     biznesową, oryginalnie dostępną jedynie dla \textbf{MySQL}. Podstawowym warunkiem akceptacji ze strony społeczności było
-    odzwierciedlania wszystkich założeń zaimplementowanych dla \textbf{MySQL}, tak aby możliwe było wykorzystanie mapowania obiektowo-relacyjnego
+    odzwierciedlanie wszystkich założeń zaimplementowanych dla \textbf{MySQL}, tak aby możliwe było wykorzystanie mapowania obiektowo-relacyjnego
     zarówno z bazą danych \textbf{PostgreSQL}, jak i \textbf{MySQL}.
     
     \subsection{Migracja bazy danych w Ansible}
     \label{chapter:application:own_work:orm:ansible_migration}
-    Dopełnieniem wprowadzanie \textbf{ORM} dla projektów \textbf{monasca-api} oraz \textbf{monasca-thresh} było spełnienie
-    wymagań społeczności odnośnie pakietu migracji danych. Żądania dodania tego typu funkcjonalności było następstwem zmian, jakie
-    zostały wprowadzona na poziomie definicji schematu bazy danych dla \textbf{MySQL}. W ramach implementacji, autor poniższej pracy dyplomowej,
+    Dopełnieniem wprowadzania \textbf{ORM} dla projektów \textbf{monasca-api} oraz \textbf{monasca-thresh} było spełnienie
+    wymagań społeczności odnośnie pakietu migracji danych. Żądania dodania tego typu funkcjonalności było następstwem zmian jakie
+    zostały wprowadzone na poziomie definicji schematu bazy danych dla \textbf{MySQL}. W ramach implementacji autor poniższej pracy dyplomowej
     rozszerzył rolę \textbf{ansible-monasca-schema} o skrypt migracyjny, który miał zapewnić:
     \begin{itemize}
-        \item zamianę wartości typu \textbf{ENUM} na łańcuchy tekstowe oraz utworzenie dodatkowych tabel
-        \item napisanie procedury, której zadaniem było konwersja danych na nowy format przechowywania,
-        \item zmiana typów kolumn, które były kompatybilne jedynie z \textbf{MySQL}
+        \item zamianę wartości typu \textbf{ENUM} na łańcuchy tekstowe oraz utworzenie dodatkowych tabel,
+        \item napisanie procedury, której zadaniem była konwersja danych na nowy format przechowywania,
+        \item zmiana typów kolumn, które były kompatybilne jedynie z \textbf{MySQL}.
     \end{itemize}
     
     \subsection{Oszacowany wkład}
-    Z uwagi na duży rozmiar obu wspomnianych projektów oraz liczbę kontrybutorów, trudno jest oszacować procentowy wkład 
+    Z uwagi na duży rozmiar obu wspomnianych projektów oraz liczbę kontrybutorów trudno jest oszacować procentowy wkład 
     autora pracy dyplomowej. Dodatkowo takie oszacowanie komplikuje fakt, że wprowadzenie warstwy \textbf{ORM} dla 
-    \textbf{monasca-api} oraz \textbf{monasca-thresh}, nie są jedynymi kontrybucjami twórcy pracy magisterskiej. Niemniej, 
-    łączny wkład autora, wyrażony w postaci metryki \textbf{LOC - Lines of code} przedstawia się następująco:
+    \textbf{monasca-api} oraz \textbf{monasca-thresh}, nie są jedynymi kontrybucjami twórcy pracy magisterskiej. Niemniej
+    łączny wkład autora wyrażony w postaci metryki \textbf{LOC - Lines of code} przedstawia się następująco:
     \begin{itemize}
         \item dla \textbf{monasca-api} jest to 3890 zmienionych linii kodu,
-        \item dla \textbf{monasca-thresh}, ta sama metryka przyjmuje wartość 1589 linii.
+        \item dla \textbf{monasca-thresh} ta sama metryka przyjmuje wartość 1589 linii.
     \end{itemize}
     Większość z nich przypada na implementację mapowania obiektowo-relacyjnego.
-    Dla roli \textbf{ansible-monasca-schema}, ilość zmienionych linii kodu wynosi 1459. Całość kontrybucji odnosi się do 
+    Dla roli \textbf{ansible-monasca-schema} ilość zmienionych linii kodu wynosi 1459. Całość kontrybucji odnosi się do 
     zmian opisanych w rozdziale \ref{chapter:application:own_work:orm:ansible_migration}.
 
 \section{Problem wielu linii w monasca-log-agent}
@@ -384,27 +383,27 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
         \label{chapter:application_own:own_work:monasca_log_agent:filter_example}
     \end{listing}
     
-    W pewnym momencie, stało się jasne, że komponent \textbf{monasca-log-agent} nie wspiera wpisów w logach, znajdujących się 
+    W pewnym momencie stało się jasne że komponent \textbf{monasca-log-agent} nie wspiera wpisów w logach, znajdujących się 
     w więcej niż jednej linii. Twórca pracy dyplomowej był jednym z dwóch autorów rozwiązania, które implementowały wyżej 
     opisaną funkcjonalność. Z uwagi na fakt, że \textbf{monasca-log-agent} jest specjalnie skonfigurowaną instancją 
     \textbf{Logstash}, całość wdrożenia została umieszczona w roli\textbf{Ansible} - 
     \href{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent}{ansible-monasca-log-agent}.
-    Główną ideą było dodania dodanie zestawu stałych, opisujących konfiguracją segmentu filtracji w \textbf{Logstash}.
+    Główną ideą było dodanie zestawu stałych, opisujących konfigurację segmentu filtracji w \textbf{Logstash}.
 
     \subsection{Opis rozwiązania}
     Przykładowy kod filtru, widoczny na listingu \ref{chapter:application_own:own_work:monasca_log_agent:filter_example}, 
-    wykorzystuje wtyczkę \href{https://www.elastic.co/guide/en/logstash/current/plugins-filters-multiline.html}{multiline} 
-    dla aplikacji \textbf{Logstash}. Najistotniejszym elementem, w zaprezentowanym kodzie, jest sekcja 
+    wykorzystuje on wtyczkę \href{https://www.elastic.co/guide/en/logstash/current/plugins-filters-multiline.html}{multiline} 
+    dla aplikacji \textbf{Logstash}. Najistotniejszym elementem w zaprezentowanym kodzie jest sekcja 
     \textit{configuration}. Jest to mapowanie w stosunku 1:1, odpowiadające konfiguracji wspomnianego filtra. Poszczególne 
     elementy oznaczają:
     \begin{itemize}
         \item[pattern] - wyrażenie regularne, wykorzystane do dopasowania linii kończącej lub rozpoczynającej wydarzenia, zapisane w wielu liniach,
-        \item[what] - wskazuje, czy wartość \textit{pattern}, powinna być wykorzystana do dopasowania pierwszej lub ostatniej linijki odczytanej
+        \item[what] - wskazuje, czy wartość \textit{pattern} powinna być wykorzystana do dopasowania pierwszej lub ostatniej linijki odczytanej
         z monitorowanego pliku,
-        \item[negate] - ściśle powiązane z dopasowaniem lub jego brakiem. Jeśli, korzystając z wyrażenia regularnego, nie uda się dopasować linii,
-        wartość logiczna takiego faktu, powinna zostać odwrócona. Jeśli wyrażenia zwróci fałsz, ustawienie \textit{negate} na \textit{true}, 
-        spowoduje, że faktyczną zwróconą wartością będzie logiczna prawda. Innymi słowy, w omawianym przykładzie, kolejne linie są częścią jednego
-        logu dopóki, dopóty wyrażenie regularne zwraca logiczny fałsz. 
+        \item[negate] - ściśle powiązane z dopasowaniem lub jego brakiem. Jeśli, korzystając z wyrażenia regularnego nie uda się dopasować linii
+        wartość logiczna takiego faktu powinna zostać odwrócona. Jeśli wyrażenie zwróci fałsz, ustawienie \textit{negate} na \textit{true}, 
+        spowoduje, że faktyczną zwróconą wartością będzie logiczna prawda. Innymi słowy w omawianym przykładzie kolejne linie są częścią jednego
+        logu dopóki wyrażenie regularne zwraca logiczny fałsz. 
     \end{itemize}
     
     \begin{listing}[H]
@@ -438,49 +437,48 @@ odpowiedzialny za następujące aspekty tej części całego projektu:
     \begin{itemize}
         \item[elastyczność] - sekcja filtracji zostanie umieszczona w wynikowym pliku, tylko jeśli zostaną zdefiniowane jakiekolwiek filtry,
         \item[spójność] - wspomniana w kodzie z listingu \ref{chapter:application_own:own_work:monasca_log_agent:filter_example} 
-        sekcja \textit{configuration}, jest w 100 procentach kompatybilna z dostępnymi dla danego filtra opcjami konfiguracyjnymi,
-        \item[możliwość rozszerzenia] - kod jest niewrażliwy na ilość potencjalnych filtrów. Jest on zdolny do umieszczania zarówno konfiguracji dla jednego
-        filtra, ale potrafi też wpisać 100 innych. 
+        sekcja \textit{configuration} jest w 100 procentach kompatybilna z dostępnymi dla danego filtra opcjami konfiguracyjnymi,
+        \item[możliwość rozszerzenia] - kod jest niewrażliwy na ilość potencjalnych filtrów. Jest on zdolny do umieszczania zarówno konfiguracji dla jednego, jak i stu innych filtrów. 
     \end{itemize}
 
     \subsection{Oszacowany wkład}
-    W kontekście omawianej funkcjonalności, jaką jest rozwiązanie problemu wielu linii w logach, autor, poniższej
-    pracy dyplomowej, miał 50\% wkład w całą implementację. 
+    W kontekście omawianej funkcjonalności, jaką jest rozwiązanie problemu wielu linii w logach, autor poniższej
+    pracy dyplomowej miał 50\% wkład w całą implementację. 
 
 \section{Rotacja logów}
-    W trakcie tworzenie projektu okazało się, że część z wewnętrznie używanych aplikacji, nie obsługuje automatycznej rotacji 
+    W trakcie tworzenia projektu okazało się, że część z wewnętrznie używanych aplikacji nie obsługuje automatycznej rotacji 
     logów. Jest to operacja, w wyniku której plik logów, po przekroczeniu pewnej wartości granicznej, ulega archiwizacji. 
-    Autor, poniższej pracy dyplomowej, był częścią dyskusji, w wyniku której wybrano aplikację \textbf{logrorate}. Całość 
-    implementacji, jest już autorstwa twórcy pracy magisterskiej. Została ona utworzone jako rola \textbf{Ansible}. Dzięki 
+    Autor poniższej pracy dyplomowej był częścią dyskusji, w wyniku której wybrano aplikację \textbf{logrorate} do rozwiązania problemu. Całość 
+    implementacji jest już autorstwa twórcy pracy magisterskiej. Została ona utworzona jako rola \textbf{Ansible}. Dzięki 
     temu uzyskano rozwiązania możliwe do zastosowania na dowolnej liczbie hostów.
 
 \section{Ocena kodu tworzonego w społeczności}
     Autor jest obecny w pracach całej społeczności jako \textbf{review}'er wszystkich zmian do dowolnego projektu, 
-    niezależnie od tego, czy proponowany kod jest częścią nowej funkcjonalności, czy też jest to naprawa zauważonych błędów i 
+    niezależnie od tego czy proponowany kod jest częścią nowej funkcjonalności, czy też jest to naprawa zauważonych błędów i 
     uchybień. Dzięki temu statusowi, ma on możliwość oceny jakości kodu, wskazywania potencjalnych problemów lub zgłaszania 
     niepoprawnej implementacji w stosunku do komponentów zależnych.
-    Proces oceny oparty jest o 3, niezależne, od siebie oceny:
+    Proces oceny oparty jest o 3, niezależne od siebie oceny:
     \begin{itemize}
         \item[code review] - odnosi się jedynie do samego kodu. Ocena pozytywna jest sumą elementów takich jak:
         \begin{itemize}
-            \item poprawne wykorzystania języka programowania,
+            \item poprawne wykorzystanie języka programowania,
             \item efektywne korzystanie ze struktur danych,
-            \item poprawne skorelowania nowego kodu ze starym,
+            \item poprawne skorelowanie nowego kodu ze starym,
         \end{itemize}
-        \item[verified] -  ocena poprawności działania. Innymi słowy, funkcjonalność, którą zmiana, wprowadza lub poprawia, powinna działać
-        zgodnie z intencją autora oraz, przynajmniej, nie wpływać negatywnie na inne elementy,
+        \item[verified] -  ocena poprawności działania. Innymi słowy funkcjonalność, którą zmiana wprowadza lub poprawia powinna działać
+        zgodnie z intencją autora oraz nie wpływać negatywnie na inne elementy,
         \item[workflow] - jest oceną dosyć specyficzną z uwagi na istnienie wartości \textbf{-1}, którą autor zmiany może przyznać sobie sam.
-        Jest to informacja dla osób weryfikujących, że kod nie jest jeszcze gotowy i wymaga dalszej pracy. Z drugiej strony, ocena pozytywna w tej grupie,
-        jest najczęściej ostatnią z przyznawanych, która ostatecznie kwalifikuję zmianą jako zaakceptowaną. W wyniku tego, kod, który był
-        jedynie propozycją, wchodzi do głównej gałęzi
+        Jest to informacja dla osób weryfikujących, że kod nie jest jeszcze gotowy i wymaga dalszej pracy. Z drugiej strony ocena pozytywna w tej grupie
+        jest najczęściej ostatnią z przyznawanych, która ostatecznie kwalifikuję zmianą jako zaakceptowaną. W wyniku tego kod, który był
+        jedynie propozycją, wchodzi do głównej gałęzi.
     \end{itemize}
-    Swój wkład w tym aspekcie, autor stara się okazywać w każdym z projektów spod szyldy \textbf{monasca}.
+    Swój wkład w tym aspekcie autor stara się okazywać w każdym z projektów spod szyldu \textbf{monasca}.
 
 \section{Nominacja do statusu code-reviewer}
-    Status \textbf{code-reviewer} jest, niejako, prestiżową rolą, jaką programista, będący obecny na 
+    Status \textbf{code-reviewer} jest niejako prestiżową rolą, jaką programista, obecny na 
     \url{http://review.openstack.org} może mieć. Co ważniejsze, aby uzyskać ten status należy być nominowanym do niego. Sama 
-    nominacja pochodzi od innych członków, zrzeszonych wokół konkretnych projektów i jest ona jedynie warunkiem koniecznym. 
+    nominacja pochodzi od innych członków, zrzeszonych wokół konkretnych projektów i jest ona warunkiem koniecznym. 
     Finalna decyzja leży po stronie osób nadzorujących działania społeczności.
     Warto dodać, że status \textbf{code-reviewer} upoważnia programistę do finalnej akceptacji lub odrzucenia proponowanych 
-    zmian. W innym wypadku, możliwe jest jedynie ocena kodu i ewentualne przetestowanie zmiany. Jednak nie możliwe jest 
-    ocenienie jej na oceną, które kwalifikowała by zmianę do akceptacji.
+    zmian. W innym wypadku możliwa jest jedynie ocena kodu i ewentualne przetestowanie zmiany. Jednak nie możliwe jest 
+    ocenienie jej na notę, które kwalifikowała by zmianę do akceptacji.

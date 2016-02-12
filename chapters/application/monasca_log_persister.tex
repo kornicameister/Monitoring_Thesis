@@ -20,15 +20,15 @@ aplikacji jest uzupełnienie logów do postaci, która będzie zrozumiała dla \
 Temu procesowi poddawane są pola takie jak:
 \begin{itemize}
     \item[timestamp] - domyślne pole \textbf{@timestamp} generowane jest dla zdarzenia przez \textbf{Logstash}. W przypadku
-    logu ważne jest aby ten czas oraz czas, w którym rekord został wygenerowany były tożsame. Dlatego też, program, jeśli
+    logu ważne jest aby ten czas oraz czas, w którym rekord został wygenerowany były tożsame. Dlatego też program, jeśli
     odnajdzie takową informację w strukturze opisującą log, używa jej jako czasu utworzenia struktury wydarzenia przez instancję
-    \textbf{monasca-log-persister}. Dzięki temu, to moment wygenerowania rekordu, jest realnym czasem, według której, w dalszej
-    kolejności kolejne pozycje będą sortowane w Kibana.
-    \item[creation-time] - znacznik czasowy, wskazujący na odebrania i przetworzenia rekordu przez \textbf{monasca-log-api}.
-    \item[dimensions] - \textbf{monasca-log-persister} przenosi wszystkie wartości ustawione w tym polu, do poziomu struktury
+    \textbf{monasca-log-persister}. Dzięki temu to moment wygenerowania rekordu jest realnym czasem, według którego w dalszej
+    kolejności następne pozycje będą sortowane w Kibana.
+    \item[creation-time] - znacznik czasowy, wskazujący na odebranie i przetworzenie rekordu przez \textbf{monasca-log-api}.
+    \item[dimensions] - \textbf{monasca-log-persister} przenosi wszystkie wartości ustawione w tym polu do poziomu struktury
     jaką jest zdarzenie.
-    \item[application-type] - pole wskazujące na aplikację, która wygenerowała log, podobnie jak \textit{dimensions}, jest przenoszone
-    do samego wydarzenia
+    \item[application-type] - pole wskazujące na aplikację, która wygenerowała log podobnie jak \textit{dimensions} jest przenoszone
+    do samego wydarzenia.
 \end{itemize}
 
 Podobnej operacji podlegają także następujące pola, które oryginalnie zawarte są w logu:
@@ -37,5 +37,5 @@ Podobnej operacji podlegają także następujące pola, które oryginalnie zawar
     \item[level] - poziom logu przenoszony jest do poziomu wydarzenia jako \textbf{log\_level},
     \item[tenant\_id] - identyfikator użytkownika,
     \item[region] - informacja o regionie, w którym znajdowała się maszyna, a z której pochodzi log,
-    \item[path] - ścieżka do pliku, z której pochodzą dane
+    \item[path] - ścieżka do pliku, z której pochodzą dane.
 \end{itemize}

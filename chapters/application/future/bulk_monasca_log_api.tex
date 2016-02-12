@@ -1,22 +1,22 @@
 \section{Wiele logów dla monasca-log-api (bulk-mode)}
 \label{chapter:application_own:plans:bulk_monasca_log_api}
 
-W pierwszych słowach warto nadmienić, że opisana w poniższym rozdziale funkcjonalność, oryginalnie została 
+W pierwszych słowach warto nadmienić, że opisana w poniższym rozdziale funkcjonalność oryginalnie została 
 zaproponowana zanim zespół, którego autor pracy dyplomowej jest członkiem, rozpoczął właściwie prace
 nad implementacją kolejnych elementów, wchodzących w skład całego systemu. Na obecną chwilę, z ideą 
-dodania trybu \textbf{bulk} do \textbf{monasca-log-api}, wyszła firma \textbf{TSV}, które zauważyła brak, tej
+dodania trybu \textbf{bulk} do \textbf{monasca-log-api}, wyszła firma \textbf{TSV}, która zauważyła brak tej
 ważnej funkcjonalności. Interesującym jest, że ten sam fakt, autor oraz inni członkowie zespołu, zauważyli
 w tym samym momencie. 
 
-Ideę całego rozwiązania będzie możliwość przesyłania z \textbf{monasca-log-agent} wielu zebranych logów
-w jednym żądaniu. Poprzez to, cały proces przetwarzania, zostanie przyspieszony i ostatecznie, logi
-będzie można analizować szybciej. Szybsza analiza wiąże się również z szybszym zapisanie logów w centralnej lokalizacji,
-a tym samym zabezpieczenie całego systemu przed ich utratą. Autor pracy dyplomowej jest jedną z dwóch osób, które będą
+Ideą całego rozwiązania będzie możliwość przesyłania z \textbf{monasca-log-agent} wielu zebranych logów
+w jednym żądaniu. Poprzez to cały proces przetwarzania zostanie przyspieszony i ostatecznie logi
+będzie można analizować szybciej. Szybsza analiza wiąże się również z szybszym zapisaniem logów w centralnej lokalizacji,
+a tym samym zabezpieczeniem całego systemu przed ich utratą. Autor pracy dyplomowej jest jedną z dwóch osób, które będą
 współpracowały z firmą TSV na wymienionych poniżej płaszczyznach:
 \begin{itemize}
     \item akceptacja zaproponowanego przez TSV planu implementacji,
-    \item zaproponowanie koniecznych zmian, które należy wprowadzić do istniejącej implementacji \textbf{monasca-log-api},
-    w kontekście adresów, pod którymi dostępna będzie logika, a na które będzie można wysyłać logi,
+    \item zaproponowanie koniecznych zmian, które należy wprowadzić do istniejącej implementacji \textbf{monasca-log-api}
+    w kontekście adresów pod którymi dostępna będzie logika, a na które będzie można wysyłać logi,
     \item ocenie i testowaniu zmian w kodzie, dążących do rozszerzenia \textbf{monasca-log-api},
-    \item finalnej akceptacji zmian
+    \item finalnej akceptacji zmian.
 \end{itemize}

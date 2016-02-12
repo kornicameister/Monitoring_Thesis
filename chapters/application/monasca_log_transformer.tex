@@ -1,8 +1,8 @@
 \section{monasca-log-transformer - proste transformacje}
 \label{chapter:monasca:monasca_log_transformer}
 
-\textbf{monasca-log-transformer} jest komponentem znajdującym się bezpośrednio \linebreak za \textbf{monasca-log-api}. Jest to ponownie specjalnie skonfigurowana instancje
-\textbf{Logstash} (\ref{chapter:application:elkstack}). Nasłuchuje on na \textbf{topic}'ach w oczekiwaniu
+\textbf{monasca-log-transformer} jest komponentem znajdującym się bezpośrednio \linebreak za \textbf{monasca-log-api}. Jest to ponownie specjalnie skonfigurowana instancja
+\textbf{Logstash} (\ref{chapter:application:elkstack}). Nasłuchuje ona na \textbf{topic}'ach w oczekiwaniu
 na wiadomości, które \textbf{monasca-log-api} na nie wysyła. 
 \newglossaryentry{kafka_topic}{
     name={Topic},
@@ -13,7 +13,7 @@ na wiadomości, które \textbf{monasca-log-api} na nie wysyła.
 Po odebraniu wiadomości transformer ma zadanie dokonać, zgodnie z nazwą transformacji, otrzymanego 
 logu. Na obecną chwilę jedyną operacją, którą ma za zadanie wykonać jest analiza rekordu pobranego z logu,
 aby wykryć jego poziom. Implementacja opiera się na wyrażeniu regularnym, którym objęty jest wycinek
-całego logu. W wyniku działania wyrażenia regularnego, do struktury całej wiadomości dodawana jest informacja
+całego logu. W wyniku działania wyrażenia regularnego do struktury całej wiadomości dodawana jest informacja
 o poziomie logu. 
 
 \begin{listing}
@@ -30,4 +30,4 @@ o poziomie logu.
 
 Powyższy (\ref{chapter:monasca:monasca_log_transformer:configuration_code}) wycinek kodu przedstawia
 sekcję filtracji programu Logstash. Zawarty w niej kod Ruby oraz dopasowanie Grok pozwala na 
-pobranie poziomu logu oraz znormalizowania jej do spójnej wartości. 
+pobranie poziomu logu oraz znormalizowanie jej do spójnej wartości. 

@@ -1,31 +1,31 @@
 \section{Alarmy a logi}
 \label{chapter:application_own:plans:alarm_on_logs}
 
-Jednym z założeń projektu \textbf{monasca} jest powiadamiania użytkownika o 
+Jednym z założeń projektu \textbf{monasca} jest powiadamianie użytkownika o 
 sytuacjach krytycznych zaistniałych w systemie. Funkcjonalność realizowana jest na podstawie
-metryk, zbieranych z całego systemu. Przekroczenie, założonych przez administratora, wartości
+metryk zbieranych z całego systemu. Przekroczenie założonych przez administratora wartości
 krytycznych, skutkuje wygenerowaniem alarmu. Jednak idea ta, nie może zostać
 tak łatwo przełożona na logi. Problemem jest przedstawienie logów w postaci metryk - czyli wartości
-numerycznych. W przeciwieństwie do danych dotyczących, chociażby, zużycia przestrzeni dyskowej lub, podlegającemu większej
+numerycznych. W przeciwieństwie do danych dotyczących chociażby zużycia przestrzeni dyskowej lub podlegających większej
 fluktuacji, obciążeniu procesora, logi stanowią element zbioru metryk nieciągłych \footnote{Sparse metric - metryki okresowe,
 zwracające wartości w nieregularnych odstępach czasu}. 
 
-Częścią rozwiązania problemu, byłaby modyfikacja aplikacji \textbf{monasca-thresh}, odpowiedzialnej za faktyczne generowania 
+Częścią rozwiązania problemu byłaby modyfikacja aplikacji \textbf{monasca-thresh}, odpowiedzialnej za faktyczne generowanie 
 alarmów. Na obecną chwilę, jeśli dla danej metryki, brak jest danych, monitor zdefiniowany dla danego alarmu powoduje jego 
-wejście w stan \textbf{UNDETERMINED}. W przypadku logów, nie jest to jednak sytuacja oczekiwana. Przykładowo, brak wystąpień 
+wejście w stan \textbf{UNDETERMINED}. W przypadku logów nie jest to jednak sytuacja oczekiwana. Przykładowo brak wystąpień 
 błędów dla danej aplikacji, powinien faktycznie oznaczać, że aplikacja lub system pracuje poprawnie i potencjalny operator nie 
-ma powodów do niepokoju. Innymi słowy, odpowiadałoby to stanowi \textbf{OK}. Dopiero, co najmniej jedna wartość wykraczająca 
+ma powodów do niepokoju. Innymi słowy, odpowiadałoby to stanowi \textbf{OK}. Dopiero co najmniej jedna wartość wykraczająca 
 poza ramy danego alarmu, powinna spowodować jego przejście w stan wysoki oraz wygenerowanie powiadomienia lub powiadomień.
 
 Funkcjonalność opisana powyżej jest obecnie w fazie projektowania i podlega dyskusji między członkami całej społeczności.
 Została ona omówiona podczas \textbf{Monasca Mid-Cycle}, spotkania wszystkich programistów zrzeszonych wokół projektu
-\textbf{monasca}, które odbywało się 3 oraz 4 lutego 2016 roku. Autor poniższej pracy dyplomowej, był aktywnie włączony
+\textbf{monasca}, które odbywało się 3 oraz 4 lutego 2016 roku. Autor poniższej pracy dyplomowej był aktywnie włączony
 w dyskusję, gdzie następujące aspekty zostały omówione:
 \begin{itemize}
-    \item wprowadzenia nowej zmiennej \textbf{period} do metryk opisującej, jak długi okres czasu musi upłynąć aby
+    \item wprowadzenie nowej zmiennej \textbf{period} do metryk opisujących jak długi okres czasu musi upłynąć, aby
     zmienił się stan alarmu powiązanego z metryką. Dla omawianej koncepcji (alarmy a logi) przyjęte zostało użycie wartości
-    \textbf{-1} aby wskazać, że dane metryka jest nieokresowa,
-    \item sposób dostarczenie nowych metryk do systemu \textbf{monasca}. Miałaby one trafiać, poprzez kolejkę Kafka,
+    \textbf{-1} aby wskazać, że dana metryka jest nieokresowa,
+    \item sposób dostarczenia nowych metryk do systemu \textbf{monasca}. Miałyby one trafiać, poprzez kolejkę Kafka,
     do aplikacji \textbf{monasca-thresh},
-    \item modyfikacji \textbf{monasca-thresh} aby rozumiała metryki okresowe oraz nieokresowe
+    \item modyfikacji \textbf{monasca-thresh}, aby rozumiała metryki okresowe oraz nieokresowe.
 \end{itemize}

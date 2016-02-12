@@ -2,10 +2,10 @@
     name={Healthcheck},
     description={
         Specjalny adres, dostępny w \textbf{REST}'owym API, który informuje odpytującego o stanie aplikacji. Zależnie
-        od implementacji, można wyróżnić co najmniej dwa typy tego rodzaju komponentów:
+        od implementacji można wyróżnić co najmniej dwa typy tego rodzaju komponentów:
         \begin{itemize}
             \item[proste] - informujące jedynie o tym, czy API jest dostępne i można wykonywać żądania,
-            \item[złożone] - oferujące tą samą funkcjonalność co \textit{proste} oraz, dodatkowo,
+            \item[złożone] - oferujące tą samą funkcjonalność co \textit{proste} oraz dodatkowo
             weryfikujące stan zależnych serwisów, jak chociażby baza danych.
         \end{itemize}
     }
@@ -13,9 +13,9 @@
 \newglossaryentry{loadbalancer}{
     name={Load Balancer},
     description={
-        Rodzaj aplikacji, najczęściej znajdujący się przed klastrem serwerów. Jego nadrzędnym zadaniem jest
-        dystrybuowanie ruchu do poszczególnych węzłów według zadanego algorytmu. Operacja ta ma na celu,
-        równomiernie rozłożenie obciążenia, które generowane jest przez klientów, łączących się do klastra
+        Rodzaj aplikacji najczęściej znajdujący się przed klastrem serwerów. Jego nadrzędnym zadaniem jest
+        dystrybuowanie ruchu do poszczególnych węzłów według zadanego algorytmu. Operacja ta ma na celu
+        równomiernie rozłożenie obciążenia, które generowane jest przez klientów łączących się do klastra
     }
 }
 
@@ -23,36 +23,36 @@
 \label{chapter:application_own:plans:healthcheck}
 
 Mechanizmy oferowane przez \glslink{healthcheck}{\textbf{healtcheck}'i} dostępne są, na obecną chwilę, jedynie
-w następujących aplikacjach: \textbf{monasca-api} oraz \textbf{monasca-log-api}. Dodatkowo, są to wersje napisane w języku
+w następujących aplikacjach: \textbf{monasca-api} oraz \textbf{monasca-log-api}. Dodatkowo są to wersje napisane w języku
 Java. Biorąc pod uwagę trend w społeczności \textbf{monasca} dążący do przejścia na wersje napisane w języku Python,
-autor, poniższej pracy dyplomowej, stworzył propozycję implementacji na potrzeby \textbf{monasca-log-api}. Dzięki
-temu, możliwe jest wysyłanie żądań do serwera, na które odpowiedzieć on może w następujący sposób:
+autor poniższej pracy dyplomowej, stworzył propozycję implementacji na potrzeby \textbf{monasca-log-api}. Dzięki
+temu możliwe jest wysyłanie żądań do serwera, na które odpowiedzieć on może w następujący sposób:
 \begin{itemize}
-    \item[HTTP 204] - oznacza, że \textbf{monasca-log-api} działa oraz \textbf{Kafka}, które wykorzystywane jest
-    do przysyłania danych do \textbf{monasca-log-transformer} jest również obecne w sieci, a wymagane \glslink{kafka_topic}{topic'i} są
+    \item[HTTP 204] - oznacza, że \textbf{monasca-log-api} działa oraz \textbf{Kafka}, która wykorzystywana jest
+    do przysyłania danych do \textbf{monasca-log-transformer} jest również obecna w sieci, a wymagane \glslink{kafka_topic}{topic'i} są
     utworzone
-    \item[HTTP 503] - komponent zależny - kafka - jest niedostępna lub niepoprawnie skonfigurowana,
-    \item[HTTP 404] - \textbf{monasca-log-api} jest niedostępny
+    \item[HTTP 503] - komponent zależny - kafka - jest niedostępna lub niepoprawna skonfigurowana,
+    \item[HTTP 404] - \textbf{monasca-log-api} jest niedostępny.
 \end{itemize}
 
 Całość została oparta o bibliotekę \textbf{oslo.middleware}. Warto dodać, że ta oraz inne biblioteki, których nazwa
-rozpoczyna się od \textbf{oslo.} są, praktycznie, nieodłączną częścią chmury obliczeniowej \textbf{OpenStack}. Z tego też powodu,
+rozpoczyna się od \textbf{oslo.} są praktycznie nieodłączną częścią chmury obliczeniowej \textbf{OpenStack}. Z tego też powodu
 są wykorzystywane w bardzo dużej liczbie projektów i to nie tylko tych, które stanowią główną część \textbf{OpenStack} (jak chociażby
 \textbf{Horizon czy \textbf{Nova}}).
 
-Dodatkowo autor pracy dyplomowej, zajął się zweryfikowaniem możliwych alternatyw dla omawianego
-rozwiązania. Problematyczna okazuje się, bowiem, jedna różnica między wersjami napisanymi w językach \textbf{Python} oraz \textbf{Java}.
+Dodatkowo autor pracy dyplomowej zajął się zweryfikowaniem możliwych alternatyw dla omawianego
+rozwiązania. Problematyczna okazuje się bowiem jedna różnica między wersjami napisanymi w językach \textbf{Python} oraz \textbf{Java}.
 Implementacja oparta o język \textbf{Java} wykorzystuję bibliotekę \textbf{DropWizard}, która domyślnie wspiera funkcjonalność określaną
-nazwą \textit{healthcheck}. Dodatkowo, serwer uruchamia kolejną (wbudowaną) usługę dostępną pod innym portem.
-Jest to duża zaleta w momencie kiedy \textbf{API} umieszcza się wraz z innymi jego instancjami, a gdzie wszystkie umieszczone są
-za specjalnym koordynatorem ruchu - \glslink{loadbalancer}{\textbf{loadbalencer}'em}. Posiadanie \textbf{healtcheck} poza głównym API, pozwala
-na wydzielenie tych żądań spoza zakresy pracy \textbf{loadbalencer}. Niestety, biblioteki dostępne w \textbf{Python} nie dają takich możliwość.
+nazwą \textit{healthcheck}. Dodatkowo serwer uruchamia kolejną (wbudowaną) usługę dostępną pod innym portem.
+Jest to duża zaleta w momencie kiedy \textbf{API} umieszcza się wraz z innymi jego instancjami, w miejscu gdzie wszystkie umieszczone są
+za specjalnym koordynatorem ruchu - \glslink{loadbalancer}{\textbf{loadbalencer}'em}. Posiadanie \textbf{healtcheck} poza głównym API pozwala
+na wydzielenie żądań spoza zakresu pracy \textbf{loadbalencer}. Niestety biblioteki dostępne w \textbf{Python} nie dają takich możliwość.
 Również próby uruchomienia wbudowanego serwera WSGI, działającego na innym porcie, okazały się nieskuteczne. Dużym problem okazał się
 sposób pracy serwera \glslink{wsgi}{WSGI} wybranego przez społeczność - Gunicorn. W momencie załadowania kompletnej aplikacji, Gunicorn
-wchodzi w pętlę, której nadrzędny wątek jest blokujący i wznawiany w momencie otrzymania żądania. Przez to uruchomiony wewnętrznie serwer, nie
+wchodzi w pętlę, której nadrzędny wątek jest blokujący i wznawiany w momencie otrzymania żądania. Przez to uruchomiony wewnętrznie serwer nie
 pozwala na uruchomienie właściwej aplikacji. Rozwiązaniem wydawałoby się więc wystartowanie go wywnętrz oddzielnego procesu, działającego równoległe
-do głównego wątku API. Niestety, przy tym podejściu, niemożliwe jest poprawne wyłączenie zarówno wątku \textbf{healthcheck} oraz \textbf{API}.
-Biorąc pod uwagę te problemy oraz możliwości oferowane przez \textbf{oslo.middleware}, omawiana funkcjonalność została zrealizowana jako filtr,
+do głównego wątku API, niestety przy tym podejściu niemożliwe jest poprawne wyłączenie zarówno wątku \textbf{healthcheck} jak i \textbf{API}.
+Biorąc pod uwagę te problemy oraz możliwości oferowane przez \textbf{oslo.middleware}, omawiana funkcjonalność została zrealizowana jako filtr
 uruchamiany przed faktyczną logiką biznesową. 
 
 Propozycja implementacji dostępna jest pod adresem \url{https://review.openstack.org/#/c/249685/} i oczekuje na akceptację 
