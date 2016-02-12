@@ -72,9 +72,18 @@
         }
         \label{chapter:application:elkstack:es:query}
     \end{figure}
-%trzeba to rozwinąć
-    Ostatecznie jest to także \textbf{REST}-owe API. Cała funkcjonalność dostępna jest poprzez
-    protokół HTTP. Możliwe jest również administrowanie klastra poprzez to samo medium.
+    
+    Ostatecznie, i co szczególnie ważne, \textbf{ElasticSearch} oferuje całą funkcjonalność poprzez
+    protokół HTTP. Znacznie upraszcza to proces administracyjny, ponieważ nie są wymagane żadne
+    dodatkowe narzędzia. Niemniej, tworzenia tego typu aplikacji, jest również w znacznym stopniu uproszczone.
+    Zakres operacji rozciąga się od zarządzania zawartością bazy danych, zgodnie z paradygmatem \textbf{CRUD}
+    \footnote{\textbf{C}reate\textbf{R}ead\textbf{U}pdate\textbf{Delete} - skrót opisujące 4 podstawowe
+        operacje, udostępnienie przez serwery WWW do zarządzania przechowywanymi na nich danymi.}, 
+    aż do czynności takich jak:
+    \begin{itemize}
+        \item monitorowania stanu poszczególnej instancji lub całego klastra,
+        \item manipulowanie ustawieniami szablonów dla przechowywanych dokumentów \cite{elastic_docs}.
+    \end{itemize}
 
 \clearpage
 
