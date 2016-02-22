@@ -78,12 +78,12 @@
             Agent, jak zostało to wcześniej wspomniane, działa na konkretnej maszynie. Jedną z jej własności jest
             informacja o użytkowniku - tenancie - unikatowy numer UUID. W przypadku logowania jako serwisu,
             szczególnie istotna jest wiedza właśnie o użytkowniku chmury, na rzecz którego dane logi zostały
-            zebrane. \textbf{monasca-log-agent} rozwiązuje ten problem z wykorzystaniem biblioteki \textbf{keystone}
-            \footnote{Keystone - aplikacja mająca za zadanie rozwiązać problem autentykacji oraz autoryzacji w
-                chmurach obliczeniowych Openstack}. 
+            zebrane. \textbf{monasca-log-agent} rozwiązuje ten problem z wykorzystaniem biblioteki 
+            \textbf{Keystone}\footnote{Keystone - aplikacja mająca za zadanie rozwiązać problem autentykacji oraz autoryzacji 
+                w chmurach obliczeniowych Openstack}. 
             Agent tuż przed przesłaniem logu do \textbf{monasca-log-api} wykonuje procedurę logowania do chmury
             używając, dostarczonych w konfiguracji, nazwy użytkownika oraz hasła. Jako wynik, jeśli logowanie 
-            zakończyło się sukcesem, otrzymuje token oraz numer tenanta. Dołączony jest on do logu.
+            zakończyło się sukcesem, otrzymuje token oraz numer tenanta. Te informacje dołączane są do logu.
             
         \subsubsection{Wskazania na aplikację}
             Informacja o logu zostaje wzbogacona o dane, które pozwalają określić typ oraz samą aplikacją.

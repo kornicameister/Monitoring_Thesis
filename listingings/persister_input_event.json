@@ -1,8 +1,6 @@
 {
   "creation_time": 1451175914,
-  "dimensions": {
-    "hostname": "localhost"
-  },
+  "dimensions": { "hostname": "localhost" },
   "meta": {
     "tenantId": "424242525252",
     "region": "pl"
