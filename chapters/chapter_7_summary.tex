@@ -1,7 +1,7 @@
 \chapter[Podsumowanie]{Podsumowanie}
 \label{chapter:summary}
 
-Celem pracy, jak zostało to wcześniej przedstawione, było nawiązanie do monitorowania aplikacji
+Celem pracy było nawiązanie do monitorowania aplikacji
 rozwijanych w chmurze, a więc i tym samym weryfikowania stanu maszyn (wirtualnych lub fizycznych) poprzez
 okresowe pobieranie metryk, określających ich stan. Dużą rolę w tym aspekcie odgrywają także logi, czyli
 informacja zapisywana przez program do, jak to się najczęściej dzieje, plików tekstowych zlokalizowanych
@@ -9,26 +9,27 @@ na tym samym hoście. Logi pozwalają zobrazować przebieg działania programu i
 wgląd w ich zawartość daje nieprzerwany obraz, podobny do taśmy filmowej, w ciągle zmieniający się stan w jakim
 aplikacja w danym momencie się znajduje. 
 
-Nawiązując do tematu pracy dyplomowej - \textbf{Zbierania, analiza oraz wnioskowanie - znaczenie logów w chmurach
-    obliczeniowych} - nie udało się osiągnąć wszystkich zamierzonych celów. Autor, dzięki pracy całego zespołu oraz
+Dzięki ogólnej architekturze projektu udało się stworzyć narzędzie pozwalające na zbieranie, wizualizację 
+oraz prostą analizę logów. Autor, dzięki pracy całego zespołu oraz
 społeczności projektu \textbf{monasca}, miał szansę i z sukcesem wprowadził oraz zaimplementował komponenty
-odpowiedzialne przede wszystkim za zbieranie logów oraz wizualną ich analizę. Warto nadmienić, że udział autora
-miał zarówno charakter pośredni - ocena kodu, akceptacja zmian oraz bezpośredni - implementacja, a same zmiany
+odpowiedzialne przede wszystkim za wspomniane funkcje. Warto nadmienić, że udział autora
+miał zarówno charakter pośredni - ocena kodu, akceptacja proponowanych zmian oraz bezpośredni - implementacja, a same zmiany
 miały wysoce rozproszony charakter. Innymi słowy, fakt że nowe funkcje stały się częścią końcowego produktu, 
-odzwierciedlony był w więcej niż jednym projekcie, wchodzącym w jego skład. Właśnie z tego powodu niemożliwe było
-skupienie się w płaszczyźnie praktycznej na zagadnieniu jakim jest analiza logów (oprócz udziału w kreacji
-koncepcji alarmów na logach 
-(\ref{chapter:application_own:plans:alarm_on_logs})). Dodatkowo brak czasu podyktowany był ciągle
-napływający zgłoszeniami od zespołów zlokalizowanych w innych placówkach Fujitsu, zajmujących się kwestiami testów
-funkcjonalnych oraz bezpieczeństwa.
+odzwierciedlony był w więcej niż jednym projekcie, wchodzącym w jego skład. 
+Właśnie z tego powodu niemożliwe było całkowite skupienie się w części praktycznej na zagadnieniu 
+jakim jest analiza logów. Niemniej, autor pracy dyplomowej, brał aktywny udział w kreowaniu
+koncepcji alarmów generowanych na podstawie logów (\ref{chapter:application_own:plans:alarm_on_logs}).
 
-Pomimo to autor pracy dyplomowej odniósł sukces, będąc częścią lub autorem wielu zmian, z których spora część dotyczyła
+Autor pracy dyplomowej odniósł sukces, będąc częścią lub autorem wielu zmian, z których spora część dotyczyła
 właściwych funkcji, a pozostałe stanowiły zadania poboczne, wspierające te wcześniej wymienione. Niestety z uwagi
-na charakter części praktycznej nie wszystkie mogły zostać w pracy dyplomowej omówione i przedstawione 
-(\ref{chapter:application_own}). Ponadto udało się uzyskać teoretyczny wgląd w całość procesu jakim
-jest monitorowanie oraz praca z logami dla systemów informatycznych, głównie na poziomie anatomii metryk, alarmów.
-W kontekście logów teoretyczne informacje dotyczące procesu efektywnego zbierania, normalizacji oraz archiwizacji 
-również zostały uzyskane. Dzięki nim autor pracy magisterskiej ma szansę na lepsze rozumienie stawianych
+na charakter części praktycznej, rozwijanej także na płaszczyźnie zawodowej, 
+nie wszystkie aspekty mogły zostać w pracy dyplomowej omówione i przedstawione (\ref{chapter:application_own}). 
+
+Istotnym aspektem jest, że udało się uzyskać teoretyczny wgląd w całość procesu jakim
+jest monitorowanie oraz praca z logami dla systemów informatycznych, głównie na poziomie anatomii metryk, alarmów
+oraz samych logów. Ponadto zdobyto teoretyczne podstawy dotyczące procesu efektywnego zbierania, normalizacji oraz 
+archiwizacji. Dzięki nim autor pracy magisterskiej ma szansę na lepsze rozumienie stawianych
 wymagań, a implementowane przez niego zmiany będą charakteryzować się wyższym poziomem jakości. Okazuje się bowiem, że
-zadania tak z pozoru trywialne jak przesyłanie kolejnych rekordów informacji pobranych z logów, w celu ostatecznego
-zaprezentowania ich użytkownikowi, są nad wyraz skomplikowane jeśli dotyczą wysoce rozbudowanego, rozproszonego, systemu informatycznego.
+zadania, tak z pozoru trywialne jak przesyłanie kolejnych rekordów informacji pobranych z logów, w celu ostatecznego
+zaprezentowania ich użytkownikowi, są nad wyraz skomplikowane, jeśli dotyczą wysoce rozbudowanego, rozproszonego, systemu 
+informatycznego.
