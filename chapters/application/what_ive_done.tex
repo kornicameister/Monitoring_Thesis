@@ -408,22 +408,22 @@ odpowiedzialny za przedstawione poniżej aspekty omawianej części całego proj
     
     \begin{listing}[H]
         \begin{minted}{text}
-    {% if log_filters is defined and log_filters|length > 0 %}
-       {% if custom_log_filters is defined and custom_log_filters|length > 0 %}
-           {% set log_filters = log_filters + custom_log_filters %}
-       {% endif %}
-           filter {
-               {% for filter in log_filters %}
-                   if {{ filter.type }} in [tags] {
-                       {{ filter.name }} {
-                           {% for key,val in filter.configuration.items() %}
-                               {{ key }} => {{ val }}
-                           {% endfor %}
-                        }
+{% if log_filters is defined and log_filters|length > 0 %}
+   {% if custom_log_filters is defined and custom_log_filters|length > 0 %}
+       {% set log_filters = log_filters + custom_log_filters %}
+   {% endif %}
+       filter {
+           {% for filter in log_filters %}
+               if {{ filter.type }} in [tags] {
+                   {{ filter.name }} {
+                       {% for key,val in filter.configuration.items() %}
+                           {{ key }} => {{ val }}
+                       {% endfor %}
                     }
-                {% endfor %}
-            }
-    {% endif %}
+                }
+            {% endfor %}
+        }
+{% endif %}
         \end{minted}
         \caption[Wpisanie filtrów do pliku konfiguracyjnego \textbf{Logstash}]{
             Wpisanie filtrów do pliku konfiguracyjnego \textbf{Logstash}, źródło: \url{https://github.com/FujitsuEnablingSoftwareTechnologyGmbH/ansible-monasca-log-agent/blob/master/templates/agent.conf.j2}}
