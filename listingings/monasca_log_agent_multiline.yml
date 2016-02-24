@@ -1,4 +1,4 @@
-log_filters:
+﻿log_filters:
   - {
       name: "multiline",
       type: '"python"',

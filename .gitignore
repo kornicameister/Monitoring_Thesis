@@ -126,3 +126,6 @@ sympy-plots-for-*.tex/
 *.sav
 *.pdf
 *.glsdefs
+
+thesis.docx
+thesis.txt
